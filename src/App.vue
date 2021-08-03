@@ -1,18 +1,15 @@
 <template>
   <v-app>
-    <v-main>
-      <HelloWorld/>
-    </v-main>
+    <Login/>
   </v-app>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+import {defineComponent} from "vue";
+import Login from "./pages/Login.vue";
 
-export default {
+export default defineComponent({
   name: 'App',
-  components: {
-    HelloWorld,
-  }
-}
+  components: {Login},
+})
 </script>
