@@ -3,8 +3,8 @@
     <p class="pb-2 text-text">{{ label }}</p>
     <div class="relative flex items-center border rounded-md p-3 w-full">
       <v-icon color="#DBDBDB">{{ icon }}</v-icon>
-      <input class="text-text-dark outline-none pl-4" :value="modelValue"
-             v-bind="$attrs" :placeholder="placeholder" :type="type"
+      <input class="text-text-dark outline-none pl-4 flex-grow" :value="modelValue"
+             :placeholder="placeholder" :type="type"
              @update="$event => $emit('update:modelValue', $event.target.value)"
       />
     </div>
