@@ -4,6 +4,7 @@ import Guest from "./components/layouts/Guest.vue";
 import ForgotPassword from "./pages/ForgotPassword.vue";
 import PasswordReset from "./pages/PasswordReset.vue";
 import PasswordResetSuccessful from "./pages/PasswordResetSuccessful.vue";
+import Authenticated from "./components/layouts/Authenticated.vue";
 
 export const router = createRouter({
     linkActiveClass: 'active',
@@ -19,9 +20,24 @@ export const router = createRouter({
                 {path: '/password-reset', component: PasswordReset},
                 {path: '/password-reset-success', component: PasswordResetSuccessful}
             ]
-        }, {
-         path: '/dashboard',
-            component: import('@/pages/Dashboard.vue')
+        },
+        {
+            path: '/',
+            component: Authenticated,
+            children: [
+                {
+                    path: '/dashboard',
+                    component: import('@/pages/Dashboard.vue')
+                },
+                {
+                    path: '/claims',
+                    component: import('@/pages/Claims.vue')
+                },
+                {
+                    path: '/customers',
+                    component: import('@/pages/Customers.vue')
+                }
+            ]
         }
     ]
 } as RouterOptions)
