@@ -1,6 +1,6 @@
 <template>
   <div class="mt-10 w-full">
-    <p class="pb-2 text-text">{{ label }}</p>
+    <p v-if="label" class="pb-2 text-text">{{ label }}</p>
     <div class="relative flex items-center border rounded-md p-3 w-full">
       <v-icon color="#DBDBDB" v-if="icon">{{ icon }}</v-icon>
       <input class="text-text-dark outline-none pl-4 flex-grow" :value="modelValue"

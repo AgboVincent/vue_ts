@@ -5,7 +5,7 @@
   <TextField label="Password" placeholder="********" icon="mdi-lock-outline" type="password"/>
   <router-link to="/forgot-password" class="block text-text-dark pt-8 mb-12">Forgot Password?</router-link>
 
-  <v-btn block>Login to your account</v-btn>
+  <v-btn block to="/dashboard">Login to your account</v-btn>
 </template>
 
 <script lang="ts">
