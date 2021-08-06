@@ -5,9 +5,23 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {defineComponent, onMounted} from "vue";
+import {useStore} from "./store";
+import {getAuthenticatedProfileRequest} from "./requests";
 
 export default defineComponent({
   name: 'App',
+  setup() {
+    const {dispatch} = useStore()
+
+    onMounted(() => {
+      getAuthenticatedProfileRequest()
+          .then(({data: user}) => {
+            dispatch('login', {
+              user, token: window.localStorage.getItem('auth')
+            })
+          })
+    })
+  }
 })
 </script>

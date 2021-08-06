@@ -1,10 +1,25 @@
-import {createRouter, createWebHistory, RouterOptions} from "vue-router";
+import {createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized, RouterOptions} from "vue-router";
+import Authenticated from "./components/layouts/Authenticated.vue";
 import Login from "./pages/Login.vue";
 import Guest from "./components/layouts/Guest.vue";
 import ForgotPassword from "./pages/ForgotPassword.vue";
 import PasswordReset from "./pages/PasswordReset.vue";
 import PasswordResetSuccessful from "./pages/PasswordResetSuccessful.vue";
-import Authenticated from "./components/layouts/Authenticated.vue";
+import Store from './store'
+
+export const AuthMiddleware = (
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    next: NavigationGuardNext
+): void => {
+    if (Store.state.authenticated) return next()
+    return next({
+        name: 'Login',
+        query: {
+            redirectTo: to.fullPath
+        }
+    })
+}
 
 export const router = createRouter({
     linkActiveClass: 'active',
@@ -24,6 +39,7 @@ export const router = createRouter({
         {
             path: '/',
             component: Authenticated,
+            beforeEnter: AuthMiddleware,
             children: [
                 {
                     path: '/dashboard',

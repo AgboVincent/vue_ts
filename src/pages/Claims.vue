@@ -9,9 +9,10 @@
   </AppBar>
   <div class="w-full pt-10">
     <div class="flex items-center mb-4">
-      <TextField icon="mdi-search" placeholder="Search customers, emails , claim references" class="bg-white !m-0 w-[400px]"/>
+      <TextField :data="claims" icon="mdi-search"
+                 placeholder="Search customers, emails , claim references" class="bg-white !m-0 w-[400px]"/>
     </div>
-    <ClaimsTable/>
+    <ClaimsTable v-if="claims"/>
   </div>
 </template>
 
@@ -25,23 +26,8 @@ export default defineComponent({
   name: 'Claims',
   components: {ClaimsTable, TextField, AppBar},
   setup() {
-    const routes = ref([
-      {
-        name: 'Dashboard',
-        link: '/dashboard',
-        icon: 'mdi-home'
-      }, {
-        name: 'Claims',
-        icon: 'mdi-car-settings',
-        link: '/claims'
-      }, {
-        name: 'Customers',
-        icon: 'mdi-account-multiple',
-        link: '/customers'
-      }
-    ])
-
-    return {routes}
+    const claims = ref([])
+    return {claims}
   }
 })
 </script>

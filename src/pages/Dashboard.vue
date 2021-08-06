@@ -22,23 +22,36 @@
     </div>
   </div>
 
-  <div class="w-full pt-10">
+  <div class="w-full pt-10" v-if="claims.length > 0">
     <p class="text-lg text-text-dark mb-2">Pending Claims</p>
-    <ClaimsTable/>
+    <ClaimsTable :data="claims"/>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {defineComponent, onMounted, ref} from "vue";
 import AppBar from "../components/AppBar.vue";
 import TextField from "../components/TextField.vue";
 import ClaimsTable from "../components/ClaimsTable.vue";
+import {CLAIM_STATUS_PENDING} from "../constants";
+import {getClaimsRequest} from "../requests";
 
 export default defineComponent({
   name: 'Dashboard',
   components: {ClaimsTable, TextField, AppBar},
   setup() {
-    return {}
+    const claims = ref([])
+
+    function fetchPendingClaims() {
+      getClaimsRequest(1, null, CLAIM_STATUS_PENDING)
+          .then(({data}) => {
+            claims.value.push(...data.data)
+          })
+    }
+
+    onMounted(fetchPendingClaims)
+
+    return { claims }
   }
 })
 </script>

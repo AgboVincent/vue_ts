@@ -5,7 +5,7 @@
       <v-icon color="#DBDBDB" v-if="icon">{{ icon }}</v-icon>
       <input class="text-text-dark outline-none pl-4 flex-grow" :value="modelValue"
              :placeholder="placeholder" :type="type"
-             @update="$event => $emit('update:modelValue', $event.target.value)"
+             @input="$event => $emit('update:modelValue', $event.target.value)"
       />
     </div>
   </div>
@@ -23,6 +23,7 @@ export default defineComponent({
     icon: {type: String, default: null},
     modelValue: {type: String, default: ''},
   },
+  emits: ['update:modelValue']
 });
 </script>
 

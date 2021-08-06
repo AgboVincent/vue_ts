@@ -1,13 +1,16 @@
 <template>
   <Table :headers="headers" :items="data">
     <template v-slot:default="{ item: row, index }">
-      <td>{{ row.name }}</td>
-      <td>1234567890</td>
-      <td>1234567890</td>
-      <td>Lexus 360</td>
-      <td>20/03/2021</td>
+      <td>{{ `${row.user.first_name} ${row.user.last_name}` }}</td>
+      <td>{{ row.policy.vehicle.registration_number }}</td>
+      <td>{{ row.policy.number }}</td>
+      <td>{{ row.policy.vehicle.model }}</td>
+      <td>{{ row.created_at }}</td>
       <td>
-        <v-chip color="warning">pending</v-chip>
+        <v-chip :color="getClaimStatus(row)">{{ row.status }}</v-chip>
+      </td>
+      <td>
+        <v-icon>mdi-dots-horizontal</v-icon>
       </td>
     </template>
   </Table>
@@ -15,22 +18,29 @@
 <script lang="ts">
 import {defineComponent, ref} from "vue";
 import Table from './Table.vue';
+import {CLAIM_STATUS_APPROVED, CLAIM_STATUS_REJECTED} from "../constants";
 
 export default defineComponent({
   components: {Table},
+  props: {
+    data: {
+      type: Array
+    }
+  },
   setup() {
-    const headers = ref(['Name', 'Registration Number', 'Policy No.', 'Car Model', 'Date', 'Status'])
-    const data = ref([
-      {
-        name: 'Darlene Robertson',
-        vehicle: '1234567890',
-        policy: '1234567890',
-        car: 'Lexus 360',
-        date: '20/03/2021',
-        status: 'pending'
+    const headers = ref(['Name', 'Registration Number', 'Policy No.', 'Car Model', 'Date', 'Status',''])
+
+    function getClaimStatus(claim) {
+      switch (claim.status) {
+        case CLAIM_STATUS_REJECTED:
+          return 'danger';
+        case CLAIM_STATUS_APPROVED:
+          return 'success';
+        default:
+          return 'warning';
       }
-    ])
-    return {headers, data}
+    }
+    return {headers, getClaimStatus}
   }
 })
 </script>
