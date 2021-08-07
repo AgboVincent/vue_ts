@@ -21,6 +21,15 @@ export const AuthMiddleware = (
     })
 }
 
+export const GuestMiddleware = (
+    to: RouteLocationNormalized,
+    from: RouteLocationNormalized,
+    next: NavigationGuardNext
+): void => {
+    if (!Store.state.authenticated) return next()
+    return next('/dashboard')
+}
+
 export const router = createRouter({
     linkActiveClass: 'active',
     history: createWebHistory(),
@@ -29,6 +38,7 @@ export const router = createRouter({
         {
             path: '/',
             component: Guest,
+            beforeEnter: GuestMiddleware,
             children: [
                 {path: '/login', component: Login},
                 {path: '/forgot-password', component: ForgotPassword},
