@@ -21,6 +21,9 @@ export default defineComponent({
               user, token: window.localStorage.getItem('auth')
             })
           })
+      .catch(() => {
+        dispatch('logout')
+      })
     })
   }
 })

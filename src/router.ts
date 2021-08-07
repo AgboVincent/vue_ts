@@ -14,7 +14,7 @@ export const AuthMiddleware = (
 ): void => {
     if (Store.state.authenticated) return next()
     return next({
-        name: 'Login',
+        path: '/login',
         query: {
             redirectTo: to.fullPath
         }
