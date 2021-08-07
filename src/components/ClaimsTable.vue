@@ -1,5 +1,10 @@
 <template>
-  <Table :headers="headers" :items="data">
+  <Table
+      :headers="headers"
+      :items="data"
+      :page="page"
+      @update:page="$event => $emit('update:page', $event)"
+      :total-pages="total">
     <template v-slot:default="{ item: row, index }">
       <td>{{ `${row.user.first_name} ${row.user.last_name}` }}</td>
       <td>{{ row.policy.vehicle.registration_number }}</td>
@@ -25,10 +30,19 @@ export default defineComponent({
   props: {
     data: {
       type: Array
+    },
+    total: {
+      type: Number,
+      default: 0
+    },
+    page: {
+      type: Number,
+      default: 0
     }
   },
+  emits: ['update:page'],
   setup() {
-    const headers = ref(['Name', 'Registration Number', 'Policy No.', 'Car Model', 'Date', 'Status',''])
+    const headers = ref(['Name', 'Registration Number', 'Policy No.', 'Car Model', 'Date', 'Status', ''])
 
     function getClaimStatus(claim) {
       switch (claim.status) {
@@ -40,6 +54,7 @@ export default defineComponent({
           return 'warning';
       }
     }
+
     return {headers, getClaimStatus}
   }
 })

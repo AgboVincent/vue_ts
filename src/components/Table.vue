@@ -16,7 +16,12 @@
     <tr>
       <td colspan="100">
         <div class="flex flex-row-reverse">
-          <v-pagination :length="totalPages" total-visible="5"/>
+          <v-pagination
+              :length="totalPages"
+              total-visible="5"
+              :modelValue="page"
+              @update:modelValue="$event => $emit('update:page', $event)"
+          />
         </div>
       </td>
     </tr>
@@ -41,8 +46,13 @@ export default defineComponent({
     items: {
       type: Array,
       default: []
+    },
+    page: {
+      type: Number,
+      default: null
     }
   },
+  emits: ['update:page']
 });
 </script>
 
