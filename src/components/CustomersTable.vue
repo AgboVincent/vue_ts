@@ -9,7 +9,10 @@
         <v-chip color="success">active</v-chip>
       </td>
       <td>
-        <v-icon>mdi-dots-horizontal</v-icon>
+        <ui-menu-anchor position="bottom right">
+          <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" @click="openClaimOption(row)"/>
+          <ui-menu v-model="row.opened" :distance="{ right: 10 }" :items="['Approve', 'Reject', 'Adjust']"/>
+        </ui-menu-anchor>
       </td>
     </template>
   </Table>
@@ -20,7 +23,7 @@ import Table from './Table.vue';
 
 export default defineComponent({
   components: {Table},
-  name:'CustomersTable',
+  name: 'CustomersTable',
   setup() {
     const headers = ref(['Name', 'Email', 'Phone Number', 'Policy Number', 'Policy Status', ''])
     const data = ref([
@@ -33,7 +36,12 @@ export default defineComponent({
         status: 'pending'
       }
     ])
-    return {headers, data}
+
+    function openClaimOption(claim) {
+      claim.opened = true
+    }
+
+    return {headers, data, openClaimOption}
   }
 })
 </script>

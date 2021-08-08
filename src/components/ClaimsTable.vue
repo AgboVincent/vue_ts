@@ -15,7 +15,12 @@
         <v-chip :color="getClaimStatus(row)">{{ row.status }}</v-chip>
       </td>
       <td>
-        <v-icon>mdi-dots-horizontal</v-icon>
+          <v-btn
+              icon="mdi-dots-horizontal"
+              color="transparent"
+              elevation="0"
+              :to="`/claims/${row.id}`"
+          />
       </td>
     </template>
   </Table>

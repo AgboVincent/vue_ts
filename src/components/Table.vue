@@ -58,7 +58,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .table {
-  @apply table-auto bg-white w-full rounded overflow-hidden text-base border-collapse shadow mb-1;
+  @apply table-auto bg-white w-full rounded text-base border-collapse shadow mb-1;
 
   thead > tr > th {
     @apply p-4 text-left font-semibold border-b;
