@@ -60,6 +60,10 @@ export const router = createRouter({
                     component: import('@/pages/Claims.vue')
                 },
                 {
+                    path: '/claims/:claim',
+                    component: import('@/pages/Claim.vue')
+                },
+                {
                     path: '/customers',
                     component: import('@/pages/Customers.vue')
                 }

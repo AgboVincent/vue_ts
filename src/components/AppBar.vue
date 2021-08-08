@@ -2,12 +2,10 @@
   <div class="h-[80px] w-full flex items-center justify-between">
     <div class="w-1/2">
       <slot>
-        <template>
-          <router-link to="/" class="flex items-center" v-if="navigator">
-            <v-icon size="large" class="mr-5">mdi-arrow-left</v-icon>
-            {{ title || 'Back' }}
-          </router-link>
-        </template>
+        <router-link to="/" class="flex items-center" v-if="navigator">
+          <v-icon size="large" class="mr-5">mdi-arrow-left</v-icon>
+          {{ title || 'Back' }}
+        </router-link>
       </slot>
     </div>
     <ui-menu-anchor position="bottom right">
