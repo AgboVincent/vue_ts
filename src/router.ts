@@ -6,6 +6,10 @@ import ForgotPassword from "./pages/ForgotPassword.vue";
 import PasswordReset from "./pages/PasswordReset.vue";
 import PasswordResetSuccessful from "./pages/PasswordResetSuccessful.vue";
 import Store from './store'
+import Dashboard from "./pages/Dashboard.vue";
+import Claims from "./pages/Claims.vue";
+import Claim from "./pages/Claim.vue";
+import Customers from "./pages/Customers.vue";
 
 export const AuthMiddleware = (
     to: RouteLocationNormalized,
@@ -53,19 +57,19 @@ export const router = createRouter({
             children: [
                 {
                     path: '/dashboard',
-                    component: import('@/pages/Dashboard.vue')
+                    component: Dashboard
                 },
                 {
                     path: '/claims',
-                    component: import('@/pages/Claims.vue')
+                    component: Claims
                 },
                 {
                     path: '/claims/:claim',
-                    component: import('@/pages/Claim.vue')
+                    component: Claim
                 },
                 {
                     path: '/customers',
-                    component: import('@/pages/Customers.vue')
+                    component: Customers
                 }
             ]
         }
