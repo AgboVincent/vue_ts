@@ -61,11 +61,11 @@ export default defineComponent({
   @apply table-auto bg-white w-full rounded text-base border-collapse shadow mb-1;
 
   thead > tr > th {
-    @apply p-4 text-left font-semibold border-b;
+    @apply p-4 text-left font-semibold border-b text-sm;
   }
 
   tbody > tr > :deep(td) {
-    @apply p-4 border-b;
+    @apply p-4 border-b text-sm;
   }
 }
 </style>
