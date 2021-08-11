@@ -1,7 +1,6 @@
 <template>
   <v-main>
     <div class="bg-secondary flex w-full flex-row relative">
-      <div class="w-[280px]"/>
       <div class="h-screen w-[280px] px-10 bg-white fixed top-0 left-0">
         <div class="h-[80px] w-full flex items-center bg-white mb-10">
           <v-img src="/images/logo.png" alt="Logo" class="w-[140px] h-auto flex-initial"/>
@@ -26,8 +25,11 @@
         </div>
       </div>
 
-      <div class="min-h-screen container mx-auto">
-        <router-view/>
+      <div class="min-h-screen container mx-auto flex">
+        <div class="w-[280px] flex-shrink-0"/>
+        <div class="p-2 flex-grow-1">
+          <router-view/>
+        </div>
       </div>
     </div>
   </v-main>

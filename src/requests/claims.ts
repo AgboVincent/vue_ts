@@ -8,3 +8,9 @@ export function getClaimsRequest(page = 1, policy = null, status = null) {
         }
     })
 }
+
+export function getClaimRequest(claimId: number) {
+    return request({
+        url: `/api/admin/claims/${claimId}`
+    })
+}
