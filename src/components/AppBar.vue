@@ -19,12 +19,12 @@
       />
       <ui-menu v-model="open">
         <div>
-          <p class="text-text-dark text-lg p-4 font-bold">
+          <p class="text-text-dark text-sm p-4 font-bold">
             {{ $store.state.profile.first_name }} {{ $store.state.profile.last_name }}
-            <span class="text-text text-sm font-normal">{{ $store.state.profile.email }}</span>
+            <span class="text-text text-xs font-normal">{{ $store.state.profile.email }}</span>
           </p>
-          <p class="text-text p-4">Profile Settings</p>
-          <router-link to="/logout" class="block text-text p-4">Logout</router-link>
+          <p class="text-text p-4 text-xs">Profile Settings</p>
+          <router-link to="/logout" class="block text-xs text-text p-4">Logout</router-link>
         </div>
       </ui-menu>
     </ui-menu-anchor>
