@@ -1,8 +1,10 @@
 import {createStore, Store, useStore as useVuexStore} from 'vuex'
 import {InjectionKey} from "vue";
+import {CustomerType} from "./types";
 
 export type StoreStateInterface = {
-    authenticated: string
+    authenticated: string,
+    profile: CustomerType
 }
 
 export const key = Symbol() as unknown as InjectionKey<Store<StoreStateInterface>>

@@ -1,12 +1,20 @@
 <template>
   <AppBar navigator title="Back to Claims"/>
   <div v-if="!loading">
-    <p class="text-text-dark text-bold pt-12 pb-1 text-2xl">
-      {{ claim.policy.vehicle.model }}
-    </p>
-    <p class="text-text pb-10">
-      {{ claim.policy.vehicle.manufacturer }}
-    </p>
+    <div class="flex items-end pt-12 pb-10">
+      <div class="flex-grow-1">
+        <p class="text-text-dark text-bold pb-1 text-2xl">
+          {{ claim.policy.vehicle.model }}
+        </p>
+        <p class="text-text">
+          {{ claim.policy.vehicle.manufacturer }}
+        </p>
+      </div>
+      <div class="flex items-end space-x-4" v-if="$store.state.profile.type === 'broker'">
+        <v-btn text-color="success" color="white" size="small" :height="30">Message Customer</v-btn>
+        <v-btn color="white" text-color="primary" size="small" :height="30">Send to Insurer</v-btn>
+      </div>
+    </div>
 
     <div class="w-full rounded bg-white p-6 flex items-center">
       <p class="text-text text-xs mr-13">

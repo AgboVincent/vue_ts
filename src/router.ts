@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard.vue";
 import Claims from "./pages/Claims.vue";
 import Claim from "./pages/Claim.vue";
 import Customers from "./pages/Customers.vue";
+import Logout from "./pages/Logout.vue";
 
 export const AuthMiddleware = (
     to: RouteLocationNormalized,
@@ -39,6 +40,7 @@ export const router = createRouter({
     history: createWebHistory(),
     routes: [
         {path: '/', redirect: '/login'},
+        { path: '/logout', component: Logout },
         {
             path: '/',
             component: Guest,
