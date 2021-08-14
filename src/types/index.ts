@@ -17,6 +17,16 @@ export type ClaimType = {
     "accident": AccidentType
     "items": ClaimItemType
 }
+export type CustomerType = {
+    id: number,
+    first_name: string,
+    last_name: string,
+    email: string,
+    created_at: string | Date,
+    updated_at: string | Date,
+    type: "broker" | "user" | "insurance",
+    meta: object,
+}
 export type AccidentType = {
     "id": number
     description: string

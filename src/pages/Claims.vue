@@ -10,6 +10,7 @@
   <div class="w-full pt-10">
     <div class="flex items-center mb-4">
       <TextField :data="claims" icon="mdi-search"
+                 v-model="query"
                  placeholder="Search customers, emails , claim references" class="bg-white !m-0 w-[400px]"/>
     </div>
     <ClaimsTable v-if="claims" :data="claims" :total="total" :page="currentPage" @update:page="getClaims"/>
@@ -28,12 +29,13 @@ export default defineComponent({
   components: {ClaimsTable, TextField, AppBar},
   setup() {
     const claims = ref([])
+    const query = ref(null)
     const currentPage = ref(0)
     const total = ref(0)
 
-    function getClaims(page =1 ) {
+    function getClaims(page = 1) {
       claims.value.splice(0)
-      getClaimsRequest(page)
+      getClaimsRequest(page, query.value)
           .then(({data}) => {
             currentPage.value = data.meta.currentPage
             total.value = data.meta.last
@@ -41,9 +43,11 @@ export default defineComponent({
           })
     }
 
+    watch(query, () => getClaims(1))
+
     onMounted(getClaims)
 
-    return {claims, getClaims, total, currentPage}
+    return {claims, getClaims, total, currentPage, query}
   }
 })
 </script>

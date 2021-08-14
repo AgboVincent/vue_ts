@@ -7,6 +7,7 @@
     "text": "#666666",
     "text-dark": "#333333",
     "info": "#2196F3",
-    "success": "#4CAF50",
-    "warning": "#994900"
+    "success": "#356E5B",
+    "warning": "#994900",
+    "danger": "#E23C43"
 }

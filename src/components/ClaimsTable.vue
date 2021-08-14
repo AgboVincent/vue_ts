@@ -10,9 +10,9 @@
       <td>{{ row.policy.vehicle.registration_number }}</td>
       <td>{{ row.policy.number }}</td>
       <td>{{ row.policy.vehicle.model }}</td>
-      <td>{{ row.created_at }}</td>
+      <td>{{ formatDateTime(row.created_at) }}</td>
       <td>
-        <v-chip :color="getClaimStatus(row)">{{ row.status }}</v-chip>
+        <div class="v-chip v-theme--light v-chip--density-default v-chip--size-default v-chip--variant-contained" :class="getClaimStatus(row)">{{ row.status }}</div>
       </td>
       <td>
           <v-btn
@@ -52,11 +52,11 @@ export default defineComponent({
     function getClaimStatus(claim) {
       switch (claim.status) {
         case CLAIM_STATUS_REJECTED:
-          return 'danger';
+          return 'bg-[#FFF2E6] text-[#994900]';
         case CLAIM_STATUS_APPROVED:
-          return 'success';
+          return 'bg-[#E0F1EB] text-success bg-opacity-30';
         default:
-          return 'warning';
+          return 'bg-[#FFF2E6] text-[#994900]';
       }
     }
 

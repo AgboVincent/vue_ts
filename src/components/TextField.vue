@@ -21,9 +21,9 @@ export default defineComponent({
     type: {type: String, default: 'text'},
     placeholder: {type: String, default: ''},
     icon: {type: String, default: null},
-    modelValue: {type: String, default: ''},
+    modelValue: {type: [String, Number], default: ''},
   },
-  emits: ['update:modelValue']
+  emits: ['update:modelValue'],
 });
 </script>
 

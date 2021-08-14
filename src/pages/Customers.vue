@@ -9,14 +9,15 @@
   </AppBar>
   <div class="w-full pt-10">
     <div class="flex items-center mb-4">
-      <TextField icon="mdi-search" placeholder="Search customers, emails , claim references" class="bg-white !m-0 w-[400px]"/>
+      <TextField icon="mdi-search" placeholder="Search customers, emails , claim references"
+                 class="bg-white !m-0 w-[400px]"/>
     </div>
     <CustomersTable/>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from "vue";
+import {defineComponent} from "vue";
 import AppBar from "../components/AppBar.vue";
 import TextField from "../components/TextField.vue";
 import CustomersTable from "../components/CustomersTable.vue";
@@ -25,23 +26,7 @@ export default defineComponent({
   name: 'Customers',
   components: {CustomersTable, TextField, AppBar},
   setup() {
-    const routes = ref([
-      {
-        name: 'Dashboard',
-        link: '/dashboard',
-        icon: 'mdi-home'
-      }, {
-        name: 'Claims',
-        icon: 'mdi-car-settings',
-        link: '/claims'
-      }, {
-        name: 'Customers',
-        icon: 'mdi-account-multiple',
-        link: '/customers'
-      }
-    ])
-
-    return {routes}
+    return {}
   }
 })
 </script>

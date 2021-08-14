@@ -44,7 +44,7 @@
       </p>
     </div>
 
-    <div class="bg-white rounded">
+    <div class="bg-white rounded overflow-y-scroll">
       <div class="tabs">
         <a href="#"
            @click.prevent="() => changeTab(tabIndex)"
