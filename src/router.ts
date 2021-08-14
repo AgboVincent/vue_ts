@@ -48,7 +48,7 @@ export const router = createRouter({
             children: [
                 {path: '/login', component: Login},
                 {path: '/forgot-password', component: ForgotPassword},
-                {path: '/password-reset', component: PasswordReset},
+                {path: '/password/reset', component: PasswordReset},
                 {path: '/password-reset-success', component: PasswordResetSuccessful}
             ]
         },

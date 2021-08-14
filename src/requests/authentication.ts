@@ -15,3 +15,19 @@ export function getAuthenticatedProfileRequest() {
         url: '/api/profile'
     })
 }
+
+export function sendForgotPasswordRequest(email: string) {
+    return request({
+        url: '/api/authentication/password/request',
+        method: 'POST',
+        data: {email}
+    })
+}
+
+export function sendResetPasswordRequest(token, password, password_confirmation) {
+    return request({
+        url: '/api/authentication/password/request',
+        method: 'PATCH',
+        data: {token, password, password_confirmation}
+    })
+}

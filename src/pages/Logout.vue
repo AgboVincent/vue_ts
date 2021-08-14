@@ -1,3 +1,6 @@
+<template>
+  <h1>Logging out...</h1>
+</template>
 <script lang="ts">
 import {useStore} from "../store";
 import {defineComponent} from "vue";
@@ -10,9 +13,6 @@ export default defineComponent({
 
     dispatch('logout')
         .then(() => push('/login'))
-  },
-  render(h) {
-    return h('h1', 'Logging out...')
   }
 })
 </script>
