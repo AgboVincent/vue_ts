@@ -12,7 +12,15 @@
       </div>
       <div class="flex items-end space-x-4" v-if="$store.state.profile.type === 'broker'">
         <v-btn text-color="success" color="white" size="small" :height="30">Message Customer</v-btn>
-        <v-btn color="white" text-color="primary" size="small" :height="30">Send to Insurer</v-btn>
+        <v-btn
+            @click="processToInsurer"
+            color="white"
+            text-color="primary"
+            size="small"
+            v-if="!claim.involves_insurer"
+            :height="30">
+          Send to Insurer
+        </v-btn>
       </div>
     </div>
 
@@ -76,7 +84,7 @@ import {defineComponent, onMounted, ref} from "vue";
 import Vehicle from "../components/Claim/Vehicle.vue";
 import Accident from "../components/Claim/Accident.vue";
 import Pictures from "../components/Claim/Pictures.vue";
-import {getClaimRequest} from "../requests";
+import {getClaimRequest, processToInsurerRequest} from "../requests";
 import {useRoute} from "vue-router";
 import {ClaimType} from "../types";
 import Items from "../components/Claim/Items.vue";
@@ -121,11 +129,15 @@ export default defineComponent({
     }
 
     function handleClaimUpdate(updated: ClaimType) {
-      console.log('update', updated)
       claim.value = updated
     }
 
-    return {claim, tabs, changeTab, activeTab, loading, computePolicyStatusColor, handleClaimUpdate}
+    function processToInsurer() {
+      processToInsurerRequest(claim.value.id)
+          .then(() => claim.value.involves_insurer = true)
+    }
+
+    return {claim, tabs, changeTab, activeTab, loading, computePolicyStatusColor, handleClaimUpdate, processToInsurer}
   }
 })
 </script>

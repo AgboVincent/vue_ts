@@ -1,7 +1,7 @@
 <template>
   <div
       class="absolute right-2 p-2 cursor-pointer"
-      v-if="$store.state.profile.type === 'broker'"
+      v-if="$store.state.profile.type === 'broker' && !claim.involves_insurer"
       @click="displayClaimEditModal = true"
   >
     <v-icon color="text">mdi-pencil</v-icon>

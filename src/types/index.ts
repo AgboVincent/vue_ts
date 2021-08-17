@@ -14,6 +14,7 @@ export type ClaimType = {
     "updated_at": string | Date,
     "user": Object,
     policy: PolicyType,
+    involves_insurer: boolean,
     "accident": AccidentType
     third_party: {
         full_name: string

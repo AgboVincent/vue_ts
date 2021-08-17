@@ -51,3 +51,10 @@ export function updateClaimRequest(claimId, data: ClaimUpdateType) {
         data
     })
 }
+
+export function processToInsurerRequest(claimId) {
+    return request({
+        url: `api/admin/claims/${claimId}`,
+        method: 'POST'
+    })
+}
