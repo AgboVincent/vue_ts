@@ -1,40 +1,43 @@
 <template>
   <Table :headers="headers" :items="data" :total-pages="total" :page="currentPage" @updatePage="handlePageChanged">
     <template v-slot:default="{ item: row, index }">
-      <td>{{ `${row.first_name} ${row.first_name}` }}</td>
-      <td>{{ row.email }}</td>
-      <td>{{ row.mobile }}</td>
-      <td>123456789</td>
+      <td>{{ `${row.user.first_name} ${row.user.first_name}` }}</td>
+      <td>{{ row.user.email }}</td>
+      <td>{{ row.user.mobile }}</td>
+      <td>{{ row.number }}</td>
       <td>
-        <v-chip color="success">active</v-chip>
+        <v-chip color="success">{{ row.status }}</v-chip>
       </td>
       <td>
-        <ui-menu-anchor position="bottom right">
-          <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" @click="openClaimOption(row)"/>
-          <ui-menu v-model="row.opened" :distance="{ right: 10 }" :items="['Approve', 'Reject', 'Adjust']"/>
-        </ui-menu-anchor>
+        <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" @click="openClaimOption(row)"/>
       </td>
     </template>
   </Table>
 </template>
 <script lang="ts">
-import {defineComponent, onMounted, ref} from "vue";
+import {defineComponent, onMounted, ref, toRef, watch} from "vue";
 import Table from './Table.vue';
-import {CustomerType} from "../types";
-import {getCustomerListRequest} from "../requests";
+import {PolicyType} from "../types";
+import {getPoliciesListRequest} from "../requests";
 
 export default defineComponent({
   components: {Table},
+  props: {
+    query: {type: String, default: ''}
+  },
   name: 'CustomersTable',
-  setup() {
+  setup(props) {
     const headers = ref(['Name', 'Email', 'Phone Number', 'Policy Number', 'Policy Status', ''])
-    const data = ref([] as Array<CustomerType>),
+    const data = ref([] as Array<PolicyType>),
         currentPage = ref(1),
-        total = ref(1)
+        total = ref(1),
+        query = toRef(props, 'query')
+
+    watch(query, () => fetchCustomers())
 
     function fetchCustomers(page = 1) {
       data.value.splice(0)
-      getCustomerListRequest(page)
+      getPoliciesListRequest(page, query.value)
           .then(({data: response}) => {
             currentPage.value = response.meta.currentPage
             total.value = response.meta.last

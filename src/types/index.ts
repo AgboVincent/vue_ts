@@ -38,6 +38,20 @@ export type ClaimUpdateType = {
     }
 }
 
+export type UserType = {
+    id: number,
+    first_name: string,
+    last_name: string,
+    email: string,
+    created_at: string | Date,
+    updated_at: string | Date,
+    type: 'insurance' | 'broker' | 'user',
+    meta?: {
+        broker_id?: number
+    },
+    addresses: []
+}
+
 export type CustomerType = {
     id: number,
     first_name: string,
@@ -84,6 +98,7 @@ export type PolicyType = {
         "id": number,
         "name": string
     },
+    user: UserType
     vehicle: VehicleType
 }
 
