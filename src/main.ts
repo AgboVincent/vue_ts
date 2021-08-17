@@ -19,6 +19,12 @@ app.mixin({
         },
         formatDateTime(date) {
             return (new Date(date)).toUTCString()
+        },
+        shrinkText(value: string, size = 100) {
+            if (value.length > size) {
+                return value.substring(0, size) + '...'
+            }
+            return value
         }
     }
 })

@@ -15,8 +15,28 @@ export type ClaimType = {
     "user": Object,
     policy: PolicyType,
     "accident": AccidentType
+    third_party: {
+        full_name: string
+        policy_number: string
+        mobile: string
+        company: string
+    }
     "items": ClaimItemType
 }
+
+export type ClaimUpdateType = {
+    description: string
+    date_time: string
+    accident_type: string
+    involved_third_party: boolean
+    third_party: {
+        full_name: string
+        mobile: string
+        company: string
+        policy_number: string
+    }
+}
+
 export type CustomerType = {
     id: number,
     first_name: string,

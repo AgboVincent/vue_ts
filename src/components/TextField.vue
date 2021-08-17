@@ -3,7 +3,31 @@
     <p v-if="label" class="pb-2 text-text text-xs">{{ label }}</p>
     <div class="relative flex items-center border rounded-md p-3 w-full">
       <v-icon color="#DBDBDB" v-if="icon">{{ icon }}</v-icon>
+      <textarea
+          v-if="type === 'textarea'"
+          :rows="rows"
+          class="text-text-dark outline-none text-sm pl-4 flex-grow"
+          :value="modelValue"
+          :placeholder="placeholder"
+          @input="$event => $emit('update:modelValue', $event.target.value)"
+      />
+      <div
+          class="flex-grow"
+          v-else-if="type === 'select'">
+        <select
+            class="pl-4 text-text-dark outline-none text-sm w-full"
+            @change="handleSelectChange"
+            :value="modelValue">
+          <option selected disabled value="">{{ placeholder ?? label }}</option>
+          <option v-for="(option, index) in options"
+                  :key="`option::${index}`"
+                  :value="option.value">
+            {{ shrinkText(option.label, 70) }}
+          </option>
+        </select>
+      </div>
       <input class="text-text-dark outline-none text-sm pl-4 flex-grow" :value="modelValue"
+             v-else
              :placeholder="placeholder" :type="type"
              @input="$event => $emit('update:modelValue', $event.target.value)"
       />
@@ -11,19 +35,28 @@
   </div>
 </template>
 
-<script>
-import {defineComponent} from 'vue';
+<script lang="ts">
+import {defineComponent, PropType, SetupContext} from 'vue';
 
 export default defineComponent({
   name: 'TextField',
   props: {
-    label: {type: String, default: ''},
+    options: {type: Array as PropType<{ value: String | Number, label: String | Number }>, default: null},
+    label: {type: String, default: null},
     type: {type: String, default: 'text'},
-    placeholder: {type: String, default: ''},
+    placeholder: {type: String, default: null},
     icon: {type: String, default: null},
     modelValue: {type: [String, Number], default: ''},
+    rows: {type: [Number, String], default: 3}
   },
   emits: ['update:modelValue'],
+  setup(_, { emit }: SetupContext) {
+    function handleSelectChange(event) {
+      emit('update:modelValue', event.target.value)
+    }
+
+    return {handleSelectChange}
+  }
 });
 </script>
 

@@ -63,7 +63,7 @@
       </div>
 
       <div class="content">
-        <component :is="activeTab.component" :key="activeTab.name" :claim="claim"/>
+        <component :is="activeTab.component" :key="activeTab.name" :claim="claim" @update="handleClaimUpdate"/>
       </div>
     </div>
   </div>
@@ -104,7 +104,7 @@ export default defineComponent({
       loading.value = true
       getClaimRequest(params.claim as number)
           .then(({data}) => {
-            claim.value = data
+            claim.value = Object.assign({}, {accident: {third_party: {}}}, data)
             loading.value = false
           })
     }
@@ -120,7 +120,12 @@ export default defineComponent({
       }
     }
 
-    return {claim, tabs, changeTab, activeTab, loading, computePolicyStatusColor}
+    function handleClaimUpdate(updated: ClaimType) {
+      console.log('update', updated)
+      claim.value = updated
+    }
+
+    return {claim, tabs, changeTab, activeTab, loading, computePolicyStatusColor, handleClaimUpdate}
   }
 })
 </script>

@@ -14,7 +14,8 @@
           @click="open = true"
           color="primary lighten-2 cursor-pointer"
           rounded
-          v-text="'MJ'"
+          v-if="$store.state.profile.first_name"
+          v-text="`${$store.state.profile.first_name[0]} ${$store.state.profile.last_name[0] }`"
           size="40"
       />
       <ui-menu v-model="open">

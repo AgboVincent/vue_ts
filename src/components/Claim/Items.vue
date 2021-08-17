@@ -1,16 +1,17 @@
 <template>
   <div class="w-full flex -mt-5 mb-10">
     <div class="w-2/3">
-      <Table :items="claim.items" :headers="['Name', 'Damaged', 'Quote','Status','']">
+      <Table :items="claim.items" :headers="['Name', 'Damaged', 'Quote', 'Amount','Status','']">
         <template v-slot:default="{ item: row, index }">
           <td>{{ row.name }}</td>
           <td>Yes</td>
+          <td>{{ money(row.amount) }}</td>
           <td>{{ money(row.amount) }}</td>
           <td>
             <v-chip :class="getClaimStatus(row)" class="capitalize">{{ row.status }}</v-chip>
           </td>
           <td>
-            <ui-menu-anchor position="bottom right">
+            <ui-menu-anchor position="bottom right" v-if="row.status === 'pending'">
               <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" @click="openClaimOption(row)"/>
               <ui-menu
                   v-model="row.opened"
@@ -21,7 +22,6 @@
             </ui-menu-anchor>
           </td>
         </template>
-
       </Table>
     </div>
     <div class="w-1/3 p-10 pb-32 border-l">

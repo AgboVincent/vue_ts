@@ -1,4 +1,5 @@
 import {request} from "./default";
+import {ClaimUpdateType} from "../types";
 
 export function getClaimsRequest(page = 1, query = null, status = null) {
     return request({
@@ -34,5 +35,19 @@ export function updateClaimItemRequest(claimId, itemId: number, amount: number, 
         url: `api/admin/claims/${claimId}/${itemId}/update`,
         data: {amount, comment},
         method: "PATCH"
+    })
+}
+
+export function getAllAccidentTypesRequest() {
+    return request({
+        url: 'api/accident/types'
+    })
+}
+
+export function updateClaimRequest(claimId, data: ClaimUpdateType) {
+    return request({
+        url: `api/admin/claims/${claimId}`,
+        method: 'PATCH',
+        data
     })
 }
