@@ -11,6 +11,9 @@ import Claims from "./pages/Claims.vue";
 import Claim from "./pages/Claim.vue";
 import Customers from "./pages/Customers.vue";
 import Logout from "./pages/Logout.vue";
+import Settings from './pages/settings/Index.vue'
+import ProfileSetting from './pages/settings/Profile.vue'
+import PasswordSetting from './pages/settings/Password.vue'
 
 export const AuthMiddleware = (
     to: RouteLocationNormalized,
@@ -72,6 +75,20 @@ export const router = createRouter({
                 {
                     path: '/customers',
                     component: Customers
+                },
+                {
+                    path: 'settings',
+                    redirect: '/settings/profile',
+                    component: Settings,
+                    children: [
+                        {
+                            path: 'profile',
+                            component: ProfileSetting
+                        },{
+                            path: 'password',
+                            component: PasswordSetting
+                        }
+                    ]
                 }
             ]
         }

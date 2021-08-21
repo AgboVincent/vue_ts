@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-10 w-full">
+  <div class="mt-7 w-full">
     <p v-if="label" class="pb-2 text-text text-xs">{{ label }}</p>
     <div class="relative flex items-center border rounded-md p-3 w-full">
       <v-icon color="#DBDBDB" v-if="icon">{{ icon }}</v-icon>
@@ -32,6 +32,7 @@
              @input="$event => $emit('update:modelValue', $event.target.value)"
       />
     </div>
+    <p v-if="error" class="text-[#E54D54] text-xs">{{ error.toString() }}</p>
   </div>
 </template>
 
@@ -41,13 +42,14 @@ import {defineComponent, PropType, SetupContext} from 'vue';
 export default defineComponent({
   name: 'TextField',
   props: {
-    options: {type: Array as PropType<{ value: String | Number, label: String | Number }>, default: null},
+    options: {type: Array as PropType<Array<{ value: String | Number, label: String | Number }>>, default: null},
     label: {type: String, default: null},
     type: {type: String, default: 'text'},
     placeholder: {type: String, default: null},
     icon: {type: String, default: null},
     modelValue: {type: [String, Number], default: ''},
-    rows: {type: [Number, String], default: 3}
+    rows: {type: [Number, String], default: 3},
+    error: {type: String, default: ''}
   },
   emits: ['update:modelValue'],
   setup(_, { emit }: SetupContext) {

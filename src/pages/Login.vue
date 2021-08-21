@@ -1,6 +1,11 @@
 <template>
   <p class="text-2xl text-text-dark font-bold">Welcome back</p>
   <p class="text-text-dark">Enter your login details to proceed</p>
+
+  <ErrorMessage v-if="showErrorMessage" class="mt-7">
+    You entered an incorrect, email, password or both. Need an account? <strong>Sign Up</strong>
+  </ErrorMessage>
+
   <form @submit.prevent="handleLoginButton">
     <TextField
         v-model="email"
@@ -31,32 +36,34 @@ import TextField from "../components/TextField.vue";
 import {loginRequest} from "../requests";
 import {useStore} from "../store";
 import {useRouter} from "vue-router";
+import ErrorMessage from "../components/ErrorMessage.vue";
 
 export default defineComponent({
   name: 'Login',
-  components: {TextField},
+  components: {ErrorMessage, TextField},
   setup() {
-    const email = ref('')
-    const {dispatch} = useStore()
-    const password = ref('')
-    const loading = ref(false)
-    const {push} = useRouter()
+    const email = ref(''),
+        {dispatch} = useStore(),
+        password = ref(''),
+        loading = ref(false),
+        {push} = useRouter(),
+        showErrorMessage = ref(false)
 
     function handleLoginButton() {
       loading.value = true
+      showErrorMessage.value = false
       loginRequest(email.value, password.value)
           .then(({data}) => {
             if (data.user.type === 'user') return;
             dispatch('login', data)
                 .then(() => push('/dashboard'))
           })
-          .catch(null)
+          .catch(() => showErrorMessage.value = true)
           .finally(() => (loading.value = false))
     }
 
     return {
-      handleLoginButton, email, password,
-      loading
+      handleLoginButton, email, password, loading, showErrorMessage
     }
   }
 })
