@@ -11,7 +11,9 @@
         </p>
       </div>
       <div class="flex items-end space-x-4" v-if="$store.state.profile.type === 'broker'">
-        <v-btn text-color="success" color="white" size="small" :height="30">Message Customer</v-btn>
+        <v-btn text-color="success" color="white" size="small" :height="30" @click="displayCommentModal = true">Message
+          Customer
+        </v-btn>
         <v-btn
             @click="processToInsurer"
             color="white"
@@ -74,6 +76,33 @@
         <component :is="activeTab.component" :key="activeTab.name" :claim="claim" @update="handleClaimUpdate"/>
       </div>
     </div>
+    <v-overlay v-model="displayCommentModal">
+      <div class="w-[600px] bg-white rounded">
+        <div class="flex border-b items-center">
+          <p class="p-6 text-lg font-medium px-7 flex-grow-1">Add Comment</p>
+          <div class="p-5" @click="displayCommentModal = false">
+            <v-icon>mdi-close</v-icon>
+          </div>
+        </div>
+
+        <div class="px-7">
+          <div>
+            <TextField
+                label="Comment"
+                :rows="7"
+                type="textarea"
+                v-model="comment"
+            />
+          </div>
+          <div class="py-10">
+            <v-btn block type="submit" @click="addComment">
+              Send
+            </v-btn>
+          </div>
+        </div>
+      </div>
+    </v-overlay>
+
   </div>
 </template>
 
@@ -84,25 +113,30 @@ import {defineComponent, onMounted, ref} from "vue";
 import Vehicle from "../components/Claim/Vehicle.vue";
 import Accident from "../components/Claim/Accident.vue";
 import Pictures from "../components/Claim/Pictures.vue";
-import {getClaimRequest, processToInsurerRequest} from "../requests";
+import Comments from "../components/Claim/Comments.vue";
+import {addClaimCommentsRequest, getClaimRequest, processToInsurerRequest} from "../requests";
 import {useRoute} from "vue-router";
+import TextField from "../components/TextField.vue";
 import {ClaimType} from "../types";
 import Items from "../components/Claim/Items.vue";
 
 export default defineComponent({
   name: 'Claim',
-  components: {AppBar, Vehicle, Accident, Pictures, Items},
+  components: {AppBar, Vehicle, Accident, Pictures, Comments, Items, TextField},
   setup() {
     const {params} = useRoute()
     const tabs = ref([
       {name: 'Vehicle Details', component: 'vehicle'},
       {name: 'Accident Details', component: 'accident'},
       {name: 'Pictures Upload', component: 'pictures'},
-      {name: 'ML Results', component: 'items'}
+      {name: 'ML Results', component: 'items'},
+      {name: 'Comments', component: 'comments'}
     ])
     const activeTab = ref(tabs.value[0])
     const loading = ref(true)
     const claim = ref({} as ClaimType)
+    const displayCommentModal = ref(false)
+    const comment = ref('')
 
     function changeTab(tabIndex) {
       activeTab.value = tabs.value[tabIndex]
@@ -137,7 +171,27 @@ export default defineComponent({
           .then(() => claim.value.involves_insurer = true)
     }
 
-    return {claim, tabs, changeTab, activeTab, loading, computePolicyStatusColor, handleClaimUpdate, processToInsurer}
+    function addComment() {
+      addClaimCommentsRequest(claim.value.id, comment.value)
+          .then(() => {
+            comment.value = ''
+            displayCommentModal.value = false
+          })
+    }
+
+    return {
+      claim,
+      tabs,
+      changeTab,
+      activeTab,
+      loading,
+      computePolicyStatusColor,
+      handleClaimUpdate,
+      processToInsurer,
+      displayCommentModal,
+      comment,
+      addComment
+    }
   }
 })
 </script>

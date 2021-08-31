@@ -1,6 +1,9 @@
 export type ClaimItemType = {
     id: number
-    name: string
+    type: {
+        id: number
+        name: string
+    }
     status: string
     quantity: number
     amount: number
@@ -9,7 +12,7 @@ export type ClaimItemType = {
 
 export type ClaimType = {
     "id": number,
-    "status": "pending" | "approved" | "declined",
+    "status": "pending" | "approved" | "declined" | 'awaiting payment',
     "created_at": string | Date,
     "updated_at": string | Date,
     "user": Object,
@@ -62,6 +65,7 @@ export type CustomerType = {
     type: "broker" | "user" | "insurance",
     meta: object,
 }
+
 export type AccidentType = {
     "id": number
     description: string
@@ -73,6 +77,7 @@ export type AccidentType = {
     },
     documents: Array<AccidentDocumentType>
 }
+
 export type AccidentDocumentType = {
     id: string
     type: string
@@ -87,6 +92,7 @@ export type FileType = {
     size: string
     created_at: string | Date
 }
+
 export type PolicyType = {
     "id": number,
     "number": number,
@@ -116,4 +122,16 @@ export type VehicleType = {
     year: string
     created_at: string | Date
     updated_at: string | Date
+}
+
+export type CommentType =  {
+    id: number
+    comment: string
+    created_at: string | Date
+    author: {
+        id: number,
+        first_name: string
+        last_name: string
+        type: 'broker' | 'insurance' | 'user'
+    }
 }

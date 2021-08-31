@@ -1,3 +1,5 @@
 export const CLAIM_STATUS_PENDING = 'pending'
 export const CLAIM_STATUS_APPROVED = 'approved'
+export const CLAIM_STATUS_AWAITING_PAYMENT = 'awaiting payment'
+export const CLAIM_STATUS_COMPLETED = 'completed'
 export const CLAIM_STATUS_REJECTED = 'declined'

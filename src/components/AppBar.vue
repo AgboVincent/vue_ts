@@ -6,10 +6,26 @@
           <v-icon size="large" class="mr-5">mdi-arrow-left</v-icon>
           {{ title || 'Back' }}
         </router-link>
-        <p v-if="title">
+        <p v-else-if="title">
           {{ title }}
         </p>
       </slot>
+    </div>
+    <div>
+      <div>
+        <ui-menu-anchor>
+          <v-btn @click="openTranslate = true">Select Language</v-btn>
+          <ui-menu v-model="openTranslate">
+            <ui-menuitem v-for="item in countries" class="vg-container " :key="item.id" @click="translate(item.code)"
+                         :title="item.title">
+              {{ item.title }}
+            </ui-menuitem>
+
+          </ui-menu>
+        </ui-menu-anchor>
+      </div>
+
+      <div id="google_translate_element2"></div>
     </div>
     <ui-menu-anchor position="bottom right">
       <v-avatar
@@ -20,7 +36,7 @@
           v-if="$store.state.profile.first_name"
           size="40"
       >
-          {{`${$store.state.profile.first_name[0]} ${$store.state.profile.last_name[0] }`}}
+        {{ `${$store.state.profile.first_name[0]} ${$store.state.profile.last_name[0]}` }}
       </v-avatar>
       <ui-menu v-model="open">
         <div>
@@ -51,7 +67,23 @@ export default defineComponent({
   },
   setup() {
     const open = ref(false)
-    return {open}
+    const countries = ref([
+      {
+        code: "en",
+        title: "English"
+      }, {
+        code: "fr",
+        title: "French"
+      }
+    ])
+
+    function translate(code: string) {
+      window.location = `#googtrans(${code})`;
+      location.reload()
+    }
+
+    const openTranslate = ref(false)
+    return {open, translate, countries, openTranslate}
   }
 })
 </script>

@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted} from "vue";
+import {defineComponent, nextTick, onMounted} from "vue";
 import {useStore} from "./store";
 import {getAuthenticatedProfileRequest} from "./requests";
 

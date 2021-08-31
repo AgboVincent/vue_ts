@@ -4,7 +4,7 @@
       <div class="w-2/3">
         <Table :items="claim.items" :headers="['Name', 'Damaged', 'Quote', 'Amount','Status','']">
           <template v-slot:default="{ item: row, index }">
-            <td>{{ row.name }}</td>
+            <td>{{ row.type.name }}</td>
             <td>Yes</td>
             <td>{{ money(row.amount) }}</td>
             <td>{{ money(row.amount) }}</td>

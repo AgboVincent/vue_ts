@@ -21,7 +21,7 @@
   </div>
 
   <div class="w-full pt-10" v-if="claims.length > 0">
-    <p class="text-lg text-text-dark mb-2">Pending Claims</p>
+    <p class="text-lg text-text-dark mb-2">Urgent Claims</p>
     <ClaimsTable :data="claims"/>
   </div>
 </template>

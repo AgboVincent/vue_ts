@@ -58,3 +58,32 @@ export function processToInsurerRequest(claimId) {
         method: 'POST'
     })
 }
+
+export function markClaimAsPaidRequest(id: number) {
+    return request({
+        url: `api/admin/claims/${id}/offline`,
+        method: 'POST'
+    })
+}
+
+export function processClaimPaymentRequest(id: number) {
+    return request({
+        url: `api/admin/claims/${id}`,
+        method: 'POST'
+    })
+}
+
+export function claimCommentsRequest(id: number, page: number) {
+    return request({
+        url: `api/claims/${id}/comments`,
+        params: {page}
+    })
+}
+
+export function addClaimCommentsRequest(id: number, comment: string) {
+    return request({
+        url: `api/claims/${id}/comments`,
+        method: 'POST',
+        data: {comment}
+    })
+}
