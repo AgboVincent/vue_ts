@@ -23,6 +23,7 @@ import {getPoliciesListRequest} from "../requests";
 export default defineComponent({
   components: {Table},
   props: {
+    status: {type: String, default: ''},
     query: {type: String, default: ''}
   },
   name: 'CustomersTable',
@@ -31,13 +32,15 @@ export default defineComponent({
     const data = ref([] as Array<PolicyType>),
         currentPage = ref(1),
         total = ref(1),
-        query = toRef(props, 'query')
+        query = toRef(props, 'query'),
+        status = toRef(props, 'status')
 
     watch(query, () => fetchCustomers())
+    watch(status, () => fetchCustomers())
 
     function fetchCustomers(page = 1) {
       data.value.splice(0)
-      getPoliciesListRequest(page, query.value)
+      getPoliciesListRequest(page, query.value, status.value)
           .then(({data: response}) => {
             currentPage.value = response.meta.currentPage
             total.value = response.meta.last

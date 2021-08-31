@@ -13,8 +13,9 @@
                  placeholder="Search customers, emails , claim references"
                  v-model="query"
                  class="bg-white !m-0 w-[400px]"/>
+      <CustomersFilter @filter="handleFilter"/>
     </div>
-    <CustomersTable :query="query"/>
+    <CustomersTable :query="query" :status="status"/>
   </div>
 </template>
 
@@ -23,13 +24,21 @@ import {defineComponent, ref} from "vue";
 import AppBar from "../components/AppBar.vue";
 import TextField from "../components/TextField.vue";
 import CustomersTable from "../components/CustomersTable.vue";
+import CustomersFilter from '../components/CustomersFilter.vue'
 
 export default defineComponent({
   name: 'Customers',
-  components: {CustomersTable, TextField, AppBar},
+  components: {CustomersTable, TextField, AppBar, CustomersFilter},
   setup() {
-    const query = ref('')
-    return {query}
+    const query = ref(''),
+        status = ref('')
+
+    function handleFilter({status: sta}: { [key: string]: string }) {
+      console.log(status, sta)
+      status.value = sta
+    }
+
+    return {query, handleFilter, status}
   }
 })
 </script>
