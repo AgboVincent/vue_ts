@@ -4,11 +4,8 @@
       <slot>
         <router-link to="/" class="flex items-center" v-if="navigator">
           <v-icon size="large" class="mr-5">mdi-arrow-left</v-icon>
-          {{ title || 'Back' }}
+          {{ navigator || 'Back' }}
         </router-link>
-        <p v-else-if="title">
-          {{ title }}
-        </p>
       </slot>
     </div>
     <div>
@@ -57,8 +54,8 @@ import {defineComponent, ref} from "vue";
 export default defineComponent({
   props: {
     navigator: {
-      type: Boolean,
-      default: true
+      type: [String, Boolean],
+      default: ''
     },
     title: {
       type: String,

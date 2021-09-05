@@ -19,15 +19,23 @@
       <td>
         <ui-menu-anchor position="bottom right">
           <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" @click="openClaimOption(row)"/>
-          <ui-menu v-model="row.open">
+          <ui-menu v-model="row.open" class="p-0">
             <ui-menuitem value="View">
-              <router-link :to="`/claims/${row.id}`">View</router-link>
+              <router-link :to="`/claims/${row.id}`">
+                <div class="option">
+                  View
+                </div>
+              </router-link>
             </ui-menuitem>
             <ui-menuitem @click="markAsPaid(row)">
-              Mark As Paid
+              <div class="option">
+                Mark As Paid
+              </div>
             </ui-menuitem>
             <ui-menuitem @click="makeTransfer(row)">
-              Process Transfer
+              <div class="option">
+                Process Transfer
+              </div>
             </ui-menuitem>
           </ui-menu>
         </ui-menu-anchor>

@@ -16,6 +16,12 @@ export function getClaimRequest(claimId: number) {
     })
 }
 
+export function getClaimItemTypesRequest() {
+    return request({
+        url: `api/claims/items/types`
+    })
+}
+
 export function approveClaimItemRequest(claimId, itemId: number) {
     return request({
         method: "PATCH",

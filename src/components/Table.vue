@@ -1,6 +1,6 @@
 <template>
   <table class="table">
-    <thead class="text-lg text-text">
+    <thead class="text-lg text-[##333333] font-semibold">
     <tr>
       <th v-for="title in headers" :key="`table-header:${title}`">
         {{ title }}

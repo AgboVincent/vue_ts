@@ -131,3 +131,7 @@
 * {
   font-family: "Manrope";
 }
+
+.option {
+  @apply py-[12px] px-[27px] text-[#52575C] font-medium text-sm w-max;
+}

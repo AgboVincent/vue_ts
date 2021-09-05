@@ -1,9 +1,9 @@
 <template>
-  <AppBar navigator title="Back to Claims"/>
+  <AppBar navigator="Back to Claims"/>
   <div v-if="!loading">
     <div class="flex items-end pt-12 pb-10">
       <div class="flex-grow-1">
-        <p class="text-text-dark text-bold pb-1 text-2xl">
+        <p class="text-text-dark font-bold pb-1 text-2xl">
           {{ claim.policy.vehicle.model }}
         </p>
         <p class="text-text">
@@ -29,32 +29,32 @@
     <div class="w-full rounded bg-white p-6 flex items-center">
       <p class="text-text text-xs mr-13">
         Policy Type
-        <span class="text-text-dark block mt-2 text-sm capitalize">
+        <span class="text-text-dark font-medium block mt-2 text-sm capitalize">
         {{ claim.policy.type }}
       </span>
       </p>
       <p class="text-text text-xs mr-13">
         Policy Number
-        <span class="text-text-dark block mt-2 text-sm">
+        <span class="text-text-dark block mt-2 font-medium text-sm">
         {{ claim.policy.number }}
       </span>
       </p>
       <p class="text-text text-xs mr-13">
         Policy Start
-        <span class="text-text-dark block mt-2 text-sm">
+        <span class="text-text-dark font-medium block mt-2 text-sm">
         {{ formatDate(claim.policy.created_at) }}
       </span>
       </p>
       <p class="text-text text-xs mr-13">
         Policy Expiry
-        <span class="text-text-dark block mt-2 text-sm">
+        <span class="text-text-dark block mt-2 text-sm font-medium">
         {{ formatDate(claim.policy.expires_at) }}
       </span>
       </p>
-      <p class="text-text text-base mr-13">
+      <p class="text-text text-xs mr-13">
         Policy Status
         <span
-            class="block mt-2 text-lg capitalize"
+            class="block mt-2 text-sm capitalize font-medium"
             :class="computePolicyStatusColor(claim.policy.status)"
         >
         {{ claim.policy.status }}
@@ -62,7 +62,7 @@
       </p>
     </div>
 
-    <div class="bg-white rounded overflow-y-scroll">
+    <div class="bg-white rounded overflow-y-scroll mt-4">
       <div class="tabs">
         <a href="#"
            @click.prevent="() => changeTab(tabIndex)"
@@ -128,7 +128,7 @@ export default defineComponent({
     const tabs = ref([
       {name: 'Vehicle Details', component: 'vehicle'},
       {name: 'Accident Details', component: 'accident'},
-      {name: 'Pictures Upload', component: 'pictures'},
+      {name: 'Media Upload', component: 'pictures'},
       {name: 'ML Results', component: 'items'},
       {name: 'Comments', component: 'comments'}
     ])
@@ -198,7 +198,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .tabs {
-  @apply mt-4 w-full flex items-center border-b;
+  @apply w-full flex items-center border-b;
 
   .tab {
     @apply mx-5 py-5 font-normal text-xs;

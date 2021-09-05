@@ -23,3 +23,14 @@ export function request(option: AxiosRequestConfig): Promise<AxiosResponse | unk
             }
         })
 }
+
+
+export function fileUploadRequest(file: File){
+    const form = new FormData()
+    form.append('file', file)
+    return request({
+        url: 'api/uploads',
+        method: 'post',
+        data: form as any
+    })
+}

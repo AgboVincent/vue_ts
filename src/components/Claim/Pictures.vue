@@ -1,10 +1,14 @@
 <template>
   <div class="grid grid-cols-4 gap-10">
-    <img
-        :src="picture.file.path"
-        alt="Vehicle"
-        v-for="(picture, index) in claim.accident.documents"
-        :key="`vehicle:image:${index}`"/>
+    <template v-for="(picture, index) in claim.accident.documents" :key="index">
+      <a :href="picture.file.path" v-if="['png','jpg'].includes(picture.file.ext)" target="_blank">
+        <img
+            :src="picture.file.path"
+            alt="Vehicle"/>
+      </a>
+      <video :src="picture.file.path" v-else-if="picture.file.mime.includes('video')"></video>
+      <a :href="picture.file.path" v-else target="_blank">Download Document</a>
+    </template>
   </div>
 </template>
 
@@ -20,7 +24,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const pictures = computed(() => props.claim.accident.documents.filter(document => document.file.mime.includes('image')))
+    const pictures = computed(() => props.claim.accident.documents)
     return {pictures}
   }
 })

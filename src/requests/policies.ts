@@ -8,3 +8,11 @@ export function getPoliciesListRequest(page = 1, query?: string, status?: string
         }
     })
 }
+
+export function createClaimForPolicyRequest(id: number, data: any) {
+    return request({
+        url: `api/admin/policies/${id}/claims`,
+        method: 'post',
+        data
+    })
+}

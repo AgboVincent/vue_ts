@@ -3,10 +3,10 @@
     <TextField icon="mdi-search" placeholder="Search customers, emails , claim references" class="bg-white !m-0"/>
   </AppBar>
 
-  <p class="text-primary-deep text-bold pt-12 pb-10 text-2xl">Dashboard</p>
+  <p class="text-primary-deep font-bold pt-12 pb-10 text-2xl">Dashboard</p>
 
   <div class="grid grid-cols-4 gap-x-4">
-    <div class="flex items-center px-10 justify-between py-10 rounded bg-white" v-for="view in overview"
+    <div class="flex items-center pl-6 pr-5 justify-between pt-10 pb-9 rounded bg-white" v-for="view in overview"
          :key="`summary:${view.key}`">
       <p class="text-text">
         {{ view.name }}
@@ -20,8 +20,8 @@
     </div>
   </div>
 
-  <div class="w-full pt-10" v-if="claims.length > 0">
-    <p class="text-lg text-text-dark mb-2">Urgent Claims</p>
+  <div class="w-full pt-11" v-if="claims.length > 0">
+    <p class="text-lg font-semibold text-text-dark mb-5">Urgent Claims</p>
     <ClaimsTable :data="claims"/>
   </div>
 </template>

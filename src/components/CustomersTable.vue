@@ -9,7 +9,7 @@
         <v-chip color="success">{{ row.status }}</v-chip>
       </td>
       <td>
-        <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" @click="openClaimOption(row)"/>
+        <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" :to="`/customers/${row.id}/claims/create`"/>
       </td>
     </template>
   </Table>
@@ -40,7 +40,7 @@ export default defineComponent({
 
     function fetchCustomers(page = 1) {
       data.value.splice(0)
-      getPoliciesListRequest(page, query.value, status.value)
+      getPoliciesListRequest(page, query.value as string, status.value as string)
           .then(({data: response}) => {
             currentPage.value = response.meta.currentPage
             total.value = response.meta.last
@@ -50,15 +50,11 @@ export default defineComponent({
 
     onMounted(fetchCustomers)
 
-    function openClaimOption(claim) {
-      claim.opened = true
-    }
-
     function handlePageChanged(page) {
       fetchCustomers(page)
     }
 
-    return {headers, data, openClaimOption, total, currentPage, handlePageChanged}
+    return {headers, data, total, currentPage, handlePageChanged}
   }
 })
 </script>

@@ -6,7 +6,7 @@
           <template v-slot:default="{ item: row, index }">
             <td>{{ row.type.name }}</td>
             <td>Yes</td>
-            <td>{{ money(row.amount) }}</td>
+            <td>{{ money(row.quote) }}</td>
             <td>{{ money(row.amount) }}</td>
             <td>
               <v-chip :class="getClaimStatus(row)" class="capitalize">{{ row.status }}</v-chip>

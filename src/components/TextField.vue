@@ -29,6 +29,7 @@
       <input class="text-text-dark outline-none text-sm pl-4 flex-grow" :value="modelValue"
              v-else
              :placeholder="placeholder" :type="type"
+             v-bind='{change: $attrs.change}'
              @input="$event => $emit('update:modelValue', $event.target.value)"
       />
     </div>
