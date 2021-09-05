@@ -2,7 +2,7 @@
   <AppBar>
     <p class="text-text-dark font-bold text-2xl">
       Claims
-      <span class="text-base block text-text pt-1">
+      <span class="text-base block font-normal text-text pt-1">
         All claims submitted by the customers can be found here
       </span>
     </p>
