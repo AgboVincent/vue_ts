@@ -6,7 +6,7 @@
             :src="picture.file.path"
             alt="Vehicle"/>
       </a>
-      <video :src="picture.file.path" v-else-if="picture.file.mime.includes('video')"></video>
+      <video controls :src="picture.file.path" v-else-if="picture.file.mime.includes('video')"></video>
       <a :href="picture.file.path" v-else target="_blank">Download Document</a>
     </template>
   </div>
