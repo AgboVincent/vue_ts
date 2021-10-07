@@ -2,10 +2,11 @@
   <div>
     <div class="w-full flex -mt-5 mb-10">
       <div class="w-2/3">
-        <Table :items="claim.items" :headers="['Name', 'Damaged', 'Quote', 'Amount','Status','']">
+        <Table :items="claim.items" :headers="['Name', 'Damaged', 'Quantity', 'Quote', 'Amount','Status','']">
           <template v-slot:default="{ item: row, index }">
             <td>{{ row.type.name }}</td>
             <td>Yes</td>
+            <td>{{ row.quantity }}</td>
             <td>{{ money(row.quote) }}</td>
             <td>{{ money(row.amount) }}</td>
             <td>
