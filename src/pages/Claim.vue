@@ -129,7 +129,7 @@ export default defineComponent({
       {name: 'Vehicle Details', component: 'vehicle'},
       {name: 'Accident Details', component: 'accident'},
       {name: 'Media Upload', component: 'pictures'},
-      {name: 'ML Results', component: 'items'},
+      {name: 'Claim Details', component: 'items'},
       {name: 'Comments', component: 'comments'}
     ])
     const activeTab = ref(tabs.value[0])
@@ -138,13 +138,13 @@ export default defineComponent({
     const displayCommentModal = ref(false)
     const comment = ref('')
 
-    function changeTab(tabIndex) {
+    function changeTab(tabIndex: number) {
       activeTab.value = tabs.value[tabIndex]
     }
 
     function fetchClaim() {
       loading.value = true
-      getClaimRequest(params.claim as number)
+      getClaimRequest(params.claim as unknown as number)
           .then(({data}) => {
             claim.value = Object.assign({}, {accident: {third_party: {}}}, data)
             loading.value = false
