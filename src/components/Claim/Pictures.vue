@@ -1,7 +1,7 @@
 <template>
   <div class="grid grid-cols-4 gap-10">
     <template v-for="(picture, index) in claim.accident.documents" :key="index">
-      <a :href="picture.file.path" v-if="['png','jpg'].includes(picture.file.ext)" target="_blank">
+      <a :href="picture.file.path" v-if="['png','jpg','jpeg'].includes(picture.file.ext)" target="_blank">
         <img
             :src="picture.file.path"
             alt="Vehicle"/>

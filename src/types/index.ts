@@ -8,6 +8,8 @@ export type ClaimItemType = {
     quantity: number
     amount: number
     created_at: string | Date
+    newAmount?: number
+    comment?: string
 }
 
 export type ClaimType = {

@@ -74,10 +74,10 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const pictures = computed(() => props.claim.accident.documents.filter(document => document.file.mime.includes('image'))),
+    const pictures = computed(() => props.claim?.accident.documents.filter(document => document.file.mime.includes('image'))),
         shouldDisplayAmountUpdate = ref(false),
         item = ref<ClaimItemType | null>(null),
-        loading = ref(false)
+        loading = ref(false);
 
     function openClaimOption(row) {
       row.opened = true
@@ -106,14 +106,14 @@ export default defineComponent({
       shouldDisplayAmountUpdate.value = false
     }
 
-    async function handleStatusUpdate(status, item: ClaimItemType) {
+    async function handleStatusUpdate(status: string, item: ClaimItemType) {
       switch (status.value.toLowerCase()) {
         case 'approve':
-          await approveClaimItemRequest(props.claim.id, item.id)
+          await approveClaimItemRequest(props.claim?.id as number, item.id)
           item.status = 'approved'
           break;
         case 'reject':
-          await rejectClaimItemRequest(props.claim.id, item.id)
+          await rejectClaimItemRequest(props.claim?.id as number, item.id)
           item.status = 'rejected'
           break;
         case 'adjust':
@@ -125,7 +125,7 @@ export default defineComponent({
 
     function submitAdjustment() {
       loading.value = true
-      updateClaimItemRequest(props.claim.id, item.value?.id as number, item.value?.newAmount as number, item.value?.comment)
+      updateClaimItemRequest(props.claim?.id as number, item.value?.id as number, item.value?.newAmount as number, item.value?.comment as string)
           .then(() => {
             item.value.amount = item.value.newAmount as number
             loading.value = false
