@@ -22,21 +22,21 @@ export function getClaimItemTypesRequest() {
     })
 }
 
-export function approveClaimItemRequest(claimId, itemId: number) {
+export function approveClaimItemRequest(claimId: number, itemId: number) {
     return request({
         method: "PATCH",
         url: `api/admin/claims/${claimId}/${itemId}/approve`
     })
 }
 
-export function rejectClaimItemRequest(claimId, itemId: number) {
+export function rejectClaimItemRequest(claimId: number, itemId: number) {
     return request({
         method: "PATCH",
         url: `api/admin/claims/${claimId}/${itemId}/reject`
     })
 }
 
-export function updateClaimItemRequest(claimId, itemId: number, amount: number, comment?: string) {
+export function updateClaimItemRequest(claimId :number, itemId: number, amount: number, comment?: string) {
     return request({
         url: `api/admin/claims/${claimId}/${itemId}/update`,
         data: {amount, comment},
@@ -50,7 +50,7 @@ export function getAllAccidentTypesRequest() {
     })
 }
 
-export function updateClaimRequest(claimId, data: ClaimUpdateType) {
+export function updateClaimRequest(claimId: number, data: ClaimUpdateType) {
     return request({
         url: `api/admin/claims/${claimId}`,
         method: 'PATCH',
@@ -58,7 +58,7 @@ export function updateClaimRequest(claimId, data: ClaimUpdateType) {
     })
 }
 
-export function processToInsurerRequest(claimId) {
+export function processToInsurerRequest(claimId: number) {
     return request({
         url: `api/admin/claims/${claimId}`,
         method: 'POST'

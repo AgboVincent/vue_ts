@@ -1,4 +1,4 @@
-import {request} from "@/requests/default";
+import {request} from "./default";
 
 export function loginRequest(email: string, password: string) {
     return request({
@@ -24,7 +24,7 @@ export function sendForgotPasswordRequest(email: string) {
     })
 }
 
-export function sendResetPasswordRequest(token, password, password_confirmation) {
+export function sendResetPasswordRequest(token: string, password: string, password_confirmation: string) {
     return request({
         url: '/api/authentication/password/request',
         method: 'PATCH',

@@ -137,7 +137,12 @@ export default defineComponent({
     }
 
     function create() {
-      createClaimForPolicyRequest(params.policy as number, {...form.value, images: images.value.map((a) => a.id)})
+      let documents = {
+        pictures: images.value.map(a => a.id)
+      }
+      createClaimForPolicyRequest(params.policy as number, {
+        ...form.value, documents
+      })
           .then(({data}) => {
             push('/claims/' + data.id)
           })
