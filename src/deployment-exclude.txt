@@ -1,0 +1,6 @@
+bitbucket-pipelines.yml
+deployment-exclude.txt
+.git
+build.sh
+.bitbucket
+env.sample.js
