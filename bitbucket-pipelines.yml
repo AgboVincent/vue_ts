@@ -30,7 +30,7 @@ definitions:
               USER: 'ubuntu'
               SERVER: '$SERVER_HOST'
               REMOTE_PATH: '$SERVER_PATH'
-              LOCAL_PATH: '.'
+              LOCAL_PATH: 'dist/'
 #              EXTRA_ARGS: '--exclude-from=deployment-exclude.txt --delete'
 
 
