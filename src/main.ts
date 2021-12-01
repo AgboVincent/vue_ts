@@ -4,20 +4,22 @@ import App from './App.vue'
 import './App.scss'
 import {router} from "./router";
 import Store, {key} from "./store";
+// @ts-ignore
 import BalmUI from 'balm-ui'; // Official Google Material Components
+// @ts-ignore
 import BalmUIPlus from 'balm-ui/dist/balm-ui-plus.esm.js'; // BalmJS Team Material Components
 import 'balm-ui-css';
 
 const app = createApp(App)
 app.mixin({
     methods: {
-        money(value) {
+        money(value: string) {
             return parseFloat(value).toLocaleString('en-NG', {currency: 'NGN', style: 'currency'})
         },
-        formatDate(date) {
+        formatDate(date: string | number | Date) {
             return (new Date(date)).toDateString()
         },
-        formatDateTime(date) {
+        formatDateTime(date: string | number | Date) {
             return (new Date(date)).toUTCString()
         },
         shrinkText(value: string, size = 100) {
