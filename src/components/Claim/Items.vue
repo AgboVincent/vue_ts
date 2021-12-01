@@ -4,7 +4,7 @@
       <div class="w-2/3">
         <Table :items="claim.items" :headers="['Name', 'Damaged', 'Quantity', 'Quote', 'Amount','Status','']">
           <template v-slot:default="{ item: row, index }">
-            <td>{{ row.type.name }}</td>
+            <td>{{ row.type.name }} <span v-if="row.ml_prediction" class="bg-[#268BD0] text-white p-1 rounded">Ml</span></td>
             <td>Yes</td>
             <td>{{ row.quantity }}</td>
             <td>{{ money(row.quote) }}</td>
@@ -79,11 +79,11 @@ export default defineComponent({
         item = ref<ClaimItemType | null>(null),
         loading = ref(false);
 
-    function openClaimOption(row) {
+    function openClaimOption(row: { opened: boolean; }) {
       row.opened = true
     }
 
-    function getClaimStatus(claim) {
+    function getClaimStatus(claim: { status: any; }) {
       switch (claim.status) {
         case CLAIM_STATUS_REJECTED:
           return 'bg-[#FFF2E6] text-[#994900]';

@@ -10,6 +10,7 @@ export type ClaimItemType = {
     created_at: string | Date
     newAmount?: number
     comment?: string
+    ml_prediction: boolean
 }
 
 export type ClaimType = {
