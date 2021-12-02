@@ -5,7 +5,7 @@
         <Table :items="claim.items" :headers="['Name', 'Damaged', 'Quantity', 'Quote', 'Amount','Status','']">
           <template v-slot:default="{ item: row, index }">
             <td>{{ row.type.name }} <span v-if="row.ml_prediction" class="bg-[#268BD0] text-white p-1 rounded">Ml</span></td>
-            <td>Yes</td>
+            <td>{{ row.is_damaged ? 'Yes' : 'No' }}</td>
             <td>{{ row.quantity }}</td>
             <td>{{ money(row.quote) }}</td>
             <td>{{ money(row.amount) }}</td>

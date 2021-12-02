@@ -11,6 +11,7 @@ export type ClaimItemType = {
     newAmount?: number
     comment?: string
     ml_prediction: boolean
+    is_damaged: boolean
 }
 
 export type ClaimType = {
