@@ -10,6 +10,9 @@ import BalmUI from 'balm-ui'; // Official Google Material Components
 import BalmUIPlus from 'balm-ui/dist/balm-ui-plus.esm.js'; // BalmJS Team Material Components
 import 'balm-ui-css';
 
+import VueLoading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
 const app = createApp(App)
 app.mixin({
     methods: {
@@ -32,6 +35,7 @@ app.mixin({
 })
 app.use(vuetify)
 app.use(BalmUI)
+app.use(VueLoading)
 app.use(BalmUIPlus)
 app.use(Store, key)
 app.use(router)

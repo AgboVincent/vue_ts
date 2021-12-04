@@ -1,5 +1,8 @@
 <template>
   <AppBar navigator="Back to claims"/>
+<!--  <v-alert-->
+<!--      type="success"-->
+<!--  ></v-alert>-->
   <p class="text-text-dark text-bold text-2xl">
     Create Claims
   </p>
@@ -79,7 +82,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, ref} from "vue";
+import {defineComponent, onMounted, ref, inject} from "vue";
 import AppBar from "@/components/AppBar.vue";
 import TextField from "@/components/TextField.vue";
 import {
@@ -107,7 +110,8 @@ export default defineComponent({
           quotes: [{type: '', quantity: 1, amount: 1000}]
         }),
         types = ref([] as Array<{ label: string, value: string | number }>),
-        images = ref([] as Array<FileType>)
+        images = ref([] as Array<FileType>),
+        $loading = inject('$loading')
 
     function addNewQuote() {
       form.value.quotes.push({type: '', quantity: 1, amount: 1000})
@@ -137,6 +141,7 @@ export default defineComponent({
     }
 
     function create() {
+      let loader = $loading.show();
       let documents = {
         pictures: images.value.map(a => a.id)
       }
@@ -144,8 +149,9 @@ export default defineComponent({
         ...form.value, documents
       })
           .then(({data}) => {
-            push('/claims/' + data.id)
-          })
+             push('/claims/' + data.id)
+          }).catch(err => console.error(err))
+      .finally(() => loader.hide())
     }
 
     function prevStep() {
