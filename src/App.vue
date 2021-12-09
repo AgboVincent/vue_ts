@@ -15,6 +15,16 @@ export default defineComponent({
     const {dispatch} = useStore()
 
     onMounted(() => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const token = urlParams.get('token');
+      window.localStorage.setItem('auth', token || '');
+      
+      if(token) {
+        console.log('token', token);
+      }else{
+        console.log('no token');
+      }
+      
       getAuthenticatedProfileRequest()
           .then(({data: user}) => {
             dispatch('login', {
