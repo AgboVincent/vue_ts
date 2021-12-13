@@ -1,6 +1,5 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 import {STATUS_CODE_UNAUTHORIZED} from "../constants";
-import store from "../store";
 import Store from "../store";
 
 export function request(option: AxiosRequestConfig): Promise<AxiosResponse | unknown> {
