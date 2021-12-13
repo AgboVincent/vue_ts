@@ -17,14 +17,11 @@ export default defineComponent({
     onMounted(() => {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
-      window.localStorage.setItem('auth', token);
       
-      if(!token) {
-        // const url = new URL(window.location.href);
-        // window.location.replace(url.origin + url.pathname);
-        console.log('no token');
-      }else{
-        console.log('token', token);
+      if(token) {
+        window.localStorage.setItem('auth', token);
+        const url = new URL(window.location.href);
+        window.location.replace(url.origin + url.pathname);
       }
       
       getAuthenticatedProfileRequest()
@@ -34,7 +31,8 @@ export default defineComponent({
             })
           })
           .catch(e => {
-            dispatch('logout')
+            // dispatch('logout')
+            console.log('error', e);
           })
     })
   }
