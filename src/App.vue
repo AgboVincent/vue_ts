@@ -17,12 +17,14 @@ export default defineComponent({
     onMounted(() => {
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get('token');
-      window.localStorage.setItem('auth', token || '');
+      window.localStorage.setItem('auth', token);
       
-      if(token) {
-        console.log('token', token);
-      }else{
+      if(!token) {
+        // const url = new URL(window.location.href);
+        // window.location.replace(url.origin + url.pathname);
         console.log('no token');
+      }else{
+        console.log('token', token);
       }
       
       getAuthenticatedProfileRequest()
@@ -31,7 +33,8 @@ export default defineComponent({
               user, token: window.localStorage.getItem('auth')
             })
           })
-      .catch(() => {
+      .catch((e) => {
+        console.log('error while loggin in', e);
         dispatch('logout')
       })
     })

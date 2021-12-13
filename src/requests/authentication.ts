@@ -1,3 +1,4 @@
+import Store from '@/store'
 import {request} from "./default";
 
 export function loginRequest(email: string, password: string) {
@@ -7,13 +8,19 @@ export function loginRequest(email: string, password: string) {
         data: {
             password, email
         }
+    }).catch(e => {
+        Store.commit('authRequestFinished', true);
+        return e;
     })
 }
 
 export function getAuthenticatedProfileRequest() {
     return request({
         url: '/api/profile'
-    })
+    }).catch(e => {
+        Store.commit('authRequestFinished', true);
+        return e;
+    });
 }
 
 export function sendForgotPasswordRequest(email: string) {

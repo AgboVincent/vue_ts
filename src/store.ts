@@ -16,18 +16,21 @@ export function useStore() {
 export default createStore({
     state: {
         authenticated: window.localStorage.getItem('auth'),
+        authRequestFinished: false,
         profile: {
             first_name: ''
         }
     },
     mutations: {
         updateProfile: (state, data) => state.profile = data,
-        authenticate: (state, authenticated) => state.authenticated = authenticated
+        authenticate: (state, authenticated) => state.authenticated = authenticated,
+        authRequestFinished: (state, authenticated) => state.authRequestFinished = authenticated
     },
     actions: {
         login: ({commit}, payload) => {
             commit('updateProfile', payload.user)
             commit('authenticate', true)
+            commit('authRequestFinished', true)
             window.localStorage.setItem('auth', payload.token)
             return true
         },
