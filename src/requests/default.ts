@@ -1,5 +1,7 @@
 import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 import {STATUS_CODE_UNAUTHORIZED} from "../constants";
+import store from "../store";
+import Store from "../store";
 
 export function request(option: AxiosRequestConfig): Promise<AxiosResponse | unknown> {
     return axios
@@ -15,8 +17,8 @@ export function request(option: AxiosRequestConfig): Promise<AxiosResponse | unk
         .catch((error) => {
             if (error.response) {
                 const response = error.response as AxiosResponse
-                if (response.status === STATUS_CODE_UNAUTHORIZED) {
-                    window.localStorage.setItem('auth', '')
+                if (response.status === STATUS_CODE_UNAUTHORIZED && Store.state.authRequestFinished) {
+                    Store.dispatch('logout');
                 }
 
                 throw error

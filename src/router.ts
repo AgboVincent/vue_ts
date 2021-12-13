@@ -21,13 +21,24 @@ export const AuthMiddleware = (
     from: RouteLocationNormalized,
     next: NavigationGuardNext
 ): void => {
-    if (Store.state.authenticated) return next()
-    return next({
-        path: '/login',
-        query: {
-            redirectTo: to.fullPath
-        }
-    })
+    if (!Store.state.authenticated) {
+        
+        setInterval(() => {
+            if(Store.state.authRequestFinished && Store.state.authenticated){
+                return next();
+            }else if(Store.state.authRequestFinished){
+                return next({
+                    path: '/login',
+                    query: {
+                        redirectTo: to.fullPath
+                    }
+                });
+            }
+        }, 100);
+        // return next()
+    }
+
+    return next()
 }
 
 export const GuestMiddleware = (
