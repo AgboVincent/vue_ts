@@ -10,7 +10,7 @@ export function loginRequest(email: string, password: string) {
         }
     }).catch(e => {
         Store.commit('authRequestFinished', true);
-        return e;
+        throw e;
     })
 }
 
@@ -19,7 +19,7 @@ export function getAuthenticatedProfileRequest() {
         url: '/api/profile'
     }).catch(e => {
         Store.commit('authRequestFinished', true);
-        return e;
+        throw e;
     });
 }
 

@@ -25,9 +25,9 @@ export const AuthMiddleware = (
         
         setInterval(() => {
             if(Store.state.authRequestFinished && Store.state.authenticated){
-                next();
+                return next();
             }else if(Store.state.authRequestFinished){
-                next({
+                return next({
                     path: '/login',
                     query: {
                         redirectTo: to.fullPath

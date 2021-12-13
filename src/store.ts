@@ -1,6 +1,7 @@
 import {createStore, Store, useStore as useVuexStore} from 'vuex'
 import {InjectionKey} from "vue";
 import {CustomerType} from "./types";
+import {router} from "./router";
 
 export type StoreStateInterface = {
     authenticated: string,
@@ -38,6 +39,7 @@ export default createStore({
             commit('updateProfile', {})
             window.localStorage.removeItem('auth')
             commit('authenticate', false)
+            router.push('/login')
             return true
         }
     }

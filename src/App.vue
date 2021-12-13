@@ -33,10 +33,9 @@ export default defineComponent({
               user, token: window.localStorage.getItem('auth')
             })
           })
-      .catch((e) => {
-        console.log('error while loggin in', e);
-        dispatch('logout')
-      })
+          .catch(e => {
+            dispatch('logout')
+          })
     })
   }
 })
