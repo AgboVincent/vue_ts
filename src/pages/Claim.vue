@@ -114,6 +114,7 @@ import Vehicle from "../components/Claim/Vehicle.vue";
 import Accident from "../components/Claim/Accident.vue";
 import Pictures from "../components/Claim/Pictures.vue";
 import Comments from "../components/Claim/Comments.vue";
+import ClientResponsibility from '../components/Claim/ClientResponsibility.vue';
 import {addClaimCommentsRequest, getClaimRequest, processToInsurerRequest} from "../requests";
 import {useRoute} from "vue-router";
 import TextField from "../components/TextField.vue";
@@ -123,7 +124,7 @@ import Items from "../components/Claim/Items.vue";
 
 export default defineComponent({
   name: 'Claim',
-  components: {AppBar, Vehicle, Accident, Pictures, Comments, Items, TextField, AddItems},
+  components: {AppBar, Vehicle, Accident, Pictures, Comments, Items, TextField, AddItems, ClientResponsibility},
   setup() {
     const {params} = useRoute()
     const tabs = ref([
@@ -132,6 +133,7 @@ export default defineComponent({
       {name: 'Media Upload', component: 'pictures'},
       {name: 'Claim Details', component: 'items'},
       {name: 'Add Details', component: 'add-items'},
+      {name: 'Responsbility', component: 'client-responsibility'},
       {name: 'Comments', component: 'comments'}
     ])
     const activeTab = ref(tabs.value[0])
