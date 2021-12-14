@@ -93,3 +93,18 @@ export function addClaimCommentsRequest(id: number, comment: string) {
         data: {comment}
     })
 }
+
+export function updatetClientResponsibilityRequest(id: number, value: number) {
+    return request({
+        url: `api/admin/claims/${id}/responsibility`,
+        method: 'POST',
+        data: {value}
+    })
+}
+
+export function getClientResponsibiltiesRequest(){
+    return request({
+        url: 'api/admin/claims/responsibilities/all',
+        method: 'GET'
+    })
+}
