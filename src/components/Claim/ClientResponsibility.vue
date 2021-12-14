@@ -12,7 +12,7 @@
         </div>
       </div>
       <div v-else-if="loading">
-        <p class="text-red-500 mb-3">+
+        <p class="text-red-500 mb-3">
           Loading...
         </p>
       </div>
@@ -56,8 +56,7 @@ export default defineComponent({
     const saveResp = () => {
       updatetClientResponsibilityRequest(props.claim.id, resp.value)
         .then(({data}) => {
-          // emit('update', data);
-          console.log('done');
+          emit('update', data);
         })
     }
 
@@ -71,16 +70,3 @@ export default defineComponent({
   },
 })
 </script>
-<style scoped lang="scss">
-.table {
-  @apply table-auto bg-white max-w-full rounded text-base border-collapse shadow mb-1;
-
-  thead > tr > th {
-    @apply p-4 text-left font-semibold border-b text-sm;
-  }
-
-  tbody > tr > :deep(td) {
-    @apply p-4 border-b text-sm;
-  }
-}
-</style>
