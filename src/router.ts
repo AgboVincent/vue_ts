@@ -35,10 +35,10 @@ export const AuthMiddleware = (
                 });
             }
         }, 100);
-        // return next()
+    }else{
+        return next()
     }
 
-    return next()
 }
 
 export const GuestMiddleware = (

@@ -16,7 +16,7 @@ export function useStore() {
 
 export default createStore({
     state: {
-        authenticated: window.localStorage.getItem('auth'),
+        authenticated: false,
         authRequestFinished: false,
         profile: {
             first_name: ''

@@ -11,6 +11,9 @@
     <tr v-for="(item, index) in items" :key="`item:${index}`" class="text-text-dark">
       <slot :item="item" :index="index"/>
     </tr>
+    
+    <slot name="moreItems"/>
+    
     </tbody>
     <tfoot v-if="totalPages > 1">
     <tr>
