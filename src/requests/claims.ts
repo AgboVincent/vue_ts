@@ -108,3 +108,11 @@ export function getClientResponsibiltiesRequest(){
         method: 'GET'
     })
 }
+
+export function updateClaimsExpertsRequirementRequest(id: number, value: boolean){
+    return request({
+        url: `api/admin/claims/${id}/expert-requirement`,
+        method: 'POST',
+        data: {value}
+    })
+}
