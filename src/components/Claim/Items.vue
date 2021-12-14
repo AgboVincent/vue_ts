@@ -28,6 +28,20 @@
             </td>
           </template>
         </Table>
+
+        <div class="mt-5">
+          <input type="checkbox" id="needsexpert" v-model="needsExpert" @change="saveExpertRequirement">
+          <label for="needsexpert" class="ml-1">Expert Required</label>
+        </div>
+
+        <div class="my-5">
+          <label class="block" for="resp">Client Responsibility</label>
+          <select v-if="responsibilities.length && !loadingResps" v-model="resp" @change="saveResp" class="border-b rounded p-2" id="resp">
+            <option class="mb-2" v-for="(rspblty, index) in responsibilities" :key="index" :value="rspblty.id">
+              {{rspblty.name}}
+            </option>
+          </select>
+        </div>
       </div>
       <div class="w-1/3 p-10 pb-32 border-l">
         <img
@@ -58,11 +72,18 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, ref} from "vue";
+import {computed, defineComponent, PropType, ref, onMounted} from "vue";
 import {ClaimItemType, ClaimType} from "../../types";
 import Table from './../Table.vue'
 import {CLAIM_STATUS_APPROVED, CLAIM_STATUS_REJECTED} from "../../constants";
-import {approveClaimItemRequest, rejectClaimItemRequest, updateClaimItemRequest} from "../../requests";
+import {
+  approveClaimItemRequest, 
+  rejectClaimItemRequest, 
+  updateClaimItemRequest,
+  updatetClientResponsibilityRequest,
+  getClientResponsibiltiesRequest,
+  updateClaimsExpertsRequirementRequest
+} from "../../requests";
 import TextField from "../TextField.vue";
 
 export default defineComponent({
@@ -73,11 +94,24 @@ export default defineComponent({
       type: Object as PropType<ClaimType>
     }
   },
-  setup(props) {
+  setup(props, {emit}) {
     const pictures = computed(() => props.claim?.accident.documents.filter(document => document.file.mime.includes('image'))),
         shouldDisplayAmountUpdate = ref(false),
         item = ref<ClaimItemType | null>(null),
-        loading = ref(false);
+        loading = ref(false),
+        needsExpert = ref(props.claim.requires_expert),
+        responsibilities  = ref([]),
+        resp = ref(props.claim.clientResponsibility.id),
+        loadingResps = ref(true);
+
+    onMounted(function () {
+      getClientResponsibiltiesRequest()
+        .then(({data}) => {
+          responsibilities.value  = data;
+        }).finally(() => {
+          loadingResps.value = false;
+        });
+    })
 
     function openClaimOption(row: { opened: boolean; }) {
       row.opened = true
@@ -133,6 +167,20 @@ export default defineComponent({
           })
     }
 
+    const saveResp = () => {
+      updatetClientResponsibilityRequest(props.claim.id, resp.value)
+        .then(({data}) => {
+          emit('update', data);
+        })
+    },
+
+    saveExpertRequirement = () => {
+      updateClaimsExpertsRequirementRequest(props.claim.id, needsExpert.value)
+        .then(({data}) => {
+          emit('update', data);
+        })
+    }
+
     return {
       pictures,
       loading,
@@ -142,7 +190,13 @@ export default defineComponent({
       handleStatusUpdate,
       shouldDisplayAmountUpdate,
       closeUpdateModal,
-      submitAdjustment
+      submitAdjustment,
+      needsExpert,
+      responsibilities,
+      saveResp,
+      resp,
+      loadingResps,
+      saveExpertRequirement
     }
   }
 })
