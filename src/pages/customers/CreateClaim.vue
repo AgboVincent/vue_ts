@@ -15,8 +15,8 @@
           <TextField v-model="form.date" label="Date of Accident" type="date"/>
           <TextField v-model="form.time" label="Time" type="time"/>
         </div>
-        <TextField v-model="form.accident_type" label="Accident Type" type="select" :options="accidentTypes"/>
-        <TextField v-model="form.description" label="Description" type="textarea" row="7"/>
+        <TextField v-model="form.accident_type" label="Accident Type" required type="select" :options="accidentTypes"/>
+        <TextField v-model="form.description" label="Description" type="textarea" row="7" reqired/>
         <TextField v-model="form.involves_third_party" label="Third Party Involved" type="select"
                    :options="[{value: 1, label: 'Yes'}, {label: 'No', value: 0}]"/>
         <div class="flex justify-end mt-10">
