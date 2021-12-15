@@ -30,8 +30,29 @@
         </Table>
 
         <div class="mt-5">
-          <input type="checkbox" id="needsexpert" v-model="needsExpert" @change="saveExpertRequirement">
-          <label for="needsexpert" class="ml-1">Expert Required</label>
+          <input type="checkbox" id="expertRequired" v-model="expertRequired" @change="saveExpertRequirement">
+          <label for="expertRequired" class="ml-1">Expert Required</label>
+        </div>
+
+        <div v-if="expertRequired" class="mt-4">
+          <v-btn @click="openExpertsModal" class="ma-2" color="indigo" variant="outlined">Assign Expert</v-btn>
+        </div>
+
+        <div v-if="expertToAdd && expertToAdd.id" class="mt-4" >
+          <v-button color="indigo">{{ expertToAdd.name }}</v-button> <br>
+          <form id="reportform" action="">
+            <label href="javasacript:void(0)" @click="openReportModal" class="ml-3 text-primary" for="report">Add report</label>
+            <!-- select only pdf or word documents-->
+            <input name="report" @input="readReport($event)" type="file" id="report" style="display:none" accept=".pdf, .doc, .docx, .xls, .xlsx">
+          </form>
+          <div class="mt-5" v-if="reportFilename">
+            <!-- file icon -->
+            <div class="flex items-center">
+              <v-icon class="mr-2">mdi-file-document-outline</v-icon>
+              <span class="text-sm">{{ reportFilename }}</span>
+            </div>
+            <!-- {{reportFilename}} -->
+          </div>
         </div>
 
         <div class="my-5">
@@ -45,11 +66,30 @@
       </div>
       <div class="w-1/3 p-10 pb-32 border-l">
         <img
-            :src="pictures[0]?.file.path"
-            alt="Vehicle"
-            class="w-full rounded"/>
+          :src="pictures[0]?.file.path"
+          alt="Vehicle"
+          class="w-full rounded"/>
       </div>
     </div>
+
+    <v-overlay v-model="showExpertsModal">
+      <div class="bg-white w-[500px] rounded">
+        <div class="flex border-b items-center">
+          <p class="p-6 text-2xl font-medium px-7 flex-grow-1">Add expert</p>
+          <div class="p-5" @click="showExpertsModal = false">
+            <v-icon>mdi-close</v-icon>
+          </div>
+        </div>
+
+        <div class="px-7 pb-6">
+          <select @change="setExpert($event)" class="mb-4 rounded p-3 border block w-full">
+            <option value="">Choose expert</option>
+            <option v-for="(exp, idx) in expertsModel" :value="exp.id" :key="idx">{{exp.name}}</option>
+          </select>
+          <v-btn block :disabled="loading" @click="saveExpert">Update</v-btn>
+        </div>
+      </div>
+    </v-overlay>
 
     <v-overlay v-model="shouldDisplayAmountUpdate">
       <div class="bg-white w-[500px] rounded">
@@ -72,11 +112,15 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, PropType, ref, onMounted} from "vue";
+import axios from 'axios';
+import {computed, defineComponent, PropType, ref, onMounted, watch} from "vue";
 import {ClaimItemType, ClaimType} from "../../types";
 import Table from './../Table.vue'
 import {CLAIM_STATUS_APPROVED, CLAIM_STATUS_REJECTED} from "../../constants";
 import {
+  uploadExpertReport,
+  getExpertsRequest,
+  addExpertToClaimRequest,
   approveClaimItemRequest, 
   rejectClaimItemRequest, 
   updateClaimItemRequest,
@@ -94,24 +138,77 @@ export default defineComponent({
       type: Object as PropType<ClaimType>
     }
   },
+
   setup(props, {emit}) {
     const pictures = computed(() => props.claim?.accident.documents.filter(document => document.file.mime.includes('image'))),
-        shouldDisplayAmountUpdate = ref(false),
-        item = ref<ClaimItemType | null>(null),
-        loading = ref(false),
-        needsExpert = ref(props.claim.requires_expert),
-        responsibilities  = ref([]),
-        resp = ref(props.claim.clientResponsibility.id),
-        loadingResps = ref(true);
+      shouldDisplayAmountUpdate = ref(false),
+      item = ref<ClaimItemType | null>(null),
+      loading = ref(false),
+      expertRequired = ref(props.claim.requires_expert),
+      responsibilities  = ref([]),
+      resp = ref(props.claim.clientResponsibility.id),
+      loadingResps = ref(true),
+      experts = ref([]),
+      expertsModel = ref([]),
+      showExpertsModal = ref(false),
+      expertToAdd = ref({}),
+      reportFilename = ref(''),
+
+      openExpertsModal = () => {
+        showExpertsModal.value = true;
+      };
+
+      watch(reportFilename, (newVal) => {
+        if (newVal) {
+          const form = document.getElementById('reportform');
+          const formData = new FormData(form);
+          uploadExpertReport(props.claim.id, expertToAdd.value.id, formData)
+            .then(({data}) => {
+              console.log(data);
+          });
+        }
+      })
 
     onMounted(function () {
-      getClientResponsibiltiesRequest()
-        .then(({data}) => {
-          responsibilities.value  = data;
-        }).finally(() => {
-          loadingResps.value = false;
-        });
+      axios.all([
+        getExpertsRequest(),
+        getClientResponsibiltiesRequest()
+      ]).then(axios.spread((expertsResponse, respResponse) => {
+        experts.value = expertsResponse.data;
+        expertsModel.value = expertsResponse.data.map(expert => ({
+          id: expert.id,
+          name: expert.name
+        }));
+        responsibilities.value = respResponse.data;
+      })).finally(() => {
+        loadingResps.value = false;
+      });
     })
+
+    function readReport(e: any) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          reportFilename.value = file.name;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function uploadReport(){
+      emit('upload-report', props.claim.id);
+    }
+
+    function saveExpert(){
+      addExpertToClaimRequest(props.claim.id, expertToAdd.value.id).then(() => {
+        showExpertsModal.value = false;
+      });
+    }
+
+    function setExpert(event) {
+      expertToAdd.value = experts.value.find(expt => expt.id == event.target.value);
+    }
 
     function openClaimOption(row: { opened: boolean; }) {
       row.opened = true
@@ -175,7 +272,7 @@ export default defineComponent({
     },
 
     saveExpertRequirement = () => {
-      updateClaimsExpertsRequirementRequest(props.claim.id, needsExpert.value)
+      updateClaimsExpertsRequirementRequest(props.claim.id, expertRequired.value)
         .then(({data}) => {
           emit('update', data);
         })
@@ -191,12 +288,22 @@ export default defineComponent({
       shouldDisplayAmountUpdate,
       closeUpdateModal,
       submitAdjustment,
-      needsExpert,
+      expertRequired,
       responsibilities,
       saveResp,
       resp,
       loadingResps,
-      saveExpertRequirement
+      showExpertsModal,
+      saveExpertRequirement,
+      experts,
+      openExpertsModal,
+      setExpert,
+      expertToAdd,
+      expertsModel,
+      saveExpert,
+      reportFilename,
+      uploadReport,
+      readReport
     }
   }
 })
