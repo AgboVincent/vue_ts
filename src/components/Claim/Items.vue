@@ -35,11 +35,11 @@
         </div>
 
         <div v-if="expertRequired" class="mt-4">
-          <v-btn @click="openExpertsModal" class="ma-2" color="indigo" variant="outlined">Assign Expert</v-btn>
+          <v-btn @click="openExpertsModal" class="ma-2 bg-primary text-white" variant="outlined">Assign Expert</v-btn>
         </div>
 
         <div v-if="expertToAdd && expertToAdd.id" class="mt-4" >
-          <v-button color="indigo">{{ expertToAdd.name }}</v-button> <br>
+          <v-button class="bg-secondary text-primary">{{ expertToAdd.name }}</v-button> <br>
           <form id="reportform" action="">
             <label href="javasacript:void(0)" @click="openReportModal" class="ml-3 text-primary" for="report">Add report</label>
             <!-- select only pdf or word documents-->
@@ -57,7 +57,7 @@
 
         <div class="my-5">
           <label class="block" for="resp">Client Responsibility</label>
-          <select v-if="responsibilities.length && !loadingResps" v-model="resp" @change="saveResp" class="border-b rounded p-2" id="resp">
+          <select v-if="responsibilities.length && !loadingResps" v-model="resp" @change="saveResp" class="border-b border-primary rounded p-2" id="resp">
             <option class="mb-2" v-for="(rspblty, index) in responsibilities" :key="index" :value="rspblty.id">
               {{rspblty.name}}
             </option>

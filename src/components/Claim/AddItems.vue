@@ -35,10 +35,10 @@
          </tr>
          <tr>
            <td colspan="3">
-              <button class="bg-blue-500 text-white p-1 rounded mr-3" @click="addMoreItem">
+              <button class="bg-secondary text-primary p-1 rounded mr-3" @click="addMoreItem">
                 Add More
               </button>
-              <button class="bg-green-500 text-white p-1 rounded" @click="saveItems">
+              <button class="bg-green-500 bg-primary p-1 rounded" @click="saveItems">
                 Save Items
               </button>
            </td>
