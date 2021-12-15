@@ -45,7 +45,7 @@ export default defineComponent({
       {name: 'Pending Claims', value: 0, key: 'pending_claims'},
       {
         name: 'Claims Value', value: 0, key: 'claims_value', format(value) {
-          return parseFloat(value).toLocaleString('en-NG', {currency: 'NGN', style: 'currency'})
+          return parseFloat(value).toLocaleString('fr-FR', {currency: 'CFA', style: 'currency'})
         }
       },
     ])
