@@ -12,7 +12,7 @@
               :to="route.link"
               v-ripple
               v-for="(route, index) in routes"
-              active-class="bg-[#E0BC00] text-primary font-bold"
+              active-class="bg-[#E8F3FB] text-primary font-bold"
               :key="`route::${index}`"
           >
             <v-icon size="large">
