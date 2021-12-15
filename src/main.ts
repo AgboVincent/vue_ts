@@ -17,7 +17,7 @@ const app = createApp(App)
 app.mixin({
     methods: {
         money(value: string) {
-            return parseFloat(value).toLocaleString('en-NG', {currency: 'NGN', style: 'currency'})
+            return parseFloat(value).toLocaleString('fr-FR', {currency: 'CFA', style: 'currency'})
         },
         formatDate(date: string | number | Date) {
             return (new Date(date)).toDateString()
