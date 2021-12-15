@@ -120,21 +120,23 @@ import TextField from "../components/TextField.vue";
 import {ClaimType} from "../types";
 import AddItems from '../components/Claim/AddItems.vue';
 import Items from "../components/Claim/Items.vue";
+import Policy from "../components/Claim/Policy.vue";
 
 export default defineComponent({
   name: 'Claim',
   components: {AppBar, 
-    Vehicle, Accident, Pictures, Comments, Items, TextField, AddItems,
+    Vehicle, Accident, Pictures, Comments, Items, TextField, AddItems, Policy
   },
   setup() {
     const {params} = useRoute()
     const tabs = ref([
       {name: 'Vehicle', component: 'vehicle'},
+      {name: 'Policy', component: 'policy'},
       {name: 'Accident', component: 'accident'},
       {name: 'Media', component: 'pictures'},
-      {name: 'Claim', component: 'items'},
+      {name: 'Claim Details', component: 'items'},
       {name: 'Add Items', component: 'add-items'},
-      {name: 'Comments', component: 'comments'}
+      {name: 'Comments', component: 'comments'},
     ])
     const activeTab = ref(tabs.value[0])
     const loading = ref(true)
