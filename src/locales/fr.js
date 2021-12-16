@@ -19,7 +19,7 @@ export default {
     date: 'Date',
     status: 'Statut',
 
-    "view": "Voir (you can also put Voir plus)",
+    "view": "Voir",
     "mark as paid": "marquer comme payé",
     "process transfer": "Effectuer le transfert",
     "filter by": "Trier par",
