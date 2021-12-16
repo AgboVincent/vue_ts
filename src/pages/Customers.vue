@@ -1,16 +1,16 @@
 <template>
   <AppBar>
     <p class="text-text-dark text-bold text-2xl">
-      Customers
+      {{ $t('Customers') }}
       <span class="text-base block text-text pt-1">
-        All claims submitted by the customers can be found here
+        {{ $t('All claims submitted by the customers can be found here') }}
       </span>
     </p>
   </AppBar>
   <div class="w-full pt-10">
     <div class="flex items-center mb-4">
       <TextField icon="mdi-search"
-                 placeholder="Search customers, emails , claim references"
+                 :placeholder="$t('Search customers, emails , claim references')"
                  v-model="query"
                  class="bg-white !m-0 w-[400px]"/>
       <CustomersFilter @filter="handleFilter"/>
