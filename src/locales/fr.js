@@ -57,6 +57,7 @@ export default {
     "Comments": "Commentaires",
     "Car Manufacturer": "Constructeur automobile",
     "Year of Manufacturer": "Année de fabrication",
+    "Welcome back": "Content de te revoir",
 
     "Model": "modèle",
     "Car Color": "Couleur de la voiture",

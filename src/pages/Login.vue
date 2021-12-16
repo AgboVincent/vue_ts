@@ -1,5 +1,5 @@
 <template>
-  <p class="text-2xl text-text-dark font-bold">Welcome back</p>
+  <p class="text-2xl text-text-dark font-bold">{{ $t("Welcome back")}}</p>
   <p class="text-text-dark">Enter your login details to proceed</p>
 
   <ErrorMessage v-if="showErrorMessage" class="mt-7">
