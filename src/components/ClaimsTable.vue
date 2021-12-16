@@ -31,7 +31,7 @@
             <ui-menuitem value="View">
               <router-link :to="`/claims/${row.id}`">
                 <div class="option">
-                  View
+                  {{ $t("View") }}
                 </div>
               </router-link>
             </ui-menuitem>
