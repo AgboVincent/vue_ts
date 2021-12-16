@@ -1,9 +1,9 @@
 <template>
   <AppBar>
     <p class="text-text-dark font-bold text-2xl">
-      Claims
+      {{ $t('Claims') }}
       <span class="text-base block font-normal text-text pt-1">
-        All claims submitted by the customers can be found here
+        {{ $t('All claims submitted by the customers can be found here') }}
       </span>
     </p>
   </AppBar>
@@ -11,7 +11,7 @@
     <div class="flex items-center mb-4 space-x-2">
       <TextField :data="claims" icon="mdi-search"
                  v-model="query"
-                 placeholder="Search customers, emails , claim references" class="bg-white !m-0 w-[400px]"/>
+                 :placeholder="$t('Search customers, emails , claim references')" class="bg-white !m-0 w-[400px]"/>
       <ClaimsFilter @filter="handleFilter"/>
     </div>
     <ClaimsTable v-if="claims" :data="claims" :total="total" :page="currentPage" @update:page="getClaims"/>

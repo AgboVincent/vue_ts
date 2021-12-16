@@ -1,6 +1,6 @@
 <template>
   <AppBar>
-    <TextField icon="mdi-search" placeholder="Search customers, emails , claim references" class="bg-white !m-0"/>
+    <TextField icon="mdi-search" :placeholder="$t('Search customers, emails , claim references')" class="bg-white !m-0"/>
   </AppBar>
 
   <p class="text-primary-deep font-bold pt-12 pb-10 text-2xl">{{$t('dashboard')}}</p>
