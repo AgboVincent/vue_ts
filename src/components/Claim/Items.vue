@@ -35,13 +35,13 @@
         </div>
 
         <div v-if="expertRequired" class="mt-4">
-          <v-btn @click="openExpertsModal" class="ma-2 bg-primary text-white" variant="outlined">Assign Expert</v-btn>
+          <v-btn @click="openExpertsModal" class="ma-2 bg-primary text-white rounded" variant="outlined">Assign Expert</v-btn>
         </div>
 
         <div v-if="expertToAdd && expertToAdd.id" class="mt-4" >
           <v-button class="bg-secondary text-primary">{{ expertToAdd.name }}</v-button> <br>
           <form id="reportform" action="">
-            <label href="javasacript:void(0)" @click="openReportModal" class="ml-3 text-primary" for="report">Add report</label>
+            <label href="javasacript:void(0)" class="ml-3 text-primary" for="report">Add report</label>
             <!-- select only pdf or word documents-->
             <input name="report" @input="readReport($event)" type="file" id="report" style="display:none" accept=".pdf, .doc, .docx, .xls, .xlsx">
           </form>
@@ -55,6 +55,31 @@
           </div>
         </div>
 
+        <!-- display claim experts -->
+        <div v-if="claimExperts.length" class="mt-4">
+          <div class="flex items-center mb-2">
+            <span class="text">Assigned Experts</span>
+          </div>
+          <div class="mb-5" v-for="expert in claimExperts" :key="expert.id">
+            <form :id="'reportform' + expert.id">
+              <v-chip class="capitalize"  :color="expert.color" :text-color="expert.textColor">{{ expert.name }}</v-chip>
+              <label href="javasacript:void(0)" @click="openReportModal(expert.id)" class="ml-3 text-primary" :for="'report' + expert.id">Add report</label>
+              <input name="report" @input="readReport($event)" type="file" :id="'report' + expert.id" style="display:none" accept=".pdf, .doc, .docx, .xls, .xlsx">
+            </form>
+            <div v-if="expert.reports" class="mt-2">
+              <p class="text-sm mb-2">Reports</p>
+              <div class="flex items-center" v-for="report in expert.reports" :key="report.id">
+                <div v-if="report.file_name && report.file_path">
+                  <v-icon class="mr-2">mdi-file-document-outline</v-icon>
+                  <span class="text-sm">{{ report.file_name }}</span>
+                  <a :href="report.file_path" class="ml-2" target="_blank">
+                    <v-icon>mdi-download</v-icon>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="my-5">
           <label class="block" for="resp">Client Responsibility</label>
           <select v-if="responsibilities.length && !loadingResps" v-model="resp" @change="saveResp" class="border-b border-primary rounded p-2" id="resp">
@@ -76,7 +101,7 @@
       <div class="bg-white w-[500px] rounded">
         <div class="flex border-b items-center">
           <p class="p-6 text-2xl font-medium px-7 flex-grow-1">Add expert</p>
-          <div class="p-5" @click="showExpertsModal = false">
+          <div class="p-5" @click="closeExpertsModal">
             <v-icon>mdi-close</v-icon>
           </div>
         </div>
@@ -126,7 +151,8 @@ import {
   updateClaimItemRequest,
   updatetClientResponsibilityRequest,
   getClientResponsibiltiesRequest,
-  updateClaimsExpertsRequirementRequest
+  updateClaimsExpertsRequirementRequest,
+  getClaimExpertsRequest
 } from "../../requests";
 import TextField from "../TextField.vue";
 
@@ -153,6 +179,8 @@ export default defineComponent({
       showExpertsModal = ref(false),
       expertToAdd = ref({}),
       reportFilename = ref(''),
+      claimExperts = ref([]), // list of experts for this claim
+      expertToUploadReportFor = ref(null), //for already added experts
 
       openExpertsModal = () => {
         showExpertsModal.value = true;
@@ -160,26 +188,43 @@ export default defineComponent({
 
       watch(reportFilename, (newVal) => {
         if (newVal) {
-          const form = document.getElementById('reportform');
-          const formData = new FormData(form);
-          uploadExpertReport(props.claim.id, expertToAdd.value.id, formData)
-            .then(({data}) => {
-              console.log(data);
-          });
+          //uploading for added expert
+          if(expertToUploadReportFor.value) {
+            const form = document.getElementById('reportform' + expertToUploadReportFor.value);
+            const formData = new FormData(form);
+            uploadExpertReport(props.claim.id, expertToUploadReportFor.value, formData)
+              .then(({data}) => {
+                console.log(data);
+                const expert = claimExperts.value.find(expert => expert.id == expertToUploadReportFor.value);
+                expert.reports.push(data);
+                expertToUploadReportFor.value = null;
+            });
+          }else{
+            //uploading for new expert
+            const form = document.getElementById('reportform');
+            const formData = new FormData(form);
+            uploadExpertReport(props.claim.id, expertToAdd.value.id, formData)
+              .then(({data}) => {
+                console.log(data);
+            });
+          }
+
         }
       })
 
     onMounted(function () {
       axios.all([
         getExpertsRequest(),
-        getClientResponsibiltiesRequest()
-      ]).then(axios.spread((expertsResponse, respResponse) => {
+        getClientResponsibiltiesRequest(),
+        getClaimExpertsRequest(props.claim.id)
+      ]).then(axios.spread((expertsResponse, respResponse, claimExpertsResponse) => {
         experts.value = expertsResponse.data;
         expertsModel.value = expertsResponse.data.map(expert => ({
           id: expert.id,
           name: expert.name
         }));
         responsibilities.value = respResponse.data;
+        claimExperts.value = claimExpertsResponse.data;
       })).finally(() => {
         loadingResps.value = false;
       });
@@ -196,18 +241,41 @@ export default defineComponent({
       }
     }
 
+    function openReportModal(expertId: number) {
+      expertToUploadReportFor.value = expertId;
+    }
+
+    function closeExpertsModal() {
+      showExpertsModal.value = false;
+      expertToAdd.value = {};
+    }
+
     function uploadReport(){
       emit('upload-report', props.claim.id);
     }
 
     function saveExpert(){
-      addExpertToClaimRequest(props.claim.id, expertToAdd.value.id).then(() => {
-        showExpertsModal.value = false;
-      });
+      if(expertToAdd.value.id){
+        addExpertToClaimRequest(props.claim.id, expertToAdd.value.id).then((response) => {
+          claimExperts.value.unshift(response.data);
+          closeExpertsModal();
+        });
+        
+      }else{
+        //no expert selected or expert already added
+        closeExpertsModal();
+      }
     }
 
     function setExpert(event) {
-      expertToAdd.value = experts.value.find(expt => expt.id == event.target.value);
+      const expert = experts.value.find(expt => expt.id == event.target.value);
+
+      //dont add if already added
+      if(claimExperts.value.some(expt => expt.id == expert.id)){
+        return;
+      }
+
+      expertToAdd.value = expert;
     }
 
     function openClaimOption(row: { opened: boolean; }) {
@@ -303,7 +371,11 @@ export default defineComponent({
       saveExpert,
       reportFilename,
       uploadReport,
-      readReport
+      readReport,
+      claimExperts,
+      openReportModal,
+      expertToUploadReportFor,
+      closeExpertsModal
     }
   }
 })
