@@ -113,4 +113,9 @@ export default {
     "Third Party": "Tierce personne",
     "Policy Number": "Numéro de police",
     "Quotes" : "Devis",
+
+    "Enter your login details to proceed": "Entrez vos informations de connexion pour continuer",
+    "You entered an incorrect, email, password or both. Need an account": "Vous avez entré un e-mail, un mot de passe ou les deux incorrects. Besoin d'un compte",
+    "Forgot Password": "Mot de passe oublié",
+    "Login to your account": "Connectez-vous à votre compte"
 }

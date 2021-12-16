@@ -3,7 +3,7 @@
   <p class="text-text-dark">{{ $t("Enter your login details to proceed")}}</p>
 
   <ErrorMessage v-if="showErrorMessage" class="mt-7">
-    {{ $t("You entered an incorrect, email, password or both. Need an account?")}} <strong>{{ $t("Sign Up")}} </strong>
+    {{ $t("You entered an incorrect, email, password or both. Need an account")}}? <strong>{{ $t("Sign Up")}} </strong>
   </ErrorMessage>
 
   <form @submit.prevent="handleLoginButton">
@@ -18,7 +18,7 @@
         placeholder="********"
         icon="mdi-lock-outline"
         type="password"/>
-    <router-link to="/forgot-password" class="block text-text-dark pt-8 mb-12">{{ $t("Forgot Password?")}} </router-link>
+    <router-link to="/forgot-password" class="block text-text-dark pt-8 mb-12">{{ $t("Forgot Password")}}? </router-link>
 
     <v-btn
         block
