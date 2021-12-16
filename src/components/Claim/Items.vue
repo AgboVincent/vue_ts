@@ -101,7 +101,7 @@
       <div class="bg-white w-[500px] rounded">
         <div class="flex border-b items-center">
           <p class="p-6 text-2xl font-medium px-7 flex-grow-1">Add expert</p>
-          <div class="p-5" @click="showExpertsModal = false">
+          <div class="p-5" @click="closeExpertsModal">
             <v-icon>mdi-close</v-icon>
           </div>
         </div>
@@ -243,18 +243,37 @@ export default defineComponent({
       exportToUploadReportFor.value = expertId;
     }
 
+    function closeExpertsModal() {
+      showExpertsModal.value = false;
+      expertToAdd.value = {};
+    }
+
     function uploadReport(){
       emit('upload-report', props.claim.id);
     }
 
     function saveExpert(){
-      addExpertToClaimRequest(props.claim.id, expertToAdd.value.id).then(() => {
-        showExpertsModal.value = false;
-      });
+      if(expertToAdd.value.id){
+        addExpertToClaimRequest(props.claim.id, expertToAdd.value.id).then((response) => {
+          claimExperts.value.unshift(response.data);
+          closeExpertsModal();
+        });
+        
+      }else{
+        //no expert selected or expert already added
+        closeExpertsModal();
+      }
     }
 
     function setExpert(event) {
-      expertToAdd.value = experts.value.find(expt => expt.id == event.target.value);
+      const expert = experts.value.find(expt => expt.id == event.target.value);
+
+      //dont add if already added
+      if(claimExperts.value.some(expt => expt.id == expert.id)){
+        return;
+      }
+
+      expertToAdd.value = expert;
     }
 
     function openClaimOption(row: { opened: boolean; }) {
@@ -353,7 +372,8 @@ export default defineComponent({
       readReport,
       claimExperts,
       openReportModal,
-      exportToUploadReportFor
+      exportToUploadReportFor,
+      closeExpertsModal
     }
   }
 })
