@@ -11,7 +11,7 @@
     <div>
       <div>
         <ui-menu-anchor>
-          <v-btn @click="openTranslate = true">Select Language</v-btn>
+          <!-- <v-btn @click="openTranslate = true">Select Language</v-btn> -->
           <ui-menu v-model="openTranslate">
             <ui-menuitem v-for="item in countries" class="vg-container " :key="item.id" @click="translate(item.code)"
                          :title="item.title">

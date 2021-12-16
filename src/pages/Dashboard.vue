@@ -3,7 +3,7 @@
     <TextField icon="mdi-search" placeholder="Search customers, emails , claim references" class="bg-white !m-0"/>
   </AppBar>
 
-  <p class="text-primary-deep font-bold pt-12 pb-10 text-2xl">Dashboard</p>
+  <p class="text-primary-deep font-bold pt-12 pb-10 text-2xl">{{$t('dashboard')}}</p>
 
   <div class="grid grid-cols-4 gap-x-4">
     <div class="flex items-center pl-6 pr-5 justify-between pt-10 pb-9 rounded bg-white" v-for="view in overview"
@@ -21,7 +21,7 @@
   </div>
 
   <div class="w-full pt-11" v-if="claims.length > 0">
-    <p class="text-lg font-semibold text-text-dark mb-5">Urgent Claims</p>
+    <p class="text-lg font-semibold text-text-dark mb-5">{{$t('urgentClaims')}}</p>
     <ClaimsTable :data="claims"/>
   </div>
 </template>

@@ -19,7 +19,7 @@
               {{ route.icon }}
             </v-icon>
             <span class="ml-5">
-              {{ route.name }}
+              {{ $t(route.name )}}
             </span>
           </router-link>
         </div>
@@ -42,15 +42,15 @@ export default defineComponent({
   setup() {
     const routes = ref([
       {
-        name: 'Dashboard',
+        name: 'dashboard',
         link: '/dashboard',
         icon: 'mdi-home'
       }, {
-        name: 'Claims',
+        name: 'claims',
         icon: 'mdi-car-settings',
         link: '/claims'
       }, {
-        name: 'Customers',
+        name: 'customers',
         icon: 'mdi-account-multiple',
         link: '/customers'
       }

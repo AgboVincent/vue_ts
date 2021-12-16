@@ -1,0 +1,21 @@
+export default {
+    login: 'Connexion',
+    logout: 'Deconnexion',
+    dashboard: 'Tableau de bord',
+    claims: 'Réclamations',
+    customers: "Clients",
+    profile: 'Profil',
+    settings: 'Paramètres',
+    logout: 'Deconnexion',
+    totalClaims: 'Toutes les réclamations',
+    processedClaims: 'Réclamations traitées',
+    pendingClaims: 'Réclamations en attente',
+    claimsValue: 'Le montant des réclamations',
+    urgentClaims: 'Réclamations urgentes',
+    name: 'Nom',
+    registrationNumber: "Numéro d'enregistrement",
+    policyNumber: "numéro d'assurance",
+    carModel: 'Modèle de voiture',
+    date: 'Date',
+    status: 'Statut'
+}

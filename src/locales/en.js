@@ -1,0 +1,21 @@
+export default {
+    login: 'Login',
+    logout: 'Logout',
+    dashboard: 'Dasboard',
+    claims: 'Claims',
+    customers: "Customers",
+    profile: 'profile',
+    settings: 'settings',
+    logout: 'logout',
+    totalClaims: 'total claims',
+    processedClaims: 'processed claims',
+    pendingClaims: 'pending claims',
+    claimsValue: 'claims value',
+    urgentClaims: 'urgent claims',
+    name: 'name',
+    registrationNumber: 'Registration Number',
+    policyNumber: 'policy number',
+    carModel: 'car model',
+    date: 'date',
+    status: 'status'
+}

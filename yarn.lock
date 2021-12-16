@@ -65,6 +65,44 @@
   "resolved" "https://registry.npmjs.org/@emmetio/scanner/-/scanner-1.0.0.tgz"
   "version" "1.0.0"
 
+"@intlify/core-base@9.2.0-beta.23":
+  "integrity" "sha512-sNet9/RpU/qydW1bOwVICYzGIC/SWyV+1gakcSP12XD1tGEiaoI1Ln+6nHh4dICfegR/5XyaoJ7NC4/ukH7/Ew=="
+  "resolved" "https://registry.npmjs.org/@intlify/core-base/-/core-base-9.2.0-beta.23.tgz"
+  "version" "9.2.0-beta.23"
+  dependencies:
+    "@intlify/devtools-if" "9.2.0-beta.23"
+    "@intlify/message-compiler" "9.2.0-beta.23"
+    "@intlify/shared" "9.2.0-beta.23"
+    "@intlify/vue-devtools" "9.2.0-beta.23"
+
+"@intlify/devtools-if@9.2.0-beta.23":
+  "integrity" "sha512-f2iY2LFRHTwPnBpT0R/kG8CwZbUWiSccMzfXYLwhjJC1irCcFCXmVtL9Mkz5gc0Elqvl+zOWxk5g9rwhah5bBQ=="
+  "resolved" "https://registry.npmjs.org/@intlify/devtools-if/-/devtools-if-9.2.0-beta.23.tgz"
+  "version" "9.2.0-beta.23"
+  dependencies:
+    "@intlify/shared" "9.2.0-beta.23"
+
+"@intlify/message-compiler@9.2.0-beta.23":
+  "integrity" "sha512-qmGN8k5yGGdZ5St8yg8U4Tg2K9Sc6h3BhWCdJKAqQVs5jnfZG+nMtsLVgnJUWkDvhjzyg7/rEOhHm2uJcu4vjw=="
+  "resolved" "https://registry.npmjs.org/@intlify/message-compiler/-/message-compiler-9.2.0-beta.23.tgz"
+  "version" "9.2.0-beta.23"
+  dependencies:
+    "@intlify/shared" "9.2.0-beta.23"
+    "source-map" "0.6.1"
+
+"@intlify/shared@9.2.0-beta.23":
+  "integrity" "sha512-3aELL2KTp1MWKGm2gIUKSagthgKzcK5hpQEFzOwkJ1SAthpTXR7BHeWGEaD+Lj+Pbiz3U8cspvp8s2lFWVbYxg=="
+  "resolved" "https://registry.npmjs.org/@intlify/shared/-/shared-9.2.0-beta.23.tgz"
+  "version" "9.2.0-beta.23"
+
+"@intlify/vue-devtools@9.2.0-beta.23":
+  "integrity" "sha512-5uGvrtUQhiyEqrMpDYh1FAU5uZviLaiEy1HAs+ypX46EdaDvyEYYpWvhezTWZ7hsDBsbsKJ9ICjgTvZxm6PDcw=="
+  "resolved" "https://registry.npmjs.org/@intlify/vue-devtools/-/vue-devtools-9.2.0-beta.23.tgz"
+  "version" "9.2.0-beta.23"
+  dependencies:
+    "@intlify/core-base" "9.2.0-beta.23"
+    "@intlify/shared" "9.2.0-beta.23"
+
 "@material/animation@^12.0.0":
   "integrity" "sha512-PfRHehbW6xrNaAb5RELmyxn9+pGTYwzxUnT43TdmOOTN+J45MRH8c90ZSdczich6gp7tgyTQsd3HtB5yRgBsIA=="
   "resolved" "https://registry.npmjs.org/@material/animation/-/animation-12.0.0.tgz"
@@ -916,7 +954,7 @@
     "@vue/compiler-dom" "3.2.22"
     "@vue/shared" "3.2.22"
 
-"@vue/devtools-api@^6.0.0-beta.11", "@vue/devtools-api@^6.0.0-beta.14":
+"@vue/devtools-api@^6.0.0-beta.11", "@vue/devtools-api@^6.0.0-beta.13", "@vue/devtools-api@^6.0.0-beta.14":
   "integrity" "sha512-R2rfiRY+kZugzWh9ZyITaovx+jpU4vgivAEAiz80kvh3yviiTU3CBuGuyWpSwGz9/C7TkSWVM/FtQRGlZ16n8Q=="
   "resolved" "https://registry.npmjs.org/@vue/devtools-api/-/devtools-api-6.0.0-beta.20.1.tgz"
   "version" "6.0.0-beta.20.1"
@@ -2393,7 +2431,7 @@
   "resolved" "https://registry.npmjs.org/source-map-js/-/source-map-js-0.6.2.tgz"
   "version" "0.6.2"
 
-"source-map@^0.6.1":
+"source-map@^0.6.1", "source-map@0.6.1":
   "integrity" "sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g=="
   "resolved" "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz"
   "version" "0.6.1"
@@ -2673,6 +2711,16 @@
     "vscode-pug-languageservice" "^0.26.16"
     "vscode-typescript-languageservice" "^0.26.16"
 
+"vue-i18n@^9.2.0-beta.23":
+  "integrity" "sha512-9zpylFVjhMDiNnSpa8pFf/lXiALKzxDKEo9QrSV906cN0m6jtyjvjCWw6dRx/7Q4ZJuwXYg0wi/UtUkgu0wkQw=="
+  "resolved" "https://registry.npmjs.org/vue-i18n/-/vue-i18n-9.2.0-beta.23.tgz"
+  "version" "9.2.0-beta.23"
+  dependencies:
+    "@intlify/core-base" "9.2.0-beta.23"
+    "@intlify/shared" "9.2.0-beta.23"
+    "@intlify/vue-devtools" "9.2.0-beta.23"
+    "@vue/devtools-api" "^6.0.0-beta.13"
+
 "vue-loading-overlay@^4.0.4":
   "integrity" "sha512-ADIEUXLo+IEpK8hd2+iqhZtEV3m0WNh5FlGvAc6FWG0KJAEHGTGUFdugQgAtM6Y3iFZc/ovzMd7A9dN+7QC7hw=="
   "resolved" "https://registry.npmjs.org/vue-loading-overlay/-/vue-loading-overlay-4.0.4.tgz"
@@ -2692,7 +2740,7 @@
   dependencies:
     "vscode-vue-languageservice" "^0.26.6"
 
-"vue@^3.2.2":
+"vue@^3.0.0", "vue@^3.2.2":
   "integrity" "sha512-D/LuzAV30CgNJYGyNheE/VUs5N4toL2IgmS6c9qeOxvyh0xyn4exyRqizpXIrsvfx34zG9x5gCI2tdRHCGvF9w=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-3.2.2.tgz"
   "version" "3.2.2"

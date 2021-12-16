@@ -1,6 +1,14 @@
 <template>
   <Table
-      :headers="headers"
+      :headers="[
+      $t('name'),
+      $t('registrationNumber'),
+      'Policy No.',
+      $t('carModel'),
+      $t('date'),
+      $t('status'),
+      ''
+      ]"
       :items="data"
       :page="page"
       @update:page="$event => $emit('update:page', $event)"
