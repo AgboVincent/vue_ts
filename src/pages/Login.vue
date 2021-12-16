@@ -1,9 +1,9 @@
 <template>
-  <p class="text-2xl text-text-dark font-bold">Welcome back</p>
-  <p class="text-text-dark">Enter your login details to proceed</p>
+  <p class="text-2xl text-text-dark font-bold">{{ $t("Welcome back")}}</p>
+  <p class="text-text-dark">{{ $t("Enter your login details to proceed")}}</p>
 
   <ErrorMessage v-if="showErrorMessage" class="mt-7">
-    You entered an incorrect, email, password or both. Need an account? <strong>Sign Up</strong>
+    {{ $t("You entered an incorrect, email, password or both. Need an account?")}} <strong>{{ $t("Sign Up")}} </strong>
   </ErrorMessage>
 
   <form @submit.prevent="handleLoginButton">
@@ -18,14 +18,14 @@
         placeholder="********"
         icon="mdi-lock-outline"
         type="password"/>
-    <router-link to="/forgot-password" class="block text-text-dark pt-8 mb-12">Forgot Password?</router-link>
+    <router-link to="/forgot-password" class="block text-text-dark pt-8 mb-12">{{ $t("Forgot Password?")}} </router-link>
 
     <v-btn
         block
         type="submit"
         :disabled="loading"
     >
-      Login to your account
+      {{ $t("Login to your account")}}
     </v-btn>
   </form>
 </template>
