@@ -3,7 +3,7 @@
     <thead class="text-lg text-[##333333] font-semibold">
     <tr>
       <th v-for="title in headers" :key="`table-header:${title}`">
-        {{ title }}
+        {{ $t(title) }}
       </th>
     </tr>
     </thead>

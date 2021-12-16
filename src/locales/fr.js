@@ -117,5 +117,9 @@ export default {
     "Enter your login details to proceed": "Entrez vos informations de connexion pour continuer",
     "You entered an incorrect, email, password or both. Need an account": "Vous avez entré un e-mail, un mot de passe ou les deux incorrects. Besoin d'un compte",
     "Forgot Password": "Mot de passe oublié",
-    "Login to your account": "Connectez-vous à votre compte"
+    "Login to your account": "Connectez-vous à votre compte",
+    "Email": 'E-mail',
+    "Phone Number": "Numéro de téléphone",
+    "Policy Status": "État de la politique",
+    "Name": 'Nom'
 }
