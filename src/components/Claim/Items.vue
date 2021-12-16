@@ -180,7 +180,7 @@ export default defineComponent({
       expertToAdd = ref({}),
       reportFilename = ref(''),
       claimExperts = ref([]), // list of experts for this claim
-      exportToUploadReportFor = ref(null), //for already added experts
+      expertToUploadReportFor = ref(null), //for already added experts
 
       openExpertsModal = () => {
         showExpertsModal.value = true;
@@ -189,13 +189,15 @@ export default defineComponent({
       watch(reportFilename, (newVal) => {
         if (newVal) {
           //uploading for added expert
-          if(exportToUploadReportFor.value) {
-            const form = document.getElementById('reportform' + exportToUploadReportFor.value);
+          if(expertToUploadReportFor.value) {
+            const form = document.getElementById('reportform' + expertToUploadReportFor.value);
             const formData = new FormData(form);
-            uploadExpertReport(props.claim.id, exportToUploadReportFor.value, formData)
+            uploadExpertReport(props.claim.id, expertToUploadReportFor.value, formData)
               .then(({data}) => {
                 console.log(data);
-                exportToUploadReportFor.value = null;
+                const expert = claimExperts.value.find(expert => expert.id == expertToUploadReportFor.value);
+                expert.reports.push(data);
+                expertToUploadReportFor.value = null;
             });
           }else{
             //uploading for new expert
@@ -240,7 +242,7 @@ export default defineComponent({
     }
 
     function openReportModal(expertId: number) {
-      exportToUploadReportFor.value = expertId;
+      expertToUploadReportFor.value = expertId;
     }
 
     function closeExpertsModal() {
@@ -372,7 +374,7 @@ export default defineComponent({
       readReport,
       claimExperts,
       openReportModal,
-      exportToUploadReportFor,
+      expertToUploadReportFor,
       closeExpertsModal
     }
   }
