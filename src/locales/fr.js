@@ -84,11 +84,12 @@ export default {
     "add more": "Ajouter plus",
     "save items": "Enregistrer des éléments",
     "sender": "Expéditeur",
-    "full name": "Nom complet",
-    "mobile": "mobile",
-    "Insurance company ": "Compagnie d'assurance",
+    "full Name": "Nom complet",
+    "Mobile": "mobile",
+    "Insurance Company ": "Compagnie d'assurance",
     "Next": "Suivant",
     "previous": "Précédent",
+    "Prev": "Précédent",
     "search customers": "Rechercher des clients",
     "Emails": "Email (or use Courriels)",
     "claim references": "références de réclamation",
@@ -105,5 +106,7 @@ export default {
     "adjust price": "Ajuster le prix",
     "update": "Mise à jour",
 
-    "Back to claims": "Retour aux réclamations"
+    "Back to claims": "Retour aux réclamations",
+    "Third Party": "Tierce personne",
+    "Policy Number": "Numéro de police"
 }
