@@ -4,15 +4,15 @@
     <div class="flex items-end pt-12 pb-10">
       <div class="flex-grow-1">
         <p class="text-text-dark font-bold pb-1 text-2xl">
-          {{ claim.policy.vehicle.model }}
+          {{ $t(claim.policy.vehicle.model) }}
         </p>
         <p class="text-text">
-          {{ claim.policy.vehicle.manufacturer }}
+          {{ $t(claim.policy.vehicle.manufacturer) }}
         </p>
       </div>
       <div class="flex items-end space-x-4" v-if="$store.state.profile.type === 'broker'">
-        <v-btn text-color="success" color="white" size="small" :height="30" @click="displayCommentModal = true">Message
-          Customer
+        <v-btn text-color="success" color="white" size="small" :height="30" @click="displayCommentModal = true">
+          {{ $t("Message Customer") }}
         </v-btn>
         <v-btn
             @click="processToInsurer"
@@ -21,7 +21,7 @@
             size="small"
             v-if="!claim.involves_insurer"
             :height="30">
-          Send to Insurer
+          {{ $t('Send to Insurer') }}
         </v-btn>
       </div>
     </div>
@@ -30,13 +30,13 @@
       <p class="text-text text-xs mr-13">
         Policy Type
         <span class="text-text-dark font-medium block mt-2 text-sm capitalize">
-        {{ claim.policy.type }}
+        {{ $t(claim.policy.type) }}
       </span>
       </p>
       <p class="text-text text-xs mr-13">
         Policy Number
         <span class="text-text-dark block mt-2 font-medium text-sm">
-        {{ claim.policy.number }}
+        {{ $t(claim.policy.number) }}
       </span>
       </p>
       <p class="text-text text-xs mr-13">
@@ -57,7 +57,7 @@
             class="block mt-2 text-sm capitalize font-medium"
             :class="computePolicyStatusColor(claim.policy.status)"
         >
-        {{ claim.policy.status }}
+        {{ $t(claim.policy.status) }}
       </span>
       </p>
     </div>
@@ -68,8 +68,8 @@
            @click.prevent="() => changeTab(tabIndex)"
            v-for="(tab, tabIndex) in tabs"
            class="tab"
-           :class="activeTab.name === tab.name ? 'active' : ''"
-           :key="`tabs:${tabIndex}`">{{ tab.name }}</a>
+           :class="activeTab.name === tab.name ? $t('active') : ''"
+           :key="`tabs:${tabIndex}`">{{ $t(tab.name) }}</a>
       </div>
 
       <div class="content">
@@ -79,7 +79,7 @@
     <v-overlay v-model="displayCommentModal">
       <div class="w-[600px] bg-white rounded">
         <div class="flex border-b items-center">
-          <p class="p-6 text-lg font-medium px-7 flex-grow-1">Add Comment</p>
+          <p class="p-6 text-lg font-medium px-7 flex-grow-1">{{ $t("Add Comment") }}</p>
           <div class="p-5" @click="displayCommentModal = false">
             <v-icon>mdi-close</v-icon>
           </div>
@@ -96,7 +96,7 @@
           </div>
           <div class="py-10">
             <v-btn block type="submit" @click="addComment">
-              Send
+              {{ $t("Send") }}
             </v-btn>
           </div>
         </div>
