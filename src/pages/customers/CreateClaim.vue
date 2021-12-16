@@ -39,7 +39,7 @@
         </div>
       </div>
       <div v-if="step === 3">
-        <p class="font-bold">{{ $t("Upload")}}</p>
+        <p class="font-bold">{{ $t("Upload documents")}}</p>
         <div
             class="bg-[#F8FBFC] border-[#F1F1F1] rounded-[6px] py-12 flex flex-col items-center justify-center mt-15 border cursor-pointer"
             @click="clickInputField">
