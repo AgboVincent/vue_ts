@@ -9,7 +9,7 @@
     <div class="flex items-center pl-6 pr-5 justify-between pt-10 pb-9 rounded bg-white" v-for="view in overview"
          :key="`summary:${view.key}`">
       <p class="text-text">
-        {{ view.name }}
+        {{ $t(view.name) }}
         <span class="text-2xl text-primary-deep font block" v-text="view.value"/>
       </p>
       <div class="w-[40px] h-[40px] grid place-items-center bg-secondary">
