@@ -1,54 +1,54 @@
 <template>
-  <AppBar navigator="Back to claims"/>
+  <AppBar :navigator='$t("Back to claims")'/>
 <!--  <v-alert-->
 <!--      type="success"-->
 <!--  ></v-alert>-->
   <p class="text-text-dark text-bold text-2xl">
-    Create Claims
+    {{ $t("Create Claims")}}
   </p>
   <div class="w-full bg-white p-10 my-10">
 
     <div class="w-1/2 mx-auto">
       <div v-if="step === 1">
-        <p class="font-bold">Accident Information</p>
+        <p class="font-bold">{{ $t("Accident Information")}}</p>
         <div class="grid grid-cols-2 gap-x-2">
-          <TextField v-model="form.date" label="Date of Accident" type="date"/>
-          <TextField v-model="form.time" label="Time" type="time"/>
+          <TextField v-model="form.date" :label='$t("Date of Accident")' type="date"/>
+          <TextField v-model="form.time" :label='$t("Time")' type="time"/>
         </div>
-        <TextField v-model="form.accident_type" label="Accident Type" required type="select" :options="accidentTypes"/>
-        <TextField v-model="form.description" label="Description" type="textarea" row="7" reqired/>
-        <TextField v-model="form.involves_third_party" label="Third Party Involved" type="select"
+        <TextField v-model="form.accident_type" :label='$t("Accident Type")' required type="select" :options="accidentTypes"/>
+        <TextField v-model="form.description" :label='$t("Description")' type="textarea" row="7" reqired/>
+        <TextField v-model="form.involves_third_party" :label='$t("Third Party Involved")' type="select"
                    :options="[{value: 1, label: 'Yes'}, {label: 'No', value: 0}]"/>
         <div class="flex justify-end mt-10">
-          <v-btn @click="nextStep">Next</v-btn>
+          <v-btn @click="nextStep">{{ $t("Next")}}</v-btn>
         </div>
       </div>
       <div v-if="step === 2">
-        <p class="font-bold">Third Party</p>
+        <p class="font-bold">{{ $t("Third Party")}}</p>
         <div class="grid grid-cols-2 gap-x-2">
-          <TextField v-model="form.third_party.full_name" label="Full Name"/>
-          <TextField v-model="form.third_party.mobile" label="Mobile"/>
+          <TextField v-model="form.third_party.full_name" :label='$t("Full Name")' />
+          <TextField v-model="form.third_party.mobile" :label='$t("Mobile")' />
         </div>
         <div class="grid grid-cols-2 gap-x-2">
-          <TextField v-model="form.third_party.policy_number" label="Policy Number"/>
-          <TextField v-model="form.third_party.company" label="Insurance Company"/>
+          <TextField v-model="form.third_party.policy_number" :label='$t("Policy Number")' />
+          <TextField v-model="form.third_party.company" :label='$t("Insurance Company")' />
         </div>
         <div class="flex justify-between mt-10">
-          <v-btn @click="prevStep">Prev</v-btn>
-          <v-btn @click="nextStep">Next</v-btn>
+          <v-btn @click="prevStep">{{ $t("Prev")}}</v-btn>
+          <v-btn @click="nextStep">{{ $t("Next")}}</v-btn>
         </div>
       </div>
       <div v-if="step === 3">
-        <p class="font-bold">Upload</p>
+        <p class="font-bold">{{ $t("Upload")}}</p>
         <div
             class="bg-[#F8FBFC] border-[#F1F1F1] rounded-[6px] py-12 flex flex-col items-center justify-center mt-15 border cursor-pointer"
             @click="clickInputField">
           <img :src="'/images/photos.png'" alt="Photos"/>
           <p class="text-[#268BD0] font-semibold pt-5 pb-3">
-            Upload Photos
+            {{ $t("Upload Photos")}}
           </p>
           <p class="text-[#666666] text-[11px] font-normal">
-            Add at least 4 pictures
+            {{ $t("Add at least 4 pictures")}}
           </p>
         </div>
         <TextField type="file" multiple @change="handleFileSelect" class="hidden"/>
@@ -58,23 +58,23 @@
           </div>
         </div>
         <div class="flex justify-between mt-10">
-          <v-btn @click="prevStep">Prev</v-btn>
-          <v-btn @click="nextStep">Next</v-btn>
+          <v-btn @click="prevStep">{{ $t("Prev")}}</v-btn>
+          <v-btn @click="nextStep">{{ $t("Next")}}</v-btn>
         </div>
       </div>
       <div v-if="step === 4">
-        <p class="font-bold">Quotes</p>
+        <p class="font-bold">{{ $t("Quotes")}}</p>
 
         <div class="grid grid-cols-3 gap-x-2" v-for="(quote, index) in form.quotes" :key="index">
           <TextField type="select" label="Type" :options="types" v-model="quote.type"/>
           <TextField type="number" label="Quantity" v-model="quote.quantity"/>
           <TextField type="number" label="Amount" v-model="quote.amount"/>
         </div>
-        <div class="cursor-pointer mt-3" @click="addNewQuote">Add Another Item</div>
+        <div class="cursor-pointer mt-3" @click="addNewQuote">{{ $t("Add Another Item")}}</div>
 
         <div class="flex justify-between mt-10">
-          <v-btn @click="prevStep">Prev</v-btn>
-          <v-btn @click="create">Create</v-btn>
+          <v-btn @click="prevStep">{{ $t("Prev")}}</v-btn>
+          <v-btn @click="create">{{ $t("Create")}}</v-btn>
         </div>
       </div>
     </div>
@@ -101,7 +101,7 @@ export default defineComponent({
     const query = ref(''),
         status = ref(''),
         {params} = useRoute(),
-        {push} = useRouter(), 
+        {push} = useRouter(),
         step = ref(1),
         accidentTypes = ref([]),
         form = ref({
@@ -200,7 +200,7 @@ export default defineComponent({
       .finally(() => loader.hide())
     }
 
-   
+
 
     function handleFileSelect(e: Event) {
       const element = e.target as HTMLInputElement

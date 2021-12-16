@@ -1,6 +1,6 @@
 <template>
   <p class="text-2xl font-bold text-text-dark">{{ $t("Create new password")}}</p>
-  <p class="text-text-dark">{{ $t("Your new password must be different from your previously used passwords.")}}</p>
+  <p class="text-text-dark">{{ $t("Your new password must be different from your previously used passwords")}}</p>
   <form @submit.prevent="sendForm">
     <TextField label="Password" v-model="password" placeholder="********" type="password" class="mb-12"/>
     <TextField label="Password Confirmation" v-model="password_confirmation" placeholder="********" type="password"

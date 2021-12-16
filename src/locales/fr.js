@@ -41,12 +41,13 @@ export default {
     "New Password": "Nouveau mot de passe",
     "New Password Confirmation": "Confirmation du nouveau mot de passe",
     "Save changes": "Sauvegarder les modifications",
-    "Accident information ": "Informations sur l'accident",
-    "Date of accident": "Date de l'accident",
-    "accident type": "Type d'accident",
-    "Description ": "Description",
+    "Accident Information": "Informations sur l'accident",
+    "Date of Accident": "Date de l'accident",
+    "Accident Type": "Type d'accident",
+    "Description": "Description",
     "Third Party Involved": "Tiers impliqué",
     "Create claim": "Créer une réclamation",
+    "Create Claims": "Créer une réclamation",
     "Policy Type": "Type de police d'assurance",
     "Policy Start": "Debut de la police d'assurance",
     "Policy Expiry": "Expiration de la police d'assurance",
@@ -86,7 +87,7 @@ export default {
     "full name": "Nom complet",
     "mobile": "mobile",
     "Insurance company ": "Compagnie d'assurance",
-    "next": "Suivant",
+    "Next": "Suivant",
     "previous": "Précédent",
     "search customers": "Rechercher des clients",
     "Emails": "Email (or use Courriels)",
@@ -103,4 +104,6 @@ export default {
     "adjust claim": "Ajuster la réclamation",
     "adjust price": "Ajuster le prix",
     "update": "Mise à jour",
+
+    "Back to claims": "Retour aux réclamations"
 }
