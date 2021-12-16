@@ -20,3 +20,10 @@ export function uploadExpertReport(claimId: number, expertId: number, formdata: 
         data: formdata
     })
 }
+
+export function getClaimExpertsRequest(claimId: number){
+    return request({
+        url: `api/admin/claims/${claimId}/experts`,
+        method: 'GET'
+    })
+}
