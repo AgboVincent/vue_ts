@@ -1,7 +1,8 @@
 <template>
-  <p class="text-2xl font-bold text-text-dark">Forgot Password</p>
-  <p class="text-text-dark">Enter your email associated with your account and we would send an email with instructions
-    to reset your password</p>
+  <p class="text-2xl font-bold text-text-dark">{{ $t("Forgot Password")}}</p>
+  <p class="text-text-dark">
+    {{ $t("Enter your email associated with your account and we would send an email with instructions to reset your password")}}
+  </p>
   <form @submit.prevent="submit">
     <TextField
         label="Email Address"
@@ -11,9 +12,9 @@
         class="mb-12"
     />
 
-    <v-btn type="submit" block>Send Instructions</v-btn>
+    <v-btn type="submit" block>{{ $t("Send Instructions")}}</v-btn>
   </form>
-  <v-btn block to="/login" elevation="0" color="white" class="mt-6">Go Back</v-btn>
+  <v-btn block to="/login" elevation="0" color="white" class="mt-6">{{ $t("Go Back")}}</v-btn>
 </template>
 
 <script lang="ts">

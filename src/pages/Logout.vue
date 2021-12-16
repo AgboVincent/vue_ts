@@ -1,5 +1,5 @@
 <template>
-  <h1>Logging out...</h1>
+  <h1>{{ $t("Logging out...")}}</h1>
 </template>
 <script lang="ts">
 import {useStore} from "../store";
