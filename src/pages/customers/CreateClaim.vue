@@ -34,8 +34,8 @@
           <TextField v-model="form.third_party.company" label="Insurance Company"/>
         </div>
         <div class="flex justify-between mt-10">
-          <v-btn @click="step = 1">Prev</v-btn>
-          <v-btn @click="step = 3">Next</v-btn>
+          <v-btn @click="prevStep">Prev</v-btn>
+          <v-btn @click="nextStep">Next</v-btn>
         </div>
       </div>
       <div v-if="step === 3">
@@ -53,13 +53,13 @@
         </div>
         <TextField type="file" multiple @change="handleFileSelect" class="hidden"/>
         <div class="w-full grid grid-cols-4 gap-4 pt-5">
-          <div class=" object-cover" v-for="image in images">
+          <div class="object-cover" v-for="image in images">
             <img :src="image.path" alt="Image" class="w-[118px] h-[80px] object-cover"/>
           </div>
         </div>
         <div class="flex justify-between mt-10">
           <v-btn @click="prevStep">Prev</v-btn>
-          <v-btn @click="step = 4">Next</v-btn>
+          <v-btn @click="nextStep">Next</v-btn>
         </div>
       </div>
       <div v-if="step === 4">
@@ -73,7 +73,7 @@
         <div class="cursor-pointer mt-3" @click="addNewQuote">Add Another Item</div>
 
         <div class="flex justify-between mt-10">
-          <v-btn @click="step = 3">Prev</v-btn>
+          <v-btn @click="prevStep">Prev</v-btn>
           <v-btn @click="create">Create</v-btn>
         </div>
       </div>
@@ -101,7 +101,7 @@ export default defineComponent({
     const query = ref(''),
         status = ref(''),
         {params} = useRoute(),
-        {push} = useRouter(),
+        {push} = useRouter(), 
         step = ref(1),
         accidentTypes = ref([]),
         form = ref({
@@ -124,7 +124,7 @@ export default defineComponent({
           })
     }
 
-    onMounted(() => fetchAccidentTypes())
+    onMounted(() => fetchAccidentTypes()) //remove this
     onMounted(function () {
       getClaimItemTypesRequest()
           .then(({data}) => {
@@ -135,8 +135,54 @@ export default defineComponent({
     function nextStep() {
       switch (step.value) {
         case 1:
-          console.log(form.value.involves_third_party, form.value.involves_third_party ? 2 : 3)
-          return step.value = Number(form.value.involves_third_party) ? 2 : 3
+          if(!(form.value.date && form.value.time)) {
+            alert('Please fill in the date and time')
+            return
+          }
+          if(!form.value.accident_type) {
+            alert('Please select accident type')
+            return
+          }
+          if(!form.value.description) {
+            alert('Please fill in description')
+            return
+          }
+          return step.value = Number(form.value.involves_third_party) ? 2 : 3;
+        case 2:
+          if(!form.value.third_party.full_name) {
+            alert('Please fill in full name')
+            return
+          }
+          if(!form.value.third_party.mobile) {
+            alert('Please fill in mobile')
+            return
+          }
+          if(!form.value.third_party.policy_number) {
+            alert('Please fill in policy number')
+            return
+          }
+          if(!form.value.third_party.company) {
+            alert('Please fill in company')
+            return
+          }
+          return step.value = 3;
+        case 3:
+          if(images.value.length < 4) {
+            alert('Please upload at least 4 pictures')
+            return
+          }
+          return step.value = 4;
+      }
+    }
+
+    function prevStep() {
+      switch (step.value) {
+        case 2:
+          return step.value = 1;
+        case 3:
+          return step.value = Number(form.value.involves_third_party) ? 2 : 1
+        case 4:
+          return step.value = 3;
       }
     }
 
@@ -154,12 +200,7 @@ export default defineComponent({
       .finally(() => loader.hide())
     }
 
-    function prevStep() {
-      switch (step.value) {
-        case 3:
-          return step.value = Number(form.value.involves_third_party) ? 2 : 1
-      }
-    }
+   
 
     function handleFileSelect(e: Event) {
       const element = e.target as HTMLInputElement
