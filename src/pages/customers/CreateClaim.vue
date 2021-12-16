@@ -27,7 +27,7 @@
         <p class="font-bold">{{ $t("Third Party")}}</p>
         <div class="grid grid-cols-2 gap-x-2">
           <TextField v-model="form.third_party.full_name" :label='$t("Full Name")' />
-          <TextField v-model="form.third_party.mobile" :label='$t("Mobile")' />
+          <TextField type="number" v-model="form.third_party.mobile" :label='$t("Mobile")' />
         </div>
         <div class="grid grid-cols-2 gap-x-2">
           <TextField v-model="form.third_party.policy_number" :label='$t("Policy Number")' />
@@ -39,7 +39,7 @@
         </div>
       </div>
       <div v-if="step === 3">
-        <p class="font-bold">{{ $t("Upload documents")}}</p>
+        <p class="font-bold">{{ $t("Upload")}}</p>
         <div
             class="bg-[#F8FBFC] border-[#F1F1F1] rounded-[6px] py-12 flex flex-col items-center justify-center mt-15 border cursor-pointer"
             @click="clickInputField">
@@ -66,15 +66,15 @@
         <p class="font-bold">{{ $t("Quotes")}}</p>
 
         <div class="grid grid-cols-3 gap-x-2" v-for="(quote, index) in form.quotes" :key="index">
-          <TextField type="select" label="Type" :options="types" v-model="quote.type"/>
-          <TextField type="number" label="Quantity" v-model="quote.quantity"/>
-          <TextField type="number" label="Amount" v-model="quote.amount"/>
+          <TextField type="select" :label='$t("Type")' :options="types" v-model="quote.type"/>
+          <TextField type="number" :label='$t("Quantity")' v-model="quote.quantity"/>
+          <TextField type="number" :label='$t("Amount")' v-model="quote.amount"/>
         </div>
         <div class="cursor-pointer mt-3" @click="addNewQuote">{{ $t("Add Another Item")}}</div>
 
         <div class="flex justify-between mt-10">
           <v-btn @click="prevStep">{{ $t("Prev")}}</v-btn>
-          <v-btn @click="create">{{ $t("Create")}}</v-btn>
+          <v-btn @click="create">{{ $t("Create claim")}}</v-btn>
         </div>
       </div>
     </div>
