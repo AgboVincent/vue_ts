@@ -164,5 +164,7 @@ export default {
     "Select payment method": "Sélectionnez le moyen de paiement",
     "Payment Reference": "Référence paiement",
     "Issuer": "Emetteur",
-    "Means of payment": "Moyen de paiement"
+    "Means of payment": "Moyen de paiement",
+    "Upload Photos":"Télécharger des photos",
+    "Add at least 4 pictures":"Ajoutez au moins 4 photos"
 }
