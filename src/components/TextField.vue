@@ -1,6 +1,6 @@
 <template>
   <div class="mt-7 w-full">
-    <p v-if="label" class="pb-2 text-text text-xs">{{ label }}</p>
+    <p v-if="label" class="pb-2 text-text text-xs">{{ $t(label) }}</p>
     <div class="relative flex items-center border rounded-md p-3 w-full">
       <v-icon color="#DBDBDB" v-if="icon">{{ icon }}</v-icon>
       <textarea
@@ -8,7 +8,7 @@
           :rows="rows"
           class="text-text-dark outline-none text-sm pl-4 flex-grow"
           :value="modelValue"
-          :placeholder="placeholder"
+          :placeholder="$t(placeholder)"
           @input="$event => $emit('update:modelValue', $event.target.value)"
       />
       <div
@@ -18,17 +18,17 @@
             class="pl-4 text-text-dark outline-none text-sm w-full"
             @change="handleSelectChange"
             :value="modelValue">
-          <option selected disabled value="">{{ placeholder ?? label }}</option>
+          <option selected disabled value="">{{ $t(placeholder) ?? $t(label) }}</option>
           <option v-for="(option, index) in options"
                   :key="`option::${index}`"
                   :value="option.value">
-            {{ shrinkText(option.label, 70) }}
+            {{ $t(shrinkText(option.label, 70)) }}
           </option>
         </select>
       </div>
       <input class="text-text-dark outline-none text-sm pl-4 flex-grow" :value="modelValue"
              v-else
-             :placeholder="placeholder" :type="type"
+             :placeholder="$t(placeholder)" :type="type"
              v-bind='{change: $attrs.change}'
              @input="$event => $emit('update:modelValue', $event.target.value)"
       />
