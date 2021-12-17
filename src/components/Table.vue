@@ -11,9 +11,13 @@
     <tr v-for="(item, index) in items" :key="`item:${index}`" class="text-text-dark">
       <slot :item="item" :index="index"/>
     </tr>
-    
+
+    <tr v-if="!items.length"  class="text-text-dark">
+      <td :colspan="headers.length">{{$t("No data available")}}</td>
+    </tr>
+
     <slot name="moreItems"/>
-    
+
     </tbody>
     <tfoot v-if="totalPages > 1">
     <tr>
