@@ -21,7 +21,7 @@
       <td>{{ formatDateTime(row.created_at) }}</td>
       <td>
         <div class="v-chip v-theme--light v-chip--density-default v-chip--size-default v-chip--variant-contained"
-             :class="getClaimStatus(row)">{{ row.status }}
+             :class="getClaimStatus(row)">{{ $t(row.status) }}
         </div>
       </td>
       <td>
@@ -37,12 +37,12 @@
             </ui-menuitem>
             <ui-menuitem @click="markAsPaid(row)">
               <div class="option">
-                Mark As Paid
+                {{ $t("Mark As Paid") }}
               </div>
             </ui-menuitem>
             <ui-menuitem @click="makeTransfer(row)">
               <div class="option">
-                Process Transfer
+                {{ $t("Process Transfer") }}
               </div>
             </ui-menuitem>
           </ui-menu>

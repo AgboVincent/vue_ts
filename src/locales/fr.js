@@ -1,9 +1,11 @@
 export default {
     login: 'Connexion',
-    logout: 'Deconnexion',
+    "Logout": 'Deconnexion',
     dashboard: 'Tableau de bord',
     claims: 'Réclamations',
+    "Claims": 'Réclamations',
     customers: "Clients",
+    "Customers": "Clients",
     profile: 'Profil',
     settings: 'Paramètres',
 
@@ -19,11 +21,11 @@ export default {
     date: 'Date',
     "Status": 'Statut',
 
-    "view": "Voir",
-    "mark as paid": "marquer comme payé",
-    "process transfer": "Effectuer le transfert",
+    "View": "Voir",
+    "Mark As Paid": "marquer comme payé",
+    "Process Transfer": "Effectuer le transfert",
     "Filter By": "Trier par",
-    "pending ": "En attente",
+    "pending": "En attente",
     "approved": "Approuvé",
     "rejected": "Rejeté",
     "completed": "complet (or Terminé)",
@@ -35,7 +37,7 @@ export default {
     "Active": "Actif",
     "expired": "expiré",
     "active": "actif",
-    "profile settings": "Paramètres de profil",
+    "Profile Settings": "Paramètres de profil",
     "Personal Information": "Informations personnelles",
     "Change password": "Changer le mot de passe",
     "Your password should be at least 8 characters and contain a uppercase, lowercase, number and special character": "Votre mot de passe doit comporter au minimum 8 caractères et contenir une majuscule, une minuscule, un chiffre et un caractère spécial",
@@ -124,5 +126,7 @@ export default {
     "Phone Number": "Numéro de téléphone",
     "Policy Status": "État de la politique",
     "Name": 'Nom',
-    "Search customers, emails , claim references":"Rechercher des clients, des e-mails, des références de réclamation"
+    "Search customers, emails , claim references":"Rechercher des clients, des e-mails, des références de réclamation",
+    "declined": "diminué",
+    "awaiting payment": "En attente de paiement",
 }
