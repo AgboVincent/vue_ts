@@ -15,7 +15,7 @@
           <ui-menu v-model="openTranslate">
             <ui-menuitem v-for="item in countries" class="vg-container " :key="item.id" @click="translate(item.code)"
                          :title="item.title">
-              {{ item.title }}
+              {{ $t(item.title) }}
             </ui-menuitem>
 
           </ui-menu>
@@ -41,8 +41,8 @@
             {{ $store.state.profile.first_name }} {{ $store.state.profile.last_name }}
             <span class="text-text text-xs font-normal">{{ $store.state.profile.email }}</span>
           </p>
-          <router-link to="/settings" class="text-text block p-4 text-xs">Profile Settings</router-link>
-          <router-link to="/logout" class="block text-xs text-text p-4">Logout</router-link>
+          <router-link to="/settings" class="text-text block p-4 text-xs">{{ $t('Profile Settings') }}</router-link>
+          <router-link to="/logout" class="block text-xs text-text p-4">{{ $t('Logout') }}</router-link>
         </div>
       </ui-menu>
     </ui-menu-anchor>
