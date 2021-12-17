@@ -133,5 +133,6 @@ export default {
     "Guarantees":"Garanties",
     "Payment Method":"Référence de paiement",
     "Recipient":"Destinataire",
-    "Date Created": "Date de creation"
+    "Date Created": "Date de creation",
+    "No data available": "Pas de données disponibles"
 }
