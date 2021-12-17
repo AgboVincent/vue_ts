@@ -1,5 +1,5 @@
 import {request} from "./default";
-import {ClaimUpdateType} from "../types";
+import {ClaimUpdateType, FinancialMovementType} from "../types";
 
 export function getClaimsRequest(page = 1, query = null, status = null) {
     return request({
@@ -121,5 +121,13 @@ export function updateClaimsExpertsRequirementRequest(id: number, value: boolean
         url: `api/admin/claims/${id}/expert-requirement`,
         method: 'POST',
         data: {value}
+    })
+}
+
+export function submitFinancialMovement(claim_id: number, formData: Partial<FinancialMovementType>){
+    return request({
+        url: `api/admin/claims/${claim_id}/financial-movements`,
+        method: 'POST',
+        data: {...formData}
     })
 }
