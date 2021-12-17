@@ -109,6 +109,13 @@ export function getClientResponsibiltiesRequest(){
     })
 }
 
+export function getFinancialMovements(claim_id: number){
+    return request({
+        url: `api/admin/claims/${claim_id}/financial-movements`,
+        method: 'GET'
+    })
+}
+
 export function updateClaimsExpertsRequirementRequest(id: number, value: boolean){
     return request({
         url: `api/admin/claims/${id}/expert-requirement`,
