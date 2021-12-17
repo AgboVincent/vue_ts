@@ -129,4 +129,9 @@ export default {
     "Search customers, emails , claim references":"Rechercher des clients, des e-mails, des références de réclamation",
     "declined": "diminué",
     "awaiting payment": "En attente de paiement",
+
+    "Guarantees":"Garanties",
+    "Payment Method":"Référence de paiement",
+    "Recipient":"Destinataire",
+    "Date Created": "Date de creation"
 }
