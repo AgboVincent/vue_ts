@@ -151,6 +151,7 @@ export default defineComponent({
       submitFinancialMovement(this.claim_id, this.form)
           .then(() => {
             this.$emit('newFinMovement');
+            this.reset()
           })
     },
     reset () {
