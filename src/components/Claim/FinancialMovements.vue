@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="w-full flex -mt-5 mb-10">
-      <Table :items="movements" :headers="['Nature', 'Guarantees','Recipient','Amount','Payment Method','Date Created']" >
+      <Table :items="movements" :headers="[$t('Nature'), $t('Guarantees'),$t('Recipient'),$t('Amount'),$t('Payment Method'),$t('Date Created')]" >
         <template v-slot:default="{ item: row, index }">
 
           <td>{{ row.nature }}</td>

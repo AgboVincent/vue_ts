@@ -166,5 +166,12 @@ export default {
     "Issuer": "Emetteur",
     "Means of payment": "Moyen de paiement",
     "Upload Photos":"Télécharger des photos",
-    "Add at least 4 pictures":"Ajoutez au moins 4 photos"
-}
+    "Add at least 4 pictures":"Ajoutez au moins 4 photos",
+    "Nature":"Nature",
+    "Add": "Ajouter",
+    "Add Financial Movement":"Ajouter le mouvement financier",
+    "Submit":"Soumettre",
+    "Cancel":"Annuler",
+    "Financial Movements":"Mouvements financiers"
+
+}   

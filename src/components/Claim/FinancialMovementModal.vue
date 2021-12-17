@@ -10,13 +10,13 @@
             color=" lighten-2"
             dark
         >
-          Add
+          {{$t('Add')}}
         </v-btn>
       </template>
 
       <v-card min-height="500" width="500">
         <v-card-title class="text-h5 grey lighten-2">
-          Add Financial Movement
+          {{$t('Add Financial Movement')}}
         </v-card-title>
 
         <v-card-text style="height: 500px; overflow-y: scroll">
@@ -105,7 +105,7 @@
               :disabled="invalid"
               @click="submitForm"
           >
-            Submit
+            {{$t('Submit')}}
           </v-btn>
 
           <v-btn
@@ -113,7 +113,7 @@
               variant="text"
               @click="reset"
           >
-            Cancel
+            {{$t('Cancel')}}
           </v-btn>
         </v-card-actions>
       </v-card>
