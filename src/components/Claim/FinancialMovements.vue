@@ -29,7 +29,7 @@ import {getFinancialMovements} from "../../requests";
 import FinancialMovementModal from "./FinancialMovementModal.vue";
 
 export default defineComponent({
-  name: 'ClaimComments',
+  name: 'FinancialMovements',
   components: {TextField, Table, FinancialMovementModal},
   props: {
     claim: {
