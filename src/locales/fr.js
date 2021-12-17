@@ -151,7 +151,7 @@ export default {
     "Add expert":"Ajouter un expert",
     "Choose expert":"Choisir un expert",
     "50% responsible":"50% responsable",
-    "100% responsible":"50% responsable",
+    "100% responsible":"100% responsable",
     "Not responsible": "Pas responsable",
     "comment":"Commentaire",
     "insurance":"assurances",
