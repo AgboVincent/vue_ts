@@ -1,6 +1,6 @@
 <template>
   <div class="mt-7 w-full">
-    <p v-if="label" class="pb-2 text-text text-xs">{{ label }}</p>
+    <p v-if="label" class="pb-2 text-text text-xs">{{ $t(label) }}</p>
     <div class="relative flex items-center border rounded-md p-3 w-full">
       <v-icon color="#DBDBDB" v-if="icon">{{ icon }}</v-icon>
       <textarea
@@ -18,11 +18,11 @@
             class="pl-4 text-text-dark outline-none text-sm w-full"
             @change="handleSelectChange"
             :value="modelValue">
-          <option selected disabled value="">{{ placeholder ?? label }}</option>
+          <option selected disabled value="">{{ (placeholder) ?? (label) }}</option>
           <option v-for="(option, index) in options"
                   :key="`option::${index}`"
                   :value="option.value">
-            {{ shrinkText(option.label, 70) }}
+            {{ (shrinkText(option.label, 70)) }}
           </option>
         </select>
       </div>

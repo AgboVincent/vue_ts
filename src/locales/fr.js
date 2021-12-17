@@ -93,7 +93,7 @@ export default {
     "sender": "Expéditeur",
     "Full Name": "Nom complet",
     "Mobile": "mobile",
-    "Insurance Company": "Compagnie d'assurance",
+    "Insurance Company ": "Compagnie d'assurance",
     "Next": "Suivant",
     "previous": "Précédent",
     "Prev": "Précédent",
@@ -131,10 +131,10 @@ export default {
     "awaiting payment": "En attente de paiement",
 
     "Guarantees":"Garanties",
+    "Guarantee(s)":"Garantie(s)",
     "Payment Method":"Référence de paiement",
     "Recipient":"Destinataire",
     "Date Created": "Date de creation",
-    "No data available": "Pas de données disponibles",
     "enter date and time": "Veuillez renseigner la date et l'heure",
     "password is required": "Le champ du mot de passe actuel est obligatoire",
     "mm/dd/yyyy": "mm/jj/aaaa",
@@ -155,7 +155,14 @@ export default {
     "Not responsible": "Pas responsable",
     "comment":"Commentaire",
     "insurance":"assurances",
-    "broker":"courtier"
-
-
+    "broker":"courtier",
+    "No data available": "Pas de données disponibles",
+    "Select nature": "Sélectionnez la nature",
+    "Select issuer": "Sélectionnez l'émetteur",
+    "Select Recipient": "Sélectionnez le destinataire",
+    "Movement Amount": "Montant du mouvement",
+    "Select payment method": "Sélectionnez le moyen de paiement",
+    "Payment Reference": "Référence paiement",
+    "Issuer": "Emetteur",
+    "Means of payment": "Moyen de paiement"
 }

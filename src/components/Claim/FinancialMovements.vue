@@ -14,7 +14,7 @@
       </Table>
     </div>
 
-    <financial-movement-modal></financial-movement-modal>
+    <financial-movement-modal :claim_id="claim_id" @newFinMovement="fetchMovements"></financial-movement-modal>
 
 
   </div>
@@ -38,7 +38,7 @@ export default defineComponent({
   },
   setup(props) {
     const movements = ref([] as Array<FinancialMovementType>),
-        total = ref(1)
+        total = ref(1), claim_id = props.claim.id
 
     function fetchMovements() {
       getFinancialMovements(props.claim.id)
@@ -49,7 +49,7 @@ export default defineComponent({
     }
 
     onMounted(() => fetchMovements())
-    return {movements, total}
+    return {movements, total, claim_id, fetchMovements}
   }
 })
 </script>
