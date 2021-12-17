@@ -8,7 +8,7 @@
           :rows="rows"
           class="text-text-dark outline-none text-sm pl-4 flex-grow"
           :value="modelValue"
-          :placeholder="$t(placeholder)"
+          :placeholder="placeholder"
           @input="$event => $emit('update:modelValue', $event.target.value)"
       />
       <div
@@ -18,17 +18,17 @@
             class="pl-4 text-text-dark outline-none text-sm w-full"
             @change="handleSelectChange"
             :value="modelValue">
-          <option selected disabled value="">{{ $t(placeholder) ?? $t(label) }}</option>
+          <option selected disabled value="">{{ (placeholder) ?? (label) }}</option>
           <option v-for="(option, index) in options"
                   :key="`option::${index}`"
                   :value="option.value">
-            {{ $t(shrinkText(option.label, 70)) }}
+            {{ (shrinkText(option.label, 70)) }}
           </option>
         </select>
       </div>
       <input class="text-text-dark outline-none text-sm pl-4 flex-grow" :value="modelValue"
              v-else
-             :placeholder="$t(placeholder)" :type="type"
+             :placeholder="placeholder" :type="type"
              v-bind='{change: $attrs.change}'
              @input="$event => $emit('update:modelValue', $event.target.value)"
       />
