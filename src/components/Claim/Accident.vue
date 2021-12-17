@@ -9,58 +9,58 @@
   <div class="row">
     <div class="col">
       <div class="item">
-        <p class="field">Date and Time of Incident</p>
+        <p class="field">{{$t('Date and Time of Incident')}}</p>
         <p class="value">
           {{ formatDateTime(claim.accident.occurred_at) }}
         </p>
       </div>
       <div class="item">
-        <p class="field">Accident Type</p>
+        <p class="field">{{$t('Accident Type')}}</p>
         <p class="value">{{ claim.accident.type.name }}</p>
       </div>
       <div class="item">
-        <p class="field">Third Party Involved</p>
-        <p class="value">{{ claim.accident.involved_third_party ? 'Yes':'No' }}</p>
+        <p class="field">{{$t('Third Party Involved')}}</p>
+        <p class="value">{{ claim.accident.involved_third_party ? $t('Yes'):$t('No') }}</p>
       </div>
     </div>
     <div class="col">
       <div class="item">
-        <p class="field">Accident Description</p>
+        <p class="field">{{$t('Accident Description')}}</p>
         <p class="value">{{ claim.accident.description }}</p>
       </div>
     </div>
   </div>
 
-  <p class="heading" v-if="claim.accident.involved_third_party">Third Party Details</p>
+  <p class="heading" v-if="claim.accident.involved_third_party">{{$t('Third Party Details')}}</p>
   <div class="row" v-if="claim.accident.involved_third_party">
     <div class="col">
       <div class="item">
-        <p class="field">Full Name</p>
+        <p class="field">{{$t('Full Name')}}</p>
         <p class="value">{{ claim.accident.third_party.full_name }}</p>
       </div>
       <div class="item">
-        <p class="field">Phone Number</p>
+        <p class="field">{{$t('Phone Number')}}</p>
         <p class="value">{{ claim.accident.third_party.mobile }}</p>
       </div>
     </div>
     <div class="col">
       <div class="item">
-        <p class="field">Insurance Company</p>
+        <p class="field">{{$t('Insurance Company')}}</p>
         <p class="value">{{ claim.accident.third_party.company }}</p>
       </div>
       <div class="item">
-        <p class="field">Policy Number</p>
+        <p class="field">{{$t('Policy Number')}}</p>
         <p class="value">{{ claim.accident.third_party.policy_number }}</p>
       </div>
     </div>
   </div>
 
-  <p class="heading">Uploaded Document</p>
+  <p class="heading">{{$t('Uploaded documents')}}</p>
 
   <v-overlay v-model="displayClaimEditModal">
     <div class="w-[600px] bg-white rounded">
       <div class="flex border-b items-center">
-        <p class="p-6 text-lg font-medium px-7 flex-grow-1">Edit Details</p>
+        <p class="p-6 text-lg font-medium px-7 flex-grow-1">{{$t('Edit Details')}}</p>
         <div class="p-5" @click="displayClaimEditModal = false">
           <v-icon>mdi-close</v-icon>
         </div>
@@ -82,7 +82,7 @@
                 label="Third Party Involved"
                 type="select"
                 v-model="form.involved_third_party"
-                :options="[{value: 1, label: 'Yes'}, {value: 0, label: 'No'}]"/>
+                :options="[{value: 1, label: $t('Yes')}, {value: 0, label: $t('No')}]"/>
           </div>
           <div>
             <TextField
@@ -108,7 +108,7 @@
           </div>
           <div class="py-10">
             <v-btn block type="submit">
-              Update Details
+              {{$t('Update Details')}}
             </v-btn>
           </div>
         </div>

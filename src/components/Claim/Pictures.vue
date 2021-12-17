@@ -4,10 +4,10 @@
       <a :href="picture.file.path" v-if="['png','jpg','jpeg'].includes(picture.file.ext)" target="_blank">
         <img
             :src="picture.file.path"
-            alt="Vehicle"/>
+            :alt="$t('Vehicle')"/>
       </a>
       <video controls :src="picture.file.path" v-else-if="picture.file.mime.includes('video')"></video>
-      <a :href="picture.file.path" v-else target="_blank">Download Document</a>
+      <a :href="picture.file.path" v-else target="_blank">{{$t('Download Document')}}</a>
     </template>
   </div>
 </template>

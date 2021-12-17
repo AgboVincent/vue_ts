@@ -17,5 +17,5 @@ export default {
     policyNumber: 'policy number',
     carModel: 'car model',
     date: 'date',
-    status: 'status'
+    status: 'status',
 }
