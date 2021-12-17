@@ -139,3 +139,14 @@ export type CommentType =  {
         type: 'broker' | 'insurance' | 'user'
     }
 }
+
+export type FinancialMovementType =  {
+    id: number
+    nature: string
+    created_at: string | Date
+    issuer: string,
+    recipient : string,
+    guarantees : Array <string>,
+    amount: number,
+    payment_method : string
+}

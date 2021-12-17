@@ -1,7 +1,17 @@
 <template>
   <div>
     <div class="w-full flex -mt-5 mb-10">
+      <Table :items="movements" :headers="['Nature', 'Guarantees','Recipient','Amount','Payment Method','Date Created']" >
+        <template v-slot:default="{ item: row, index }">
 
+          <td>{{ row.nature }}</td>
+          <td>{{ row.guarantees ? row.guarantees.join(', ') : '' }}</td>
+          <td>{{ row.recipient }}</td>
+          <td>{{ row.amount }}</td>
+          <td>{{ row.payment_method }}</td>
+          <td>{{ formatDateTime(row.created_at) }}</td>
+        </template>
+      </Table>
     </div>
 
     <financial-movement-modal></financial-movement-modal>
@@ -12,10 +22,10 @@
 
 <script lang="ts">
 import {defineComponent, onMounted, PropType, ref} from "vue";
-import {ClaimType, CommentType} from "../../types";
+import {ClaimType, FinancialMovementType} from "../../types";
 import Table from './../Table.vue'
 import TextField from "../TextField.vue";
-import {claimCommentsRequest} from "../../requests";
+import {getFinancialMovements} from "../../requests";
 import FinancialMovementModal from "./FinancialMovementModal.vue";
 
 export default defineComponent({
@@ -27,16 +37,19 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const comments = ref([] as Array<CommentType>),
-        currentPage = ref(1),
+    const movements = ref([] as Array<FinancialMovementType>),
         total = ref(1)
 
-    function fetchComments(page: number = 1) {
-
+    function fetchMovements() {
+      getFinancialMovements(props.claim.id)
+          .then(({data}) => {
+            console.log(data)
+            movements.value.push(...data)
+          })
     }
 
-    onMounted(() => fetchComments(1))
-    return {comments, currentPage, total}
+    onMounted(() => fetchMovements())
+    return {movements, total}
   }
 })
 </script>
