@@ -12,7 +12,7 @@
       <div v-if="step === 1">
         <p class="font-bold">{{ $t("Accident Information")}}</p>
         <div class="grid grid-cols-2 gap-x-2">
-          <TextField v-model="form.date" :label='$t("Date of Accident")' type="date"/>
+          <TextField v-model="form.date" :label='$t("Date of Accident")' type="date" :placeholder="$t('mm/dd/yyyy')"/>
           <TextField v-model="form.time" :label='$t("Time")' type="time"/>
         </div>
         <TextField v-model="form.accident_type" :label='$t("Accident Type")' required type="select" :options="accidentTypes"/>
@@ -136,39 +136,47 @@ export default defineComponent({
       switch (step.value) {
         case 1:
           if(!(form.value.date && form.value.time)) {
-            alert('Please fill in the date and time')
+            // alert('Please fill in the date and time')
+            alert("Veuillez renseigner la date et l'heure")
             return
           }
           if(!form.value.accident_type) {
-            alert('Please select accident type')
+            // alert('Please select accident type')
+            alert("Veuillez sélectionner le type d'accident")
             return
           }
           if(!form.value.description) {
-            alert('Please fill in description')
+            // alert('Please fill in description')
+            alert('Veuillez remplir la description')
             return
           }
           return step.value = Number(form.value.involves_third_party) ? 2 : 3;
         case 2:
           if(!form.value.third_party.full_name) {
-            alert('Please fill in full name')
+            // alert('Please fill in full name')
+            alert('Veuillez indiquer le nom complet')
             return
           }
           if(!form.value.third_party.mobile) {
-            alert('Please fill in mobile')
+            // alert('Please fill in mobile')
+            alert("Veuillez remplir le formulaire mobile")
             return
           }
           if(!form.value.third_party.policy_number) {
-            alert('Please fill in policy number')
+            // alert('Please fill in policy number')
+            alert("Veuillez indiquer le numéro de police")
             return
           }
           if(!form.value.third_party.company) {
-            alert('Please fill in company')
+            // alert('Please fill in company')
+            alert("Veuillez indiquer la société")
             return
           }
           return step.value = 3;
         case 3:
           if(images.value.length < 4) {
-            alert('Please upload at least 4 pictures')
+            // alert('Please upload at least 4 pictures')
+            alert("Veuillez télécharger au moins 4 photos")
             return
           }
           return step.value = 4;

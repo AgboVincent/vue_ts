@@ -2,7 +2,7 @@
   <div>
     <div class="w-full flex -mt-5 mb-10">
       <div class="w-2/3">
-        <Table :items="claim.items" :headers="['Name', 'Quantity', 'Quote', 'Amount','Status','']">
+        <Table :items="claim.items" :headers="[$t('Name'), $t('Quantity'), $t('Quote'), $t('Amount'), $t('Status'),'']">
           <template v-slot:default="{ item: row, index }">
             <td>{{ row.type.name }} <span v-if="row.ml_prediction" class="bg-[#268BD0] text-white p-1 rounded">MlAa</span></td>
             <!-- <td>{{ row.is_damaged ? 'Yes' : 'No' }}</td>git -->
@@ -10,7 +10,7 @@
             <td>{{ money(row.quote) }}</td>
             <td>{{ money(row.amount) }}</td>
             <td>
-              <v-chip :class="getClaimStatus(row)" class="capitalize">{{ row.status }}</v-chip>
+              <v-chip :class="getClaimStatus(row)" class="capitalize">{{ $t(row.status) }}</v-chip>
             </td>
             <td>
               <ui-menu-anchor
@@ -22,7 +22,7 @@
                     v-model="row.opened"
                     @selected="(a) => handleStatusUpdate(a, row)"
                     :distance="{ right: 10 }"
-                    :items="['Approve', 'Reject', 'Adjust']"
+                    :items="[$t('Approve'), $t('Reject'), $t('Adjust')]"
                 />
               </ui-menu-anchor>
             </td>
@@ -31,17 +31,17 @@
 
         <div class="mt-5">
           <input type="checkbox" id="expertRequired" v-model="expertRequired" @change="saveExpertRequirement">
-          <label for="expertRequired" class="ml-1">Expert Required</label>
+          <label for="expertRequired" class="ml-1">{{$t('Expert required')}}</label>
         </div>
 
         <div v-if="expertRequired" class="mt-4">
-          <v-btn @click="openExpertsModal" class="ma-2 bg-primary text-white rounded" variant="outlined">Assign Expert</v-btn>
+          <v-btn @click="openExpertsModal" class="ma-2 bg-primary text-white rounded" variant="outlined">{{$t('Assign expert')}}</v-btn>
         </div>
 
         <div v-if="expertToAdd && expertToAdd.id" class="mt-4" >
           <v-button class="bg-secondary text-primary">{{ expertToAdd.name }}</v-button> <br>
           <form id="reportform" action="">
-            <label href="javasacript:void(0)" class="ml-3 text-primary" for="report">Add report</label>
+            <label href="javasacript:void(0)" class="ml-3 text-primary" for="report">{{$t('Add report')}}</label>
             <!-- select only pdf or word documents-->
             <input name="report" @input="readReport($event)" type="file" id="report" style="display:none" accept=".pdf, .doc, .docx, .xls, .xlsx">
           </form>
@@ -58,16 +58,16 @@
         <!-- display claim experts -->
         <div v-if="claimExperts.length" class="mt-4">
           <div class="flex items-center mb-2">
-            <span class="text">Assigned Experts</span>
+            <span class="text">{{$t('Assigned Experts')}}</span>
           </div>
           <div class="mb-5" v-for="expert in claimExperts" :key="expert.id">
             <form :id="'reportform' + expert.id">
               <v-chip class="capitalize"  :color="expert.color" :text-color="expert.textColor">{{ expert.name }}</v-chip>
-              <label href="javasacript:void(0)" @click="openReportModal(expert.id)" class="ml-3 text-primary" :for="'report' + expert.id">Add report</label>
+              <label href="javasacript:void(0)" @click="openReportModal(expert.id)" class="ml-3 text-primary" :for="'report' + expert.id">{{$t('Add report')}}</label>
               <input name="report" @input="readReport($event)" type="file" :id="'report' + expert.id" style="display:none" accept=".pdf, .doc, .docx, .xls, .xlsx">
             </form>
             <div v-if="expert.reports" class="mt-2">
-              <p class="text-sm mb-2">Reports</p>
+              <p class="text-sm mb-2">{{$t('Reports')}}</p>
               <div class="flex items-center" v-for="report in expert.reports" :key="report.id">
                 <div v-if="report.file_name && report.file_path">
                   <v-icon class="mr-2">mdi-file-document-outline</v-icon>
@@ -81,10 +81,10 @@
           </div>
         </div>
         <div class="my-5">
-          <label class="block" for="resp">Client Responsibility</label>
+          <label class="block" for="resp">{{$t('Client Responsibility')}}</label>
           <select v-if="responsibilities.length && !loadingResps" v-model="resp" @change="saveResp" class="border-b border-primary rounded p-2" id="resp">
             <option class="mb-2" v-for="(rspblty, index) in responsibilities" :key="index" :value="rspblty.id">
-              {{rspblty.name}}
+              {{$t(rspblty.name)}}
             </option>
           </select>
         </div>
@@ -92,7 +92,7 @@
       <div class="w-1/3 p-10 pb-32 border-l">
         <img
           :src="pictures[0]?.file.path"
-          alt="Vehicle"
+          :alt="$t('Vehicle')"
           class="w-full rounded"/>
       </div>
     </div>
@@ -100,7 +100,7 @@
     <v-overlay v-model="showExpertsModal">
       <div class="bg-white w-[500px] rounded">
         <div class="flex border-b items-center">
-          <p class="p-6 text-2xl font-medium px-7 flex-grow-1">Add expert</p>
+          <p class="p-6 text-2xl font-medium px-7 flex-grow-1">{{$t('Add expert')}}</p>
           <div class="p-5" @click="closeExpertsModal">
             <v-icon>mdi-close</v-icon>
           </div>
@@ -108,10 +108,10 @@
 
         <div class="px-7 pb-6">
           <select @change="setExpert($event)" class="mb-4 rounded p-3 border block w-full">
-            <option value="">Choose expert</option>
+            <option value="">{{$t('Choose expert')}}</option>
             <option v-for="(exp, idx) in expertsModel" :value="exp.id" :key="idx">{{exp.name}}</option>
           </select>
-          <v-btn block :disabled="loading" @click="saveExpert">Update</v-btn>
+          <v-btn block :disabled="loading" @click="saveExpert">{{$t('update')}}</v-btn>
         </div>
       </div>
     </v-overlay>
@@ -119,7 +119,7 @@
     <v-overlay v-model="shouldDisplayAmountUpdate">
       <div class="bg-white w-[500px] rounded">
         <div class="flex border-b items-center">
-          <p class="p-6 text-2xl font-medium px-7 flex-grow-1">Adjust Claim</p>
+          <p class="p-6 text-2xl font-medium px-7 flex-grow-1">{{$t('adjust claim')}}</p>
           <div class="p-5" @click="closeUpdateModal">
             <v-icon>mdi-close</v-icon>
           </div>
@@ -129,7 +129,7 @@
           <TextField v-model="item.newAmount" placeholder="1000" type="number" label="Adjust Price"/>
           <TextField v-model="item.comment" placeholder="Comment" label="Comment"/>
           <div class="pb-6"/>
-          <v-btn block :disabled="loading" @click="submitAdjustment">Update</v-btn>
+          <v-btn block :disabled="loading" @click="submitAdjustment">{{$t('update')}}</v-btn>
         </div>
       </div>
     </v-overlay>

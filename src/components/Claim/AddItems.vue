@@ -4,28 +4,28 @@
       <table class="table max-w-full">
         <thead>
           <tr>
-           <th>Type</th>
-           <th>Quantity</th>
-           <th>Amount</th>
+           <th>{{$t('Type')}}</th>
+           <th>{{$t('Quantity')}}</th>
+           <th>{{$t('Amount')}}</th>
          </tr>
        </thead>
        <tbody>
          <tr v-for="(moreItem, index) in moreItems" :key="index + 'mi'">
            <td class="pl-3 pb-3">
              <select v-model="moreItem.type" class="border-solid border-2 p-1 rounded max-w-full">
-               <option value="">Select Name</option>
+               <option value="">{{$t('select name')}}</option>
                <option v-for="(type, index) in types" :key="index" :value="type.value">
-                 {{ type.label }}
+                 {{ $t(type.label) }}
                </option>
              </select>
            </td>
            <td class="pl-3 pb-3">
              <input type="number" size="10" v-model="moreItem.quantity" class="border-solid border-2 p-1 rounded"
-               placeholder="Quantity" />
+               :placeholder="$t('Quantity')" />
            </td>
            <td class="pl-3 pb-3">
              <input type="number" size="10" v-model="moreItem.amount" class="border-solid border-2 p-1 rounded"
-               placeholder="Amount" />
+               :placeholder="$t('Amount')" />
            </td>
             <td class="pl-3 pb-3">
               <button class="bg-red-500 text-white p-2 rounded" @click="removeMoreItem(index)">
@@ -36,20 +36,20 @@
          <tr>
            <td colspan="3">
               <button class="bg-secondary text-primary p-1 rounded mr-3" @click="addMoreItem">
-                Add More
+                {{$t('add more')}}
               </button>
               <button class="bg-green-500 bg-primary p-1 rounded" @click="saveItems">
-                Save Items
+                {{$t('save items')}}
               </button>
            </td>
          </tr>
        </tbody>
-         </table>
+      </table>
     </div>
     <div class="col-span-1 p-10 pb-32 border-l">
       <img
         :src="pictures[0]?.file.path"
-        alt="Vehicle"
+        :alt="$t('Vehicle')"
         class="w-full rounded"/>
     </div>
  </div>

@@ -1,5 +1,5 @@
 <template>
-  <AppBar navigator="Back to Claims"/>
+  <AppBar :navigator="$t('Back to claims')"/>
   <div v-if="!loading">
     <div class="flex items-end pt-12 pb-10">
       <div class="flex-grow-1">
@@ -28,31 +28,31 @@
 
     <div class="w-full rounded bg-white p-6 flex items-center">
       <p class="text-text text-xs mr-13">
-        Policy Type
+        {{$t('Policy Type')}}
         <span class="text-text-dark font-medium block mt-2 text-sm capitalize">
         {{ $t(claim.policy.type) }}
       </span>
       </p>
       <p class="text-text text-xs mr-13">
-        Policy Number
+        {{$t('Policy Number')}}
         <span class="text-text-dark block mt-2 font-medium text-sm">
         {{ $t(claim.policy.number) }}
       </span>
       </p>
       <p class="text-text text-xs mr-13">
-        Policy Start
+        {{$t('Policy Start')}}
         <span class="text-text-dark font-medium block mt-2 text-sm">
         {{ formatDate(claim.policy.created_at) }}
       </span>
       </p>
       <p class="text-text text-xs mr-13">
-        Policy Expiry
+        {{$t('Policy Expiry')}}
         <span class="text-text-dark block mt-2 text-sm font-medium">
         {{ formatDate(claim.policy.expires_at) }}
       </span>
       </p>
       <p class="text-text text-xs mr-13">
-        Policy Status
+        {{$t('Policy Status')}}
         <span
             class="block mt-2 text-sm capitalize font-medium"
             :class="computePolicyStatusColor(claim.policy.status)"
@@ -135,7 +135,7 @@ export default defineComponent({
       {name: 'Accident', component: 'accident'},
       {name: 'Media', component: 'pictures'},
       {name: 'Claim Details', component: 'items'},
-      {name: 'Add Items', component: 'add-items'},
+      {name: 'add items', component: 'add-items'},
       {name: 'Comments', component: 'comments'},
     ])
     const activeTab = ref(tabs.value[0])

@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="w-full flex -mt-5 mb-10">
-      <Table :items="comments" :headers="['Date', 'Sender','Comment']" :page="currentPage" :total-pages="total">
+      <Table :items="comments" :headers="[$t('date'), $t('sender'),$t('comment')]" :page="currentPage" :total-pages="total">
         <template v-slot:default="{ item: row, index }">
           <td>{{ formatDateTime(row.created_at) }}</td>
-          <td>{{ row.author.type }}</td>
+          <td>{{ $t(row.author.type )}}</td>
           <td>{{ row.comment }}</td>
         </template>
       </Table>
