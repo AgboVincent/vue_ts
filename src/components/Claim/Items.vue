@@ -69,10 +69,10 @@
             <div v-if="expert.reports" class="mt-2">
               <p class="text-sm mb-2">{{$t('Reports')}}</p>
               <div class="flex items-center" v-for="report in expert.reports" :key="report.id">
-                <div v-if="report.file_name && report.file_path">
+                <div v-if="report.file_name && report.file">
                   <v-icon class="mr-2">mdi-file-document-outline</v-icon>
                   <span class="text-sm">{{ report.file_name }}</span>
-                  <a :href="report.file_path" class="ml-2" target="_blank">
+                  <a :href="report.file" class="ml-2" target="_blank">
                     <v-icon>mdi-download</v-icon>
                   </a>
                 </div>
