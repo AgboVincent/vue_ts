@@ -7,7 +7,7 @@
           <td>{{ row.nature }}</td>
           <td>{{ row.guarantees ? row.guarantees.join(', ') : '' }}</td>
           <td>{{ row.recipient }}</td>
-          <td>{{ row.amount }}</td>
+          <td>{{ row.amount.toLocaleString('fr-FR', {currency: 'CFA', style: 'currency'}) }}</td>
           <td>{{ row.payment_method }}</td>
           <td>{{ formatDateTime(row.created_at) }}</td>
         </template>
@@ -29,7 +29,7 @@ import {getFinancialMovements} from "../../requests";
 import FinancialMovementModal from "./FinancialMovementModal.vue";
 
 export default defineComponent({
-  name: 'ClaimComments',
+  name: 'FinancialMovements',
   components: {TextField, Table, FinancialMovementModal},
   props: {
     claim: {
