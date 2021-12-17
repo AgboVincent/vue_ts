@@ -134,7 +134,7 @@ export default {
     "Payment Method":"Référence de paiement",
     "Recipient":"Destinataire",
     "Date Created": "Date de creation",
-    "No data available": "Pas de données disponibles"
+    "No data available": "Pas de données disponibles",
     "enter date and time": "Veuillez renseigner la date et l'heure",
     "password is required": "Le champ du mot de passe actuel est obligatoire",
     "mm/dd/yyyy": "mm/jj/aaaa",
