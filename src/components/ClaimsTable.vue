@@ -28,7 +28,7 @@
         <ui-menu-anchor position="bottom right">
           <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" @click="openClaimOption(row)"/>
           <ui-menu v-model="row.open" class="p-0">
-            <ui-menuitem value="View">
+            <ui-menuitem value="View" @click="gotoCreateClaimPage(row.id)">
               <router-link :to="`/claims/${row.id}`">
                 <div class="option">
                   {{ $t("View") }}
@@ -63,6 +63,7 @@ import {
 import {ClaimType} from "../types";
 import {markClaimAsPaidRequest, processClaimPaymentRequest} from "../requests";
 import {AxiosResponse} from "axios";
+import {useRouter} from "vue-router";
 
 export default defineComponent({
   components: {Table},
@@ -82,6 +83,7 @@ export default defineComponent({
   emits: ['update:page'],
   setup(_, {emit}: SetupContext) {
     const headers = ref(['Name', 'Registration Number', 'Policy No.', 'Car Model', 'Date', 'Status', ''])
+    const router = useRouter();
 
     function getClaimStatus(claim) {
       switch (claim.status) {
@@ -94,6 +96,10 @@ export default defineComponent({
         default:
           return 'bg-[#FFF2E6] text-[#994900]';
       }
+    }
+
+    function gotoCreateClaimPage(id: number) {
+      router.push(`/claims/${id}`);
     }
 
     function openClaimOption(row: ClaimType) {
@@ -129,7 +135,7 @@ export default defineComponent({
           .catch(claimSettlementErrorHandler)
     }
 
-    return {headers, getClaimStatus, makeTransfer, openClaimOption, markAsPaid}
+    return {headers, getClaimStatus, makeTransfer, openClaimOption, markAsPaid, gotoCreateClaimPage}
   }
 })
 </script>
