@@ -121,11 +121,13 @@ import {ClaimType} from "../types";
 import AddItems from '../components/Claim/AddItems.vue';
 import Items from "../components/Claim/Items.vue";
 import Policy from "../components/Claim/Policy.vue";
+import FinancialMovements from "../components/Claim/FinancialMovements.vue";
 
 export default defineComponent({
   name: 'Claim',
-  components: {AppBar, 
-    Vehicle, Accident, Pictures, Comments, Items, TextField, AddItems, Policy
+  components: {AppBar,
+    Vehicle, Accident, Pictures, Comments, Items, TextField, AddItems, Policy,
+    FinancialMovements
   },
   setup() {
     const {params} = useRoute()
@@ -137,6 +139,7 @@ export default defineComponent({
       {name: 'Claim Details', component: 'items'},
       {name: 'Add Items', component: 'add-items'},
       {name: 'Comments', component: 'comments'},
+      {name: 'Financial Movements', component: 'financial-movements'},
     ])
     const activeTab = ref(tabs.value[0])
     const loading = ref(true)
