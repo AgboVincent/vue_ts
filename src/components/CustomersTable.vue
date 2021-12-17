@@ -6,7 +6,7 @@
       <td>{{ row.user.mobile }}</td>
       <td>{{ row.number }}</td>
       <td>
-        <v-chip color="success">{{ row.status }}</v-chip>
+        <v-chip color="success">{{ $t(row.status) }}</v-chip>
       </td>
       <td>
         <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" :to="`/customers/${row.id}/claims/create`"/>

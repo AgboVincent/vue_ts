@@ -6,25 +6,25 @@
     >
       <v-icon>mdi-filter</v-icon>
       <span class="w-1"/>
-      Filter By
+      {{ $t('Filter By') }}
       <span class="w-6"/>
       <v-icon>mdi-chevron-down</v-icon>
     </div>
     <ui-menu v-model="open">
       <div class="w-[380px] text-sm -my-2">
-        <p class="w-full bg-[#F2F7F9] py-[11px] px-[20px]">Status</p>
+        <p class="w-full bg-[#F2F7F9] py-[11px] px-[20px]">{{ $t('Status') }}</p>
         <div class="w-full space-x-3 py-[11px] px-[20px] flex">
           <p>
-            <input type="radio" v-model="status" value="expired"/> Expired
+            <input type="radio" v-model="status" value="expired"/> {{ $t('Expired') }}
           </p>
           <p>
-            <input type="radio" v-model="status" value="active"/> Active
+            <input type="radio" v-model="status" value="active"/> {{ $t('Active') }}
           </p>
         </div>
 
         <div class="w-dull border-t flex justify-between p-[20px] pb-[15px] mt-[15px]">
-          <v-btn height="30" color="transparent" @click="clear">Clear</v-btn>
-          <v-btn height="30" @click="filter">Filter</v-btn>
+          <v-btn height="30" color="transparent" @click="clear">{{ $t('Clear') }}</v-btn>
+          <v-btn height="30" @click="filter">{{ $t('Filter') }}</v-btn>
         </div>
       </div>
     </ui-menu>
