@@ -12,13 +12,13 @@
       <div v-if="step === 1">
         <p class="font-bold">{{ $t("Accident Information")}}</p>
         <div class="grid grid-cols-2 gap-x-2">
-          <TextField v-model="form.date" :label='$t("Date of Accident")' type="date" :placeholder="$t('mm/dd/yyyy')"/>
+          <TextField v-model="form.date" :label='$t("Date of Accident")' type="date" placeholder="mm/dd/yyyy"/>
           <TextField v-model="form.time" :label='$t("Time")' type="time"/>
         </div>
         <TextField v-model="form.accident_type" :label='$t("Accident Type")' required type="select" :options="accidentTypes"/>
         <TextField v-model="form.description" :label='$t("Description")' type="textarea" row="7" reqired/>
         <TextField v-model="form.involves_third_party" :label='$t("Third Party Involved")' type="select"
-                   :options="[{value: 1, label: 'Yes'}, {label: 'No', value: 0}]"/>
+                   :options="[{value: 1, label: $t('Yes')}, {label: $t('No'), value: 0}]"/>
         <div class="flex justify-end mt-10">
           <v-btn @click="nextStep">{{ $t("Next")}}</v-btn>
         </div>
@@ -207,8 +207,6 @@ export default defineComponent({
           }).catch(err => console.error(err))
       .finally(() => loader.hide())
     }
-
-
 
     function handleFileSelect(e: Event) {
       const element = e.target as HTMLInputElement
