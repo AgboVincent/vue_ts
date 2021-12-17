@@ -195,6 +195,30 @@ export default defineComponent({
     }
 
     function create() {
+      let err = false
+      form.value.quotes.forEach((quote) => {
+        
+        if(!(quote.type )) {
+          alert("Veuillez entrer le type de devis")
+          err = true;
+          return
+        }
+  
+        if(quote.quantity < 1) {
+          alert("Veuillez entrer la quantité de l'offre")
+          err = true;
+          return
+        }
+  
+        if(quote.amount < 0){
+          alert("Veuillez entrer le montant du devis")
+          err = true;
+          return
+        }
+      })
+
+      if(err) return; 
+
       let loader = $loading.show();
       let documents = {
         pictures: images.value.map(a => a.id)
