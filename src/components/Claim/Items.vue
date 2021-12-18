@@ -114,13 +114,13 @@
             <p class="mt-3">{{$t('Address')}}</p>
             <div class="grid grid-cols-3 gap-4 text-sm">
               <div class="">
-                <span>{{ $t('Line 1') }}:</span> {{ claimGarage.address.line_1 }}
+                <span>{{ $t('Line') }} 1:</span> {{ claimGarage.address.line_1 }}
               </div>
               <div class="">
-                <span>{{ $t('Line 2') }}:</span> {{ claimGarage.address.line_2 }}
+                <span>{{ $t('Line') }} 2:</span> {{ claimGarage.address.line_2 }}
               </div>
               <div class="">
-                <span>{{ $t('Line 3') }}:</span> {{ claimGarage.address.line_3 }}
+                <span>{{ $t('Line') }} 3:</span> {{ claimGarage.address.line_3 }}
               </div>
               <div class="">
                 <span>{{ $t('City') }}:</span> {{ claimGarage.address.city }}

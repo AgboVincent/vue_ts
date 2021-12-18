@@ -112,12 +112,12 @@ export default {
     "adjust claim": "Ajuster la réclamation",
     "adjust price": "Ajuster le prix",
     "update": "Mise à jour",
-
+    "Longitude":"Longitude",
     "Back to claims": "Retour aux réclamations",
     "Third Party": "Tierce personne",
     "Policy Number": "Numéro de police",
     "Quotes" : "Devis",
-
+    "Latatitude":"Latatitude",
     "Enter your login details to proceed": "Entrez vos informations de connexion pour continuer",
     "You entered an incorrect, email, password or both. Need an account": "Vous avez entré un e-mail, un mot de passe ou les deux incorrects. Besoin d'un compte",
     "Forgot Password": "Mot de passe oublié",
@@ -129,7 +129,7 @@ export default {
     "Search customers, emails , claim references":"Rechercher des clients, des e-mails, des références de réclamation",
     "declined": "diminué",
     "awaiting payment": "En attente de paiement",
-
+    "Line":"Ligne",
     "Guarantees":"Garanties",
     "Guarantee(s)":"Garantie(s)",
     "Payment Method":"Référence de paiement",
@@ -176,6 +176,6 @@ export default {
     "Choose garage":"Choisir un garage",
     "Add garage":"Ajouter un garage",
     "Please choose garage":"Veuillez choisir le garage",
-    "Garage":"Garage"
-
+    "Garage":"Garage",
+    "City":"Ville"
 }   
