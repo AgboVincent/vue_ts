@@ -177,5 +177,7 @@ export default {
     "Add garage":"Ajouter un garage",
     "Please choose garage":"Veuillez choisir le garage",
     "Garage":"Garage",
-    "City":"Ville"
+    "City":"Ville",
+    "Policy Holder's Guarantees":"Garanties du titulaire de la police",
+    "Save":"Sauvez"
 }   

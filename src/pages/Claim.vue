@@ -11,10 +11,11 @@
         </p>
       </div>
       <div class="flex items-end space-x-4" v-if="$store.state.profile.type === 'broker'">
-        <v-btn text-color="success" color="white" size="small" :height="30" @click="displayCommentModal = true">
+        <v-btn :disabled="!claim.user_can_edit" text-color="success" color="white" size="small" :height="30" @click="displayCommentModal = true">
           {{ $t("Message Customer") }}
         </v-btn>
         <v-btn
+            :disabled="!claim.user_can_edit"
             @click="processToInsurer"
             color="white"
             text-color="primary"

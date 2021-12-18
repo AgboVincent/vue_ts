@@ -30,11 +30,11 @@
         </Table>
 
         <div class="mt-5">
-          <input type="checkbox" id="expertRequired" v-model="expertRequired" @change="saveExpertRequirement">
+          <input type="checkbox" id="expertRequired" v-model="expertRequired" @change="saveExpertRequirement" :disabled="!claim.user_can_edit">
           <label for="expertRequired" class="ml-1">{{$t('Expert required')}}</label>
         </div>
 
-        <div v-if="expertRequired" class="mt-4">
+        <div v-if="expertRequired && claim.user_can_edit" class="mt-4">
           <v-btn @click="openExpertsModal" class="ma-2 bg-primary text-white rounded" variant="outlined">{{$t('Assign expert')}}</v-btn>
         </div>
 
@@ -43,7 +43,7 @@
           <form id="reportform" action="">
             <label href="javasacript:void(0)" class="ml-3 text-primary" for="report">{{$t('Add report')}}</label>
             <!-- select only pdf or word documents-->
-            <input name="report" @input="readReport($event)" type="file" id="report" style="display:none" accept=".pdf, .doc, .docx, .xls, .xlsx">
+            <input :disabled="!claim.user_can_edit" name="report" @input="readReport($event)" type="file" id="report" style="display:none" accept=".pdf, .doc, .docx, .xls, .xlsx">
           </form>
           <div class="mt-5" v-if="reportFilename">
             <!-- file icon -->
@@ -64,7 +64,7 @@
             <form :id="'reportform' + expert.id">
               <v-chip class="capitalize"  :color="expert.color" :text-color="expert.textColor">{{ expert.name }}</v-chip>
               <label href="javasacript:void(0)" @click="openReportModal(expert.id)" class="ml-3 text-primary" :for="'report' + expert.id">{{$t('Add report')}}</label>
-              <input name="report" @input="readReport($event)" type="file" :id="'report' + expert.id" style="display:none" accept=".pdf, .doc, .docx, .xls, .xlsx">
+              <input :disabled="!claim.user_can_edit" name="report" @input="readReport($event)" type="file" :id="'report' + expert.id" style="display:none" accept=".pdf, .doc, .docx, .xls, .xlsx">
             </form>
             <div v-if="expert.reports" class="mt-2">
               <p class="text-sm mb-2">{{$t('Reports')}}</p>
@@ -82,7 +82,7 @@
         </div>
         <div class="my-5">
           <label class="block" for="resp">{{$t('Client Responsibility')}}</label>
-          <select v-if="responsibilities.length && !loadingResps" v-model="resp" @change="saveResp" class="border-b border-primary rounded p-2" id="resp">
+          <select :disabled="!claim.user_can_edit" v-if="responsibilities.length && !loadingResps" v-model="resp" @change="saveResp" class="border-b border-primary rounded p-2" id="resp">
             <option class="mb-2" v-for="(rspblty, index) in responsibilities" :key="index" :value="rspblty.id">
               {{$t(rspblty.name)}}
             </option>
@@ -91,7 +91,7 @@
 
         <div>
           <!-- show add garage button -->
-          <v-btn @click="showGarageModal = true" class="ma-2 bg-primary text-white rounded" variant="outlined">{{$t('Add garage')}}</v-btn>
+          <v-btn @click="showGarageModal = true" :disabled="!claim.user_can_edit"  variant="outlined">{{$t('Add garage')}}</v-btn>
           <!-- show garage -->
           <div v-if="claimGarage && claimGarage.id" class="mt-4">
             <div class="flex items-center mb-2">
@@ -156,11 +156,11 @@
         </div>
 
         <div class="px-7 pb-6">
-          <select v-model="garageIdToAdd" class="mb-4 rounded p-3 border block w-full">
+          <select :disabled="!claim.user_can_edit" v-model="garageIdToAdd" class="mb-4 rounded p-3 border block w-full">
             <option value="">{{$t('Choose garage')}}</option>
             <option v-for="(garage, idx) in garagesModel" :value="garage.id" :key="idx">{{garage.name}}</option>
           </select>
-          <v-btn block :disabled="loading" @click="saveChosenGarage">{{$t('update')}}</v-btn>
+          <v-btn block :disabled="loading || (!claim.user_can_edit)" @click="saveChosenGarage">{{$t('update')}}</v-btn>
         </div>
       </div>
     </v-overlay>
@@ -245,6 +245,7 @@ export default defineComponent({
       responsibilities  = ref([]),
       resp = ref(props.claim.clientResponsibility.id),
       loadingResps = ref(true),
+      
 
       //experts
       experts = ref([]),

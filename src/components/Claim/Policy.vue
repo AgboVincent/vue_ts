@@ -1,14 +1,14 @@
 <template>
     <div class="w-full mt-3 mb-10">
-        <p>Policy Holder's Guarantees</p>
+        <p>{{$t("Policy Holder's Guarantees")}}</p>
       <div class="flex flex-wrap mt-3" >
         <div v-for="(gtype, index) in guaranteeTypes" :key="index" class="mr-4">
-            <input v-model="selectedGuaranteeTypes" class="mr-2" type="checkbox" :value="gtype.value" :id="'gtype' + index">
+            <input :disabled="!claim.user_can_edit" v-model="selectedGuaranteeTypes" class="mr-2" type="checkbox" :value="gtype.value" :id="'gtype' + index">
             <label :for="'gtype' + index">{{ gtype.label }}</label>
         </div>
       </div>
 
-      <button @click="saveGuarantees" class="text-white bg-primary rounded px-3 py-1 mt-4" >Save</button>
+      <button @click="saveGuarantees" :disabled="!claim.user_can_edit" class="text-white bg-primary rounded px-3 py-1 mt-4" >{{$t('Save')}}</button>
     </div>
 </template>
 
