@@ -14,7 +14,11 @@
       </Table>
     </div>
 
-    <financial-movement-modal :claim_id="claim_id" @newFinMovement="fetchMovements"></financial-movement-modal>
+    <financial-movement-modal 
+      :claim_id="claim_id" 
+      :user-can-edit="claim.user_can_edit"
+      @newFinMovement="fetchMovements">
+    </financial-movement-modal>
 
 
   </div>

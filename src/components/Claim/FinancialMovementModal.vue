@@ -9,6 +9,7 @@
             v-bind="props"
             color=" lighten-2"
             dark
+            :disabled="!userCanEdit"
         >
           {{$t('Add')}}
         </v-btn>
@@ -29,6 +30,7 @@
                 placeholder="Select nature"
                 required
                 type="select"
+                :disabled="!userCanEdit"
             ></text-field>
 
             <text-field
@@ -39,6 +41,7 @@
                 placeholder="Select issuer"
                 required
                 type="select"
+                :disabled="!userCanEdit"
             ></text-field>
 
             <text-field
@@ -49,6 +52,7 @@
                 placeholder="Select Recipient"
                 required
                 type="select"
+                :disabled="!userCanEdit"
             ></text-field>
 
             <div class="mt-7 w-full">
@@ -56,12 +60,12 @@
               <div class="relative flex flex-column border rounded-md p-3 w-full">
                 <div class="flex items-center space-x-2">
                   <input v-model="form.guarantees" value="RC" class="text-text-dark outline-none text-sm pl-4" id="RC"
-                         type="checkbox"/>
+                      :disabled="!userCanEdit" type="checkbox"/>
                   <label for="RC">RC</label>
                 </div>
                 <div class="flex items-center space-x-2">
                   <input v-model="form.guarantees" value="Bris de glaces" class="text-text-dark outline-none text-sm pl-4" id="Bris"
-                         type="checkbox"/>
+                        :disabled="!userCanEdit" type="checkbox"/>
                   <label for="Bris">Bris de glaces</label>
                 </div>
               </div>
@@ -72,6 +76,7 @@
                 label="Movement Amount"
                 type="number"
                 required
+                :disabled="!userCanEdit"
             ></text-field>
 
             <text-field
@@ -82,6 +87,7 @@
                 placeholder="Select payment method"
                 required
                 type="select"
+                :disabled="!userCanEdit"
             ></text-field>
 
             <text-field
@@ -90,6 +96,7 @@
                 label="Payment Reference"
                 type="text"
                 required
+                :disabled="!userCanEdit"
             ></text-field>
 
           </v-form>
@@ -102,7 +109,7 @@
           <v-btn
               class="mr-4"
               type="submit"
-              :disabled="invalid"
+              :disabled="invalid || (!userCanEdit)"
               @click="submitForm"
           >
             {{$t('Submit')}}
@@ -112,6 +119,7 @@
               color="primary"
               variant="text"
               @click="reset"
+              :disabled="!userCanEdit"
           >
             {{$t('Cancel')}}
           </v-btn>
@@ -167,6 +175,10 @@ export default defineComponent({
     claim_id:  {
       type: Number,
       required: true
+    },
+    userCanEdit: {
+      type: Boolean,
+      required: false
     }
   },
   setup(props) {
