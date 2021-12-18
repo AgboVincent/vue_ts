@@ -12,7 +12,7 @@
        <tbody>
          <tr v-for="(moreItem, index) in moreItems" :key="index + 'mi'">
            <td class="pl-3 pb-3">
-             <select v-model="moreItem.type" class="border-solid border-2 p-1 rounded max-w-full">
+             <select :disabled="!claim.user_can_edit" v-model="moreItem.type" class="border-solid border-2 p-1 rounded max-w-full">
                <option value="">{{$t('select name')}}</option>
                <option v-for="(type, index) in types" :key="index" :value="type.value">
                  {{ $t(type.label) }}
@@ -20,25 +20,25 @@
              </select>
            </td>
            <td class="pl-3 pb-3">
-             <input type="number" size="10" v-model="moreItem.quantity" class="border-solid border-2 p-1 rounded"
+             <input :disabled="!claim.user_can_edit" type="number" size="10" v-model="moreItem.quantity" class="border-solid border-2 p-1 rounded"
                :placeholder="$t('Quantity')" />
            </td>
            <td class="pl-3 pb-3">
-             <input type="number" size="10" v-model="moreItem.amount" class="border-solid border-2 p-1 rounded"
+             <input :disabled="!claim.user_can_edit" type="number" size="10" v-model="moreItem.amount" class="border-solid border-2 p-1 rounded"
                :placeholder="$t('Amount')" />
            </td>
             <td class="pl-3 pb-3">
-              <button class="bg-red-500 text-white p-2 rounded" @click="removeMoreItem(index)">
+              <button :disabled="!claim.user_can_edit" class="bg-red-500 text-white p-2 rounded" @click="removeMoreItem(index)">
                 X
               </button>
             </td>
          </tr>
          <tr>
            <td colspan="3">
-              <button class="bg-secondary text-primary p-1 rounded mr-3" @click="addMoreItem">
+              <button :disabled="!claim.user_can_edit" class="bg-secondary text-primary p-1 rounded mr-3" @click="addMoreItem">
                 {{$t('add more')}}
               </button>
-              <button class="bg-green-500 bg-primary p-1 rounded" @click="saveItems">
+              <button :disabled="!claim.user_can_edit" class="bg-green-500 bg-primary p-1 rounded" @click="saveItems">
                 {{$t('save items')}}
               </button>
            </td>
