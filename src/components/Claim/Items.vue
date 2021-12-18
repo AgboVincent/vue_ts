@@ -19,10 +19,10 @@
               >
                 <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" @click="openClaimOption(row)"/>
                 <ui-menu
-                    v-model="row.opened"
-                    @selected="(a) => handleStatusUpdate(a, row)"
-                    :distance="{ right: 10 }"
-                    :items="[$t('Approve'), $t('Reject'), $t('Adjust')]"
+                  v-model="row.opened"
+                  @selected="(a) => handleStatusUpdate(a, row)"
+                  :distance="{ right: 10 }"
+                  :items="[$t('Approve'), $t('Reject'), $t('Adjust')]"
                 />
               </ui-menu-anchor>
             </td>
@@ -88,6 +88,55 @@
             </option>
           </select>
         </div>
+
+        <div>
+          <!-- show add garage button -->
+          <v-btn @click="showGarageModal = true" class="ma-2 bg-primary text-white rounded" variant="outlined">{{$t('Add garage')}}</v-btn>
+          <!-- show garage -->
+          <div v-if="claimGarage && claimGarage.id" class="mt-4">
+            <div class="flex items-center mb-2">
+              <span class="text">{{$t('Garage')}}</span>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                {{$t('Name')}} <br>
+                <span class="text-sm">{{ claimGarage.name }}</span>
+              </div>
+              <div>{{$t('Phone')}}
+                <br>
+                <span class="text-sm">{{ claimGarage.phone }}</span>
+              </div>
+              <div>{{('Email')}}
+                <br>
+                <span class="text-sm">{{ claimGarage.email }}</span>
+              </div>
+            </div>
+            <p class="mt-3">{{$t('Address')}}</p>
+            <div class="grid grid-cols-3 gap-4 text-sm">
+              <div class="">
+                <span>{{ $t('Line 1') }}:</span> {{ claimGarage.address.line_1 }}
+              </div>
+              <div class="">
+                <span>{{ $t('Line 2') }}:</span> {{ claimGarage.address.line_2 }}
+              </div>
+              <div class="">
+                <span>{{ $t('Line 3') }}:</span> {{ claimGarage.address.line_3 }}
+              </div>
+              <div class="">
+                <span>{{ $t('City') }}:</span> {{ claimGarage.address.city }}
+              </div>
+              <div class="">
+                <span>{{ $t('Latatitude') }}:</span> {{ claimGarage.address.latitude }}
+              </div>
+              <div class="">
+                <span>{{ $t('Longitude') }}:</span> {{ claimGarage.address.longitude }}
+              </div>
+              <div class="" v-if="claimGarage.address.code_pays_iso_2">
+                <span>{{ $t('codePaysIso2') }}:</span> {{ claimGarage.address.code_pays_iso_2 }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="w-1/3 p-10 pb-32 border-l">
         <img
@@ -96,6 +145,25 @@
           class="w-full rounded"/>
       </div>
     </div>
+
+    <v-overlay v-model="showGarageModal">
+      <div class="bg-white w-[500px] rounded">
+        <div class="flex border-b items-center">
+          <p class="p-6 text-2xl font-medium px-7 flex-grow-1">{{$t('Add garage')}}</p>
+          <div class="p-5" @click="showGarageModal = false    ">
+            <v-icon>mdi-close</v-icon>
+          </div>
+        </div>
+
+        <div class="px-7 pb-6">
+          <select v-model="garageIdToAdd" class="mb-4 rounded p-3 border block w-full">
+            <option value="">{{$t('Choose garage')}}</option>
+            <option v-for="(garage, idx) in garagesModel" :value="garage.id" :key="idx">{{garage.name}}</option>
+          </select>
+          <v-btn block :disabled="loading" @click="saveChosenGarage">{{$t('update')}}</v-btn>
+        </div>
+      </div>
+    </v-overlay>
 
     <v-overlay v-model="showExpertsModal">
       <div class="bg-white w-[500px] rounded">
@@ -152,7 +220,10 @@ import {
   updatetClientResponsibilityRequest,
   getClientResponsibiltiesRequest,
   updateClaimsExpertsRequirementRequest,
-  getClaimExpertsRequest
+  getClaimExpertsRequest,
+  fetchGarageRequest,
+  saveClaimGarageRequest,
+  getGarageRequest
 } from "../../requests";
 import TextField from "../TextField.vue";
 
@@ -174,6 +245,8 @@ export default defineComponent({
       responsibilities  = ref([]),
       resp = ref(props.claim.clientResponsibility.id),
       loadingResps = ref(true),
+
+      //experts
       experts = ref([]),
       expertsModel = ref([]),
       showExpertsModal = ref(false),
@@ -182,6 +255,13 @@ export default defineComponent({
       claimExperts = ref([]), // list of experts for this claim
       expertToUploadReportFor = ref(null), //for already added experts
 
+      //garages
+      garages = ref([]),
+      showGarageModal = ref(false),
+      garageIdToAdd = ref(''),
+      garagesModel = ref([]),
+      claimGarage = ref({}),
+      
       openExpertsModal = () => {
         showExpertsModal.value = true;
       };
@@ -216,20 +296,53 @@ export default defineComponent({
       axios.all([
         getExpertsRequest(),
         getClientResponsibiltiesRequest(),
-        getClaimExpertsRequest(props.claim.id)
-      ]).then(axios.spread((expertsResponse, respResponse, claimExpertsResponse) => {
-        experts.value = expertsResponse.data;
-        expertsModel.value = expertsResponse.data.map(expert => ({
-          id: expert.id,
-          name: expert.name
-        }));
-        responsibilities.value = respResponse.data;
-        claimExperts.value = claimExpertsResponse.data;
+        getClaimExpertsRequest(props.claim.id),
+        fetchGarageRequest(),
+        getGarageRequest(props.claim.id)
+      ]).then(axios.spread((
+        expertsResponse, 
+        respResponse, 
+        claimExpertsResponse, 
+        garagesResponse,
+        claimGarageResponse
+        ) => {
+          experts.value = expertsResponse.data;
+          expertsModel.value = expertsResponse.data.map(expert => ({
+            id: expert.id,
+            name: expert.name
+          }));
+          responsibilities.value = respResponse.data;
+          claimExperts.value = claimExpertsResponse.data;
+
+          garages.value = garagesResponse.data;
+          claimGarage.value = claimGarageResponse.data;
+          garagesModel.value = garages.value.map(garage => ({
+            id: garage.id,
+            name: garage.name
+          }));
       })).finally(() => {
         loadingResps.value = false;
       });
     })
 
+    function saveChosenGarage() {
+      let error = false;
+      if(garageIdToAdd.value == '') {
+        // alert('Please choose garage');
+        alert('Veuillez choisir le garage');
+        error = true;
+        return;
+      }
+
+      if(error) return; //needed to prevent submit when alert is closed
+
+      saveClaimGarageRequest(props.claim.id, garageIdToAdd.value)
+        .then(({data}) => {
+          showGarageModal.value = false;
+          claimGarage.value = data;
+        });
+    }
+    
     function readReport(e: any) {
       const file = e.target.files[0];
       if (file) {
@@ -375,7 +488,13 @@ export default defineComponent({
       claimExperts,
       openReportModal,
       expertToUploadReportFor,
-      closeExpertsModal
+      closeExpertsModal,
+
+      showGarageModal,
+      garageIdToAdd,
+      garagesModel,
+      saveChosenGarage,
+      claimGarage
     }
   }
 })

@@ -131,3 +131,18 @@ export function submitFinancialMovement(claim_id: number, formData: Partial<Fina
         data: {...formData}
     })
 }
+
+export function saveClaimGarageRequest(claimId: number, data: number){
+    return request({
+        url: `api/admin/claims/${claimId}/garage`,
+        method: 'POST',
+        data: {garage_id: data}
+    })
+}
+
+export function getGarageRequest (claimId: number){
+    return request({
+        url: `api/admin/claims/${claimId}/garage`,
+        method: 'GET'
+    })
+}
