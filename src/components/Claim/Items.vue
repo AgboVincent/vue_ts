@@ -91,7 +91,7 @@
 
         <div>
           <!-- show add garage button -->
-          <v-btn @click="showGarageModal = true" class="ma-2 bg-primary text-white rounded" variant="outlined">{{$t('Add garage')}}</v-btn>
+          <v-btn @click="showGarageModal = true" :disabled="!claim.user_can_edit"  variant="outlined">{{$t('Add garage')}}</v-btn>
           <!-- show garage -->
           <div v-if="claimGarage && claimGarage.id" class="mt-4">
             <div class="flex items-center mb-2">
@@ -156,11 +156,11 @@
         </div>
 
         <div class="px-7 pb-6">
-          <select v-model="garageIdToAdd" class="mb-4 rounded p-3 border block w-full">
+          <select :disabled="!claim.user_can_edit" v-model="garageIdToAdd" class="mb-4 rounded p-3 border block w-full">
             <option value="">{{$t('Choose garage')}}</option>
             <option v-for="(garage, idx) in garagesModel" :value="garage.id" :key="idx">{{garage.name}}</option>
           </select>
-          <v-btn block :disabled="loading" @click="saveChosenGarage">{{$t('update')}}</v-btn>
+          <v-btn block :disabled="loading || (!claim.user_can_edit)" @click="saveChosenGarage">{{$t('update')}}</v-btn>
         </div>
       </div>
     </v-overlay>
