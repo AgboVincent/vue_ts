@@ -172,6 +172,10 @@ export default {
     "Add Financial Movement":"Ajouter le mouvement financier",
     "Submit":"Soumettre",
     "Cancel":"Annuler",
-    "Financial Movements":"Mouvements financiers"
+    "Financial Movements":"Mouvements financiers",
+    "Choose garage":"Choisir un garage",
+    "Add garage":"Ajouter un garage",
+    "Please choose garage":"Veuillez choisir le garage",
+    "Garage":"Garage"
 
 }   
