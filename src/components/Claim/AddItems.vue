@@ -94,6 +94,29 @@ export default defineComponent({
     }
 
     const saveItems = () => {
+      let err = false;
+      moreItems.value.forEach(item => {
+        if(!(item.type )) {
+          alert("Veuillez entrer le type de devis")
+          err = true;
+          return
+        }
+  
+        if(item.quantity < 1) {
+          alert("Veuillez entrer la quantité de l'offre")
+          err = true;
+          return
+        }
+  
+        if(item.amount < 0){
+          alert("Veuillez entrer le montant du devis")
+          err = true;
+          return
+        }
+      })
+
+      if(err) return
+
       updateClaimItemsRequest(props.claim.id, moreItems.value)
         .then(({data}) => {
           emit('update', data);
