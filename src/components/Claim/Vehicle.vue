@@ -16,7 +16,7 @@
     </div>
     <div class="col">
       <div class="item">
-        <p class="field">{{$t('Year of Manufacturer')}}</p>
+        <p class="field">{{$t('Year of Manufacture')}}</p>
         <p class="value">{{ claim.policy.vehicle.year }}</p>
       </div>
       <div class="item">
