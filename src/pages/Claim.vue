@@ -43,13 +43,15 @@
       <p class="text-text text-xs mr-13">
         {{$t('Policy Start')}}
         <span class="text-text-dark font-medium block mt-2 text-sm">
-        {{ formatDate(claim.policy.created_at) }}
+        <span v-if="claim.policy.created_at">{{ formatDate(claim.policy.created_at) }}</span>
+        <span v-else>{{ $t('Not available') }}</span>
       </span>
       </p>
       <p class="text-text text-xs mr-13">
         {{$t('Policy Expiry')}}
         <span class="text-text-dark block mt-2 text-sm font-medium">
-        {{ formatDate(claim.policy.expires_at) }}
+        <span v-if="claim.policy.expires_at">{{ formatDate(claim.policy.expires_at) }}</span>
+        <span v-else>{{ $t('Not available') }}</span>
       </span>
       </p>
       <p class="text-text text-xs mr-13">

@@ -179,5 +179,6 @@ export default {
     "Garage":"Garage",
     "City":"Ville",
     "Policy Holder's Guarantees":"Garanties du titulaire de la police",
-    "Save":"Sauvez"
+    "Save":"Sauvez",
+    "Not available":"Non disponible"
 }   
