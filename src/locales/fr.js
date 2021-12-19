@@ -180,5 +180,7 @@ export default {
     "City":"Ville",
     "Policy Holder's Guarantees":"Garanties du titulaire de la police",
     "Save":"Sauvez",
-    "Not available":"Non disponible"
+    "Not available":"Non disponible",
+    "Third Party Details":"Détails sur les tiers",
+    "Add Third Party":"Ajouter une tierce partie"
 }   

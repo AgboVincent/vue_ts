@@ -24,18 +24,31 @@
         </div>
       </div>
       <div v-if="step === 2">
-        <p class="font-bold">{{ $t("Third Party")}}</p>
-        <div class="grid grid-cols-2 gap-x-2">
-          <TextField v-model="form.third_party.full_name" :label='$t("Full Name")' />
-          <TextField type="number" v-model="form.third_party.mobile" :label='$t("Mobile")' />
+        <!--button to open third party modal-->
+        <div class="flex justify-between align-center">
+          <p class="font-bold text-2xl">{{ $t("Third Party")}}</p>
+          <v-btn @click="showThirdpartyModal = true">
+            <v-icon>mdi-plus</v-icon>
+            {{ $t("Add Third Party")}}
+          </v-btn>
         </div>
-        <div class="grid grid-cols-2 gap-x-2">
-          <TextField v-model="form.third_party.policy_number" :label='$t("Policy Number")' />
-          <TextField v-model="form.third_party.company" :label='$t("Insurance Company")' />
-        </div>
-        <div class="flex justify-between mt-10">
-          <v-btn @click="prevStep">{{ $t("Prev")}}</v-btn>
-          <v-btn @click="nextStep">{{ $t("Next")}}</v-btn>
+        <div v-if="form.third_parties.length">
+          <div class="flex align-center my-8" v-for="(thirdParty, index) in form.third_parties" :key="index">
+            <v-avatar
+              color="primary"
+              size="36"
+            ><v-icon>mdi-account-group</v-icon></v-avatar>
+            <div class="pl-2">
+              <p class="text-sm font-bold">{{ thirdParty.full_name }}</p>
+              <p class="text-sm">{{ thirdParty.mobile }}</p>
+            </div>
+            <!-- <span class="pl-2">{{ thirdParty.full_name }}</span> -->
+          </div>
+          
+          <div class="flex justify-between">
+            <v-btn @click="prevStep">{{ $t("Prev")}}</v-btn>
+            <v-btn @click="nextStep">{{ $t("Next")}}</v-btn>
+          </div>
         </div>
       </div>
       <div v-if="step === 3">
@@ -78,6 +91,30 @@
         </div>
       </div>
     </div>
+
+    <v-overlay v-model="showThirdpartyModal">
+      <div class="bg-white w-[500px] rounded">
+        <div class="flex border-b items-center">
+          <p class="p-6 text-2xl font-medium px-7 flex-grow-1">{{$t('Add Third Party')}}</p>
+          <div class="p-5" @click="showThirdpartyModal = false">
+            <v-icon>mdi-close</v-icon>
+          </div>
+        </div>
+
+        <div class="px-7 pb-6 my-6">
+          <p class="font-bold">{{ $t("Third Party")}}</p>
+          <div class="grid grid-cols-2 gap-x-2">
+            <TextField v-model="thirdPartyModel.full_name" :label='$t("Full Name")' />
+            <TextField type="number" v-model="thirdPartyModel.mobile" :label='$t("Mobile")' />
+          </div>
+          <div class="grid grid-cols-2 gap-x-2 mb-3">
+            <TextField v-model="thirdPartyModel.policy_number" :label='$t("Policy Number")' />
+            <TextField v-model="thirdPartyModel.company" :label='$t("Insurance Company")' />
+          </div>
+          <v-btn block :disabled="loading" @click="addThirdParty">{{$t('Add')}}</v-btn>
+        </div>
+      </div>
+    </v-overlay>
   </div>
 </template>
 
@@ -105,13 +142,53 @@ export default defineComponent({
         step = ref(1),
         accidentTypes = ref([]),
         form = ref({
-          third_party: {},
+          third_parties: [],
           involves_third_party: 1,
           quotes: [{type: '', quantity: 1, amount: 1000}]
         }),
         types = ref([] as Array<{ label: string, value: string | number }>),
         images = ref([] as Array<FileType>),
-        $loading = inject('$loading')
+        $loading = inject('$loading');
+        let showThirdpartyModal = ref(false), 
+
+        thirdPartyModel = ref(
+          {
+            full_name: '',
+            mobile: '',
+            policy_number: '',
+            company: ''
+          }
+        )
+    function addThirdParty() {
+      if(!thirdPartyModel.value.full_name) {
+            // alert('Please fill in full name')
+            alert('Veuillez indiquer le nom complet')
+            return
+          }
+          if(!thirdPartyModel.value.mobile) {
+            // alert('Please fill in mobile')
+            alert("Veuillez remplir le formulaire mobile")
+            return
+          }
+          if(!thirdPartyModel.value.policy_number) {
+            // alert('Please fill in policy number')
+            alert("Veuillez indiquer le numéro de police")
+            return
+          }
+          if(!thirdPartyModel.value.company) {
+            // alert('Please fill in company')
+            alert("Veuillez indiquer la société")
+            return
+          }
+      form.value.third_parties.push(Object.assign({}, thirdPartyModel.value));
+      thirdPartyModel.value = {
+        full_name: '',
+        mobile: '',
+        policy_number: '',
+        company: ''
+      }
+      showThirdpartyModal.value = false;
+    }
 
     function addNewQuote() {
       form.value.quotes.push({type: '', quantity: 1, amount: 1000})
@@ -152,24 +229,9 @@ export default defineComponent({
           }
           return step.value = Number(form.value.involves_third_party) ? 2 : 3;
         case 2:
-          if(!form.value.third_party.full_name) {
-            // alert('Please fill in full name')
-            alert('Veuillez indiquer le nom complet')
-            return
-          }
-          if(!form.value.third_party.mobile) {
-            // alert('Please fill in mobile')
-            alert("Veuillez remplir le formulaire mobile")
-            return
-          }
-          if(!form.value.third_party.policy_number) {
-            // alert('Please fill in policy number')
-            alert("Veuillez indiquer le numéro de police")
-            return
-          }
-          if(!form.value.third_party.company) {
-            // alert('Please fill in company')
-            alert("Veuillez indiquer la société")
+          if(!form.value.third_parties.length) {
+            // Please enter at least one thirdparty')
+            alert("Veuillez saisir au moins un tiers")
             return
           }
           return step.value = 3;
@@ -257,7 +319,10 @@ export default defineComponent({
       prevStep,
       images,
       handleFileSelect,
-      clickInputField
+      clickInputField,
+      showThirdpartyModal,
+      addThirdParty,
+      thirdPartyModel
     }
   }
 })
