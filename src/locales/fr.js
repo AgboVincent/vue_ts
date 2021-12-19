@@ -61,7 +61,7 @@ export default {
     "add items": "Ajouter des articles",
     "Comments": "Commentaires",
     "Car Manufacturer": "Constructeur automobile",
-    "Year of Manufacturer": "Année de fabrication",
+    "Year of Manufacture": "Année de fabrication",
     "Welcome back": "Content de te revoir",
 
     "Model": "modèle",
