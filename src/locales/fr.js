@@ -183,5 +183,6 @@ export default {
     "Not available":"Non disponible",
     "Third Party Details":"Détails sur les tiers",
     "Add Third Party":"Ajouter une tierce partie",
-    "Insurance Company":"Compagnie d'assurance"
+    "Insurance Company":"Compagnie d'assurance",
+    "No gurantees were added to this claim":"Aucune garantie n'a été ajoutée à cette demande"
 }   

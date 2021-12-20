@@ -67,7 +67,7 @@
 
             <div class="mt-7 w-full">
               <p class="pb-2 text-text text-xs">{{ $t('Garantie(s)') }}</p>
-              <div class="relative flex flex-column border rounded-md p-3 w-full">
+              <div class="relative flex flex-column border rounded-md p-3 w-full" v-if="guarantees.length">
                 <div class="flex items-center space-x-2" v-for="(guarantee, index) in guarantees" :key="index">
                   <input v-model="form.guarantees" :value="guarantee.name" 
                       class="text-text-dark outline-none text-sm pl-4" :id="guarantee.name + index"
@@ -75,6 +75,7 @@
                   <label :for="guarantee.name + index">{{guarantee.name}}</label>
                 </div>
               </div>
+              <div v-else class="text-sm">{{$t('No gurantees were added to this claim')}}.</div>
             </div>
 
             <text-field
@@ -153,7 +154,7 @@ export default defineComponent({
       },
       thirdPartyCompanies: [],
       expertsModel: [],
-      garageModel: [],
+      garageModel: []
     }
   },
   computed: {
@@ -199,7 +200,7 @@ export default defineComponent({
       })
     }
 
-    if(this.garage){
+    if(this.garage.name){
       this.garageModel = [{
         label: `${this.garage.name} (Garage)`,
         value: `${this.garage.name} (Garage)`
