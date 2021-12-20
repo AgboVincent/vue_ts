@@ -54,7 +54,9 @@
                 :options="[
                   {label: 'BALOON', value: 'BALOON'},
                   {label: insurer.name + ' (Compagnie du client)', value: insurer.name + ' (Compagnie du client)'},
-                  ...thirdPartyCompanies
+                  ...thirdPartyCompanies,
+                  {label: garage.name + '(Garage)', value: garage.name + '(Garage)'},
+                  ...expertsModel
                 ]"
                 label="Recipient"
                 placeholder="Select Recipient"
@@ -149,7 +151,8 @@ export default defineComponent({
         amount: null,
         guarantees: []
       },
-      thirdPartyCompanies: [] 
+      thirdPartyCompanies: [],
+      expertsModel: [],
     }
   },
   computed: {
@@ -178,13 +181,22 @@ export default defineComponent({
   },
   mounted(){
     if(this.accident.third_parties && this.accident.third_parties.length > 0) {
-        this.thirdPartyCompanies = this.accident.third_parties.map(thirdParty => {
-          return {
-            label: `${thirdParty.company} (Compagnie du Tiers ${thirdParty.full_name})`,
-            value: `${thirdParty.company} - (Compagnie du Tiers ${thirdParty.full_name})`
-          }
-        })
-      }
+      this.thirdPartyCompanies = this.accident.third_parties.map(thirdParty => {
+        return {
+          label: `${thirdParty.company} (Compagnie du Tiers ${thirdParty.full_name})`,
+          value: `${thirdParty.company} - (Compagnie du Tiers ${thirdParty.full_name})`
+        }
+      })
+    }
+
+    if(this.experts && this.experts.length > 0) {
+      this.expertsModel = this.experts.map(expert => {
+        return {
+          label: `${expert.name} - (expert)`,
+          value: `${expert.name} - (expert)`
+        }
+      })
+    }
   },
   props: {
     claim_id:  {
@@ -204,6 +216,14 @@ export default defineComponent({
       required: true
     },
     guarantees: {
+      type: Array,
+      required: false
+    },
+    garage: {
+      type: Object,
+      required: false
+    },
+    experts: {
       type: Array,
       required: false
     }

@@ -20,6 +20,8 @@
       :insurer="insurer"
       :accident="claim.accident"
       :guarantees="claim.guarantees"
+      :garage="garage"
+      :experts="experts"
       @newFinMovement="fetchMovements">
     </financial-movement-modal>
 
@@ -32,8 +34,9 @@ import {defineComponent, onMounted, PropType, ref} from "vue";
 import {ClaimType, FinancialMovementType} from "../../types";
 import Table from './../Table.vue'
 import TextField from "../TextField.vue";
-import {getFinancialMovements, getPolicyInsurer} from "../../requests";
+import {getFinancialMovements, getPolicyInsurer, getGarageRequest, getClaimExpertsRequest} from "../../requests";
 import FinancialMovementModal from "./FinancialMovementModal.vue";
+import axios from "axios";
 
 export default defineComponent({
   name: 'FinancialMovements',
@@ -47,7 +50,10 @@ export default defineComponent({
     const movements = ref([] as Array<FinancialMovementType>),
         total = ref(1), claim_id = props.claim.id;
     
-    let insurer = ref(null as any)
+    let insurer = ref(null as any),
+        garage = ref({}),
+        experts = ref([]) as Array<any>;
+
 
     function fetchMovements() {
       getFinancialMovements(props.claim.id)
@@ -56,11 +62,17 @@ export default defineComponent({
             movements.value.push(...data)
           })
     }
-    onMounted(() => {
-      getPolicyInsurer(props.claim?.policy?.id).then(response => {
-        insurer.value = response.data
-        
-      })
+    onMounted(function() {
+      axios.all([
+          getPolicyInsurer(props.claim?.policy?.id),
+          getGarageRequest(props.claim.id),
+          getClaimExpertsRequest(props.claim.id)
+        ])
+          .then(axios.spread((insurerResponse, garageResponse, expertsResponse) => {
+            insurer.value = insurerResponse.data;
+            garage.value = garageResponse.data;
+            experts.value = expertsResponse.data;
+          }))
     })
     onMounted(() => fetchMovements())
     return {
@@ -68,7 +80,9 @@ export default defineComponent({
       total,
       claim_id, 
       fetchMovements,
-      insurer
+      insurer,
+      garage,
+      experts
     }
   }
 })
