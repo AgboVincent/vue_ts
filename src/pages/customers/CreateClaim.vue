@@ -27,13 +27,9 @@
         <!--button to open third party modal-->
         <div class="flex justify-between align-center">
           <p class="font-bold text-2xl">{{ $t("Third Party")}}</p>
-          <v-btn @click="showThirdpartyModal = true">
-            <v-icon>mdi-plus</v-icon>
-            {{ $t("Add Third Party")}}
-          </v-btn>
         </div>
         <div v-if="form.third_parties.length">
-          <div class="flex align-center my-8" v-for="(thirdParty, index) in form.third_parties" :key="index">
+          <div class="flex align-center mt-8" v-for="(thirdParty, index) in form.third_parties" :key="index">
             <v-avatar
               color="primary"
               size="36"
@@ -42,13 +38,15 @@
               <p class="text-sm font-bold">{{ thirdParty.full_name }}</p>
               <p class="text-sm">{{ thirdParty.mobile }}</p>
             </div>
-            <!-- <span class="pl-2">{{ thirdParty.full_name }}</span> -->
           </div>
-          
-          <div class="flex justify-between">
-            <v-btn @click="prevStep">{{ $t("Prev")}}</v-btn>
-            <v-btn @click="nextStep">{{ $t("Next")}}</v-btn>
-          </div>
+        </div>
+        <div class="flex justify-between mt-8">
+          <v-btn @click="prevStep">{{ $t("Prev")}}</v-btn>
+          <v-btn @click="showThirdpartyModal = true">
+            <v-icon>mdi-plus</v-icon>
+            {{ $t("Add")}}
+          </v-btn>
+          <v-btn @click="nextStep" v-if="form.third_parties.length">{{ $t("Next")}}</v-btn>
         </div>
       </div>
       <div v-if="step === 3">
