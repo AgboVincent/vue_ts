@@ -17,6 +17,9 @@
     <financial-movement-modal 
       :claim_id="claim_id" 
       :user-can-edit="claim.user_can_edit"
+      :insurer="insurer"
+      :accident="claim.accident"
+      :guarantees="claim.guarantees"
       @newFinMovement="fetchMovements">
     </financial-movement-modal>
 
@@ -29,7 +32,7 @@ import {defineComponent, onMounted, PropType, ref} from "vue";
 import {ClaimType, FinancialMovementType} from "../../types";
 import Table from './../Table.vue'
 import TextField from "../TextField.vue";
-import {getFinancialMovements} from "../../requests";
+import {getFinancialMovements, getPolicyInsurer} from "../../requests";
 import FinancialMovementModal from "./FinancialMovementModal.vue";
 
 export default defineComponent({
@@ -42,7 +45,9 @@ export default defineComponent({
   },
   setup(props) {
     const movements = ref([] as Array<FinancialMovementType>),
-        total = ref(1), claim_id = props.claim.id
+        total = ref(1), claim_id = props.claim.id;
+    
+    let insurer = ref(null as any)
 
     function fetchMovements() {
       getFinancialMovements(props.claim.id)
@@ -51,9 +56,20 @@ export default defineComponent({
             movements.value.push(...data)
           })
     }
-
+    onMounted(() => {
+      getPolicyInsurer(props.claim?.policy?.id).then(response => {
+        insurer.value = response.data
+        
+      })
+    })
     onMounted(() => fetchMovements())
-    return {movements, total, claim_id, fetchMovements}
+    return {
+      movements,
+      total,
+      claim_id, 
+      fetchMovements,
+      insurer
+    }
   }
 })
 </script>

@@ -16,3 +16,9 @@ export function createClaimForPolicyRequest(id: number, data: any) {
         data
     })
 }
+
+export function getPolicyInsurer(id: number) {
+    return request({
+        url: `api/admin/policies/${id}/insurer`
+    })
+}
