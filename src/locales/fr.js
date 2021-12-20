@@ -182,5 +182,6 @@ export default {
     "Save":"Sauvez",
     "Not available":"Non disponible",
     "Third Party Details":"Détails sur les tiers",
-    "Add Third Party":"Ajouter une tierce partie"
+    "Add Third Party":"Ajouter une tierce partie",
+    "Insurance Company":"Compagnie d'assurance"
 }   
