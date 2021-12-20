@@ -55,7 +55,7 @@
                   {label: 'BALOON', value: 'BALOON'},
                   {label: insurer.name + ' (Compagnie du client)', value: insurer.name + ' (Compagnie du client)'},
                   ...thirdPartyCompanies,
-                  {label: garage.name + '(Garage)', value: garage.name + '(Garage)'},
+                  ...garageModel,
                   ...expertsModel
                 ]"
                 label="Recipient"
@@ -153,6 +153,7 @@ export default defineComponent({
       },
       thirdPartyCompanies: [],
       expertsModel: [],
+      garageModel: [],
     }
   },
   computed: {
@@ -196,6 +197,13 @@ export default defineComponent({
           value: `${expert.name} - (expert)`
         }
       })
+    }
+
+    if(this.garage){
+      this.garageModel = [{
+        label: `${this.garage.name} (Garage)`,
+        value: `${this.garage.name} (Garage)`
+      }]
     }
   },
   props: {
