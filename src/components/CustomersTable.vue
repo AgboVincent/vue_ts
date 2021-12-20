@@ -9,7 +9,7 @@
         <v-chip color="success">{{ $t(row.status) }}</v-chip>
       </td>
       <td>
-        <v-btn  color=" lighten-2" dark elevation="0" :to="`/customers/${row.id}/claims/create`">+ Claim</v-btn>
+        <v-btn v-if="row.user_can_create_claim"  color=" lighten-2" dark elevation="0" :to="`/customers/${row.id}/claims/create`">+ Claim</v-btn>
       </td>
     </template>
   </Table>
