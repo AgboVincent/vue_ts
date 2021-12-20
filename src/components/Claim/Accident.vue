@@ -32,32 +32,42 @@
   </div>
 
   <p class="heading" v-if="claim.accident.involved_third_party">{{$t('Third Party Details')}}</p>
-  <div class="row" v-if="claim.accident.involved_third_party">
-    <div class="col">
-      <div class="item">
-        <p class="field">{{$t('Full Name')}}</p>
-        <p class="value">{{ claim.accident.third_party.full_name }}</p>
-      </div>
-      <div class="item">
-        <p class="field">{{$t('Phone Number')}}</p>
-        <p class="value">{{ claim.accident.third_party.mobile }}</p>
-      </div>
-    </div>
-    <div class="col">
-      <div class="item">
-        <p class="field">{{$t('Insurance Company')}}</p>
-        <p class="value">{{ claim.accident.third_party.company }}</p>
-      </div>
-      <div class="item">
-        <p class="field">{{$t('Policy Number')}}</p>
-        <p class="value">{{ claim.accident.third_party.policy_number }}</p>
-      </div>
-    </div>
+  <div v-if="claim.accident.involved_third_party">
+    <table class="table-auto">
+      <thead>
+        <tr>
+          <th class="text-left px-3">
+            {{$t('Full Name')}}
+          </th>
+          <th class="text-left px-3">
+            {{$t('Policy Number')}}
+          </th>
+          <th class="text-left px-3">
+            {{$t('Phone Number')}}
+          </th>
+          <th class="text-left px-3">
+            {{$t('Insurance Company')}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="(thirdParty, index) in claim.accident.third_parties" 
+          :key="index"
+        >
+          <td class="px-3 py-1 text-sm">{{ thirdParty.full_name }}</td>
+          <td class="px-3 py-1 text-sm">{{ thirdParty.policy_number }}</td>
+          <td class="px-3 py-1 text-sm">{{ thirdParty.mobile }}</td>
+          <td class="px-3 py-1 text-sm">{{ thirdParty.company }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
 
   <p class="heading">{{$t('Uploaded documents')}}</p>
 
-  <v-overlay v-model="displayClaimEditModal">
+  <!-- <v-overlay v-model="displayClaimEditModal">
     <div class="w-[600px] bg-white rounded">
       <div class="flex border-b items-center">
         <p class="p-6 text-lg font-medium px-7 flex-grow-1">{{$t('Edit Details')}}</p>
@@ -114,7 +124,7 @@
         </div>
       </form>
     </div>
-  </v-overlay>
+  </v-overlay> -->
 </template>
 
 <script lang="ts">

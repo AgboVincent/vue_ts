@@ -150,7 +150,7 @@
       <div class="bg-white w-[500px] rounded">
         <div class="flex border-b items-center">
           <p class="p-6 text-2xl font-medium px-7 flex-grow-1">{{$t('Add garage')}}</p>
-          <div class="p-5" @click="showGarageModal = false    ">
+          <div class="p-5" @click="showGarageModal = false">
             <v-icon>mdi-close</v-icon>
           </div>
         </div>
