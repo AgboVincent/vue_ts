@@ -34,9 +34,13 @@
             ></text-field>
 
             <text-field
-                v-if="form.nature !== 'provision'"
+                v-if="form.nature !== 'provision' && insurer"
                 v-model="form.issuer"
-                :options="[{label: 'BALOON', value: 'BALOON'},{label: 'AXA (Compagnie du client)', value: 'AXA (Compagnie du client)'},{label: 'ALLIANZ (Compagnie du Tiers JOEL DIOP)', value: 'ALLIANZ (Compagnie du Tiers JOEL DIOP)'}]"
+                :options="[
+                  {label: 'BALOON', value: 'BALOON'},
+                  {label: insurer.name + ' (Compagnie du client)', value: insurer.name + ' (Compagnie du client)'},
+                  ...thirdPartyCompanies
+                ]"
                 label="Issuer"
                 placeholder="Select issuer"
                 required
@@ -45,9 +49,13 @@
             ></text-field>
 
             <text-field
-                v-if="form.nature !== 'provision'"
+                v-if="form.nature !== 'provision' && insurer"
                 v-model="form.recipient"
-                :options="[{label: 'BALOON', value: 'BALOON'},{label: 'AXA (Compagnie du client)', value: 'AXA (Compagnie du client)'},{label: 'ALLIANZ (Compagnie du Tiers JOEL DIOP)', value: 'ALLIANZ (Compagnie du Tiers JOEL DIOP)'},{label: 'JACQUES MALOUDA (Expert)', value: 'JACQUES MALOUDA (Expert)'},{label: 'ROGER BAMBA (Expert)', value: 'ROGER BAMBA (Expert)'},{label: 'GARAGE DU CENTRE (Garage)', value: 'GARAGE DU CENTRE (Garage)'}]"
+                :options="[
+                  {label: 'BALOON', value: 'BALOON'},
+                  {label: insurer.name + ' (Compagnie du client)', value: insurer.name + ' (Compagnie du client)'},
+                  ...thirdPartyCompanies
+                ]"
                 label="Recipient"
                 placeholder="Select Recipient"
                 required
@@ -58,15 +66,11 @@
             <div class="mt-7 w-full">
               <p class="pb-2 text-text text-xs">{{ $t('Garantie(s)') }}</p>
               <div class="relative flex flex-column border rounded-md p-3 w-full">
-                <div class="flex items-center space-x-2">
-                  <input v-model="form.guarantees" value="RC" class="text-text-dark outline-none text-sm pl-4" id="RC"
+                <div class="flex items-center space-x-2" v-for="(guarantee, index) in guarantees" :key="index">
+                  <input v-model="form.guarantees" :value="guarantee.name" 
+                      class="text-text-dark outline-none text-sm pl-4" :id="guarantee.name + index"
                       :disabled="!userCanEdit" type="checkbox"/>
-                  <label for="RC">RC</label>
-                </div>
-                <div class="flex items-center space-x-2">
-                  <input v-model="form.guarantees" value="Bris de glaces" class="text-text-dark outline-none text-sm pl-4" id="Bris"
-                        :disabled="!userCanEdit" type="checkbox"/>
-                  <label for="Bris">Bris de glaces</label>
+                  <label :for="guarantee.name + index">{{guarantee.name}}</label>
                 </div>
               </div>
             </div>
@@ -144,7 +148,8 @@ export default defineComponent({
         nature: null,
         amount: null,
         guarantees: []
-      }
+      },
+      thirdPartyCompanies: [] 
     }
   },
   computed: {
@@ -152,7 +157,7 @@ export default defineComponent({
       let form = this.form;
       return form.guarantees.length < 1 || !form.nature || !form.amount;
 
-    }
+    },
   },
   methods: {
     submitForm() {
@@ -171,6 +176,16 @@ export default defineComponent({
       }
     },
   },
+  mounted(){
+    if(this.accident.third_parties && this.accident.third_parties.length > 0) {
+        this.thirdPartyCompanies = this.accident.third_parties.map(thirdParty => {
+          return {
+            label: `${thirdParty.company} (Compagnie du Tiers ${thirdParty.full_name})`,
+            value: `${thirdParty.company} - (Compagnie du Tiers ${thirdParty.full_name})`
+          }
+        })
+      }
+  },
   props: {
     claim_id:  {
       type: Number,
@@ -178,6 +193,18 @@ export default defineComponent({
     },
     userCanEdit: {
       type: Boolean,
+      required: false
+    },
+    insurer: {
+      type: Object,
+      required: true
+    },
+    accident: {
+      type: Object,
+      required: true
+    },
+    guarantees: {
+      type: Array,
       required: false
     }
   },
