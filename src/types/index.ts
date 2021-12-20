@@ -109,7 +109,8 @@ export type PolicyType = {
         "name": string
     },
     user: UserType
-    vehicle: VehicleType
+    vehicle: VehicleType,
+    user_can_create_claim: boolean
 }
 
 export type VehicleType = {
