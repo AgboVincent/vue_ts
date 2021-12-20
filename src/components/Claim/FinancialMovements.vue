@@ -50,7 +50,7 @@ export default defineComponent({
     const movements = ref([] as Array<FinancialMovementType>),
         total = ref(1), claim_id = props.claim.id;
     
-    let insurer = ref(null as any),
+    let insurer = ref({}),
         garage = ref({}),
         experts = ref([]) as Array<any>;
 
