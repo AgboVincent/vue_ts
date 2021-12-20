@@ -190,23 +190,34 @@ export default defineComponent({
         }
       })
     }
-
-    if(this.experts && this.experts.length > 0) {
-      this.expertsModel = this.experts.map(expert => {
-        return {
-          label: `${expert.name} - (expert)`,
-          value: `${expert.name} - (expert)`
-        }
-      })
-    }
-
-    if(this.garage.name){
-      this.garageModel = [{
-        label: `${this.garage.name} (Garage)`,
-        value: `${this.garage.name} (Garage)`
-      }]
-    }
   },
+  
+  watch: {
+    'experts':{
+      handler: function (val) {
+        if(val && val.length > 0) {
+          this.expertsModel = val.map(expert => {
+            return {
+              label: `${expert.name} - (expert)`,
+              value: `${expert.name} - (expert)`
+            }
+          })
+        }
+      },
+      deep: true
+    },
+    'garage':{
+      handler: function (val) {
+        if(val.name){
+          this.garageModel = [{
+            label: `${val.name} (Garage)`,
+            value: `${val.name} (Garage)`
+          }]
+        }
+      },
+      deep: true
+    }
+} ,
   props: {
     claim_id:  {
       type: Number,
