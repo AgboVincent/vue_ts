@@ -71,7 +71,7 @@
            @click.prevent="() => changeTab(tabIndex)"
            v-for="(tab, tabIndex) in tabs"
            class="tab"
-           :class="activeTab.name === tab.name ? $t('active') : ''"
+           :class="activeTab.name === tab.name ? 'active' : ''"
            :key="`tabs:${tabIndex}`">{{ $t(tab.name) }}</a>
       </div>
 
@@ -216,7 +216,7 @@ export default defineComponent({
     @apply mx-5 py-5 font-normal text-xs;
 
     &.active {
-      @apply font-bold border-b-2 text-primary border-primary;
+      @apply font-bold border-b-2 text-baloon-yellow border-baloon-yellow;
     }
   }
 }
