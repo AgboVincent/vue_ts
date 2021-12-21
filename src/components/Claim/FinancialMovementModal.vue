@@ -191,7 +191,7 @@ export default defineComponent({
       })
     }
   },
-  
+
   watch: {
     'experts':{
       handler: function (val) {
@@ -208,7 +208,7 @@ export default defineComponent({
     },
     'garage':{
       handler: function (val) {
-        if(val.name){
+        if(val && val.name){
           this.garageModel = [{
             label: `${val.name} (Garage)`,
             value: `${val.name} (Garage)`
