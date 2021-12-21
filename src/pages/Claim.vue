@@ -161,6 +161,9 @@ export default defineComponent({
             claim.value = Object.assign({}, {accident: {third_party: {}}}, data)
             loading.value = false
           })
+          .catch(err=>{
+            alert('Un problème est survenu lors de l\'obtention de cette Sinistre')
+          })
     }
 
     onMounted(fetchClaim)
