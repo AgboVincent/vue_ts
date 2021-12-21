@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog"
+    <v-overlay v-model="dialog"
               justify="center"
               scrollable
     >
@@ -132,7 +132,7 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-overlay>
   </v-row>
 </template>
 
