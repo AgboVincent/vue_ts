@@ -33,9 +33,11 @@ export default {
 
     methods: {
         saveGuarantees() {
-            saveGuaranteesRequest(this.claim?.id, this.selectedGuaranteeTypes)
+            saveGuaranteesRequest(this.claim?.policy.id, this.selectedGuaranteeTypes)
                 .then(({data}) => {
-                    this.$emit('update', data)
+                    const claim = this.claim;
+                    claim.policy = data;
+                    this.$emit('update', claim)
                 })
         }
     },
@@ -44,7 +46,7 @@ export default {
         getGuaranteeTypesRequest()
             .then(({data}) => {
                 this.guaranteeTypes.push(...data.map((a) => ({value: a.id, label: a.name})))
-                this.selectedGuaranteeTypes.push(...this.claim.guarantees.map(g => g.type_id));
+                this.selectedGuaranteeTypes.push(...this.claim.policy.guarantees.map(g => g.type_id));
 
                 console.log(this.selectedGuaranteeTypes)
             })

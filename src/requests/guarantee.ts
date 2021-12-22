@@ -7,9 +7,9 @@ export function getGuaranteeTypesRequest() {
     })
 }
 
-export function saveGuaranteesRequest(claimId: number, data: Array<number>) {
+export function saveGuaranteesRequest(policyId: number, data: Array<number>) {
     return request({
-        url: `api/admin/claims/${claimId}/guarantees`,
+        url: `api/admin/policies/${policyId}/guarantees`,
         method: 'POST',
         data: {guarantees: data}
     })
