@@ -6,7 +6,7 @@
       <td>{{ row.user.mobile }}</td>
       <td>{{ row.number }}</td>
       <td>
-        <v-chip color="success">{{ $t(row.status) }}</v-chip>
+        <v-chip :color="row.status == 'active' ? 'success' : 'danger'">{{ $t(row.status) }}</v-chip>
       </td>
       <td>
         <v-btn v-if="row.user_can_create_claim"  color=" lighten-2" dark elevation="0" :to="`/customers/${row.id}/claims/create`">+ Claim</v-btn>
