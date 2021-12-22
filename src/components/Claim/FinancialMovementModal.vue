@@ -26,8 +26,8 @@
             <text-field
                 v-model="form.nature"
                 :options="[{label: 'Réglement', value: 'Réglement'},{label: 'Provision', value: 'provision'},{label: 'Honoraires', value: 'Honoraires'},{label: 'Frais', value: 'Frais'}]"
-                label="Nature"
-                placeholder="Select nature"
+                :label="$t('Nature')"
+                :placeholder="$t('Select nature')"
                 required
                 type="select"
                 :disabled="!userCanEdit"
@@ -41,8 +41,8 @@
                   {label: insurer.name + ' (Compagnie du client)', value: insurer.name + ' (Compagnie du client)'},
                   ...thirdPartyCompanies
                 ]"
-                label="Issuer"
-                placeholder="Select issuer"
+                :label="$t('Issuer')"
+                :placeholder="$t('Select issuer')"
                 required
                 type="select"
                 :disabled="!userCanEdit"
@@ -58,8 +58,8 @@
                   ...garageModel,
                   ...expertsModel
                 ]"
-                label="Recipient"
-                placeholder="Select Recipient"
+                :label="$t('Recipient')"
+                :placeholder="$t('Select Recipient')"
                 required
                 type="select"
                 :disabled="!userCanEdit"
@@ -80,7 +80,7 @@
 
             <text-field
                 v-model="form.amount"
-                label="Movement Amount"
+                :label="$t('Movement Amount')"
                 type="number"
                 required
                 :disabled="!userCanEdit"
@@ -90,8 +90,8 @@
                 v-if="form.nature !== 'provision'"
                 v-model="form.payment_method"
                 :options="[{label: 'Chéque', value: 'Chéque'},{label: 'Virement', value: 'Virement'},{label: 'Bon de réparation', value: 'Bon de réparation'},{label: 'Espéces', value: 'Espéces'},{label: 'Autre', value: 'Autre'}]"
-                label="Means of payment"
-                placeholder="Select payment method"
+                :label="$t('Means of payment')"
+                :placeholder="$t('Select payment method')"
                 required
                 type="select"
                 :disabled="!userCanEdit"
@@ -100,7 +100,7 @@
             <text-field
                 v-if="form.nature !== 'provision'"
                 v-model="form.payment_reference"
-                label="Payment Reference"
+                :label="$t('Payment Reference')"
                 type="text"
                 required
                 :disabled="!userCanEdit"
