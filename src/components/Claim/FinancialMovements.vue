@@ -19,7 +19,7 @@
       :user-can-edit="claim.user_can_edit"
       :insurer="insurer"
       :accident="claim.accident"
-      :guarantees="claim.guarantees"
+      :guarantees="claim.policy.guarantees"
       :garage="garage"
       :experts="experts"
       @newFinMovement="fetchMovements">
