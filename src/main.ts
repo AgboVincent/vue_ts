@@ -19,7 +19,7 @@ import en from './locales/en.js'
 import fr from './locales/fr.js'
 
 const i18n = createI18n({
-    locale: 'fr',
+    locale: 'en',
     legacy: false,
     globalInjection: true,
     messages: {

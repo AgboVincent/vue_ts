@@ -1,5 +1,6 @@
 <template>
-  <AppBar title="Settings" :navigator="false" />
+  <div>
+    <AppBar title="Settings" :navigator="false" />
   <div class="bg-white w-full rounded overflow-hidden">
     <div class="tabs">
       <router-link :to="`/settings/${tab.toString().toLowerCase()}`"
@@ -10,6 +11,7 @@
     <div class="pt-[43px] pb-[100px] px-[40px]">
     <router-view/>
     </div>
+  </div>
   </div>
 </template>
 <script lang="ts" setup>

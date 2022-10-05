@@ -1,33 +1,35 @@
 <template>
-  <p class="text-2xl text-text-dark font-bold">{{ $t("Welcome back")}}</p>
-  <p class="text-text-dark">{{ $t("Enter your login details to proceed")}}</p>
+  <div>
+    <p class="text-2xl text-text-dark font-bold">{{ $t("Welcome back")}}</p>
+    <p class="text-text-dark">{{ $t("Enter your login details to proceed")}}</p>
 
-  <ErrorMessage v-if="showErrorMessage" class="mt-7">
-    {{ $t("You entered an incorrect, email, password or both. Need an account")}}? <strong>{{ $t("Sign Up")}} </strong>
-  </ErrorMessage>
+    <ErrorMessage v-if="showErrorMessage" class="mt-7">
+      {{ $t("You entered an incorrect, email, password or both. Need an account")}}? <strong>{{ $t("Sign Up")}} </strong>
+    </ErrorMessage>
 
-  <form @submit.prevent="handleLoginButton">
-    <TextField
-        v-model="email"
-        label="Email Address"
-        placeholder="john.doe@gmail.com"
-        icon="mdi-email-outline"/>
-    <TextField
-        label="Password"
-        v-model="password"
-        placeholder="********"
-        icon="mdi-lock-outline"
-        type="password"/>
-    <router-link to="/forgot-password" class="block text-text-dark pt-8 mb-12">{{ $t("Forgot Password")}}? </router-link>
+    <form @submit.prevent="handleLoginButton">
+      <TextField
+          v-model="email"
+          label="Email Address"
+          placeholder="john.doe@gmail.com"
+          icon="mdi-email-outline"/>
+      <TextField
+          label="Password"
+          v-model="password"
+          placeholder="********"
+          icon="mdi-lock-outline"
+          type="password"/>
+      <router-link to="/forgot-password" class="block text-text-dark pt-8 mb-12">{{ $t("Forgot Password")}}? </router-link>
 
-    <v-btn
-        block
-        type="submit"
-        :disabled="loading"
-    >
-      {{ $t("Login to your account")}}
-    </v-btn>
-  </form>
+      <v-btn
+          block
+          type="submit"
+          :disabled="loading"
+      >
+        {{ $t("Login to your account")}}
+      </v-btn>
+    </form>
+  </div>
 </template>
 
 <script lang="ts">

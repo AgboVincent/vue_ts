@@ -1,28 +1,30 @@
 <template>
-  <AppBar>
-    <TextField icon="mdi-search" :placeholder="$t('Search customers, emails , claim references')" class="bg-white !m-0"/>
-  </AppBar>
+  <div>
+    <AppBar>
+      <TextField icon="mdi-search" :placeholder="$t('Search customers, emails , claim references')" class="bg-white !m-0"/>
+    </AppBar>
 
-  <p class="text-primary-deep font-bold pt-12 pb-10 text-2xl">{{$t('dashboard')}}</p>
+    <p class="text-primary-deep font-bold pt-12 pb-10 text-2xl">{{$t('dashboard')}}</p>
 
-  <div class="grid grid-cols-4 gap-x-4">
-    <div class="flex items-center pl-6 pr-5 justify-between pt-10 pb-9 rounded bg-white" v-for="view in overview"
-         :key="`summary:${view.key}`">
-      <p class="text-text">
-        {{ $t(view.name) }}
-        <span class="text-2xl text-primary-deep font block" v-text="view.value"/>
-      </p>
-      <div class="w-[40px] h-[40px] grid place-items-center bg-secondary">
-        <v-icon size="large" color="primary">
-          mdi-car-settings
-        </v-icon>
+    <div class="grid grid-cols-4 gap-x-4">
+      <div class="flex items-center pl-6 pr-5 justify-between pt-10 pb-9 rounded bg-white" v-for="view in overview"
+          :key="`summary:${view.key}`">
+        <p class="text-text">
+          {{ $t(view.name) }}
+          <span class="text-2xl text-primary-deep font block" v-text="view.value"/>
+        </p>
+        <div class="w-[40px] h-[40px] grid place-items-center bg-secondary">
+          <v-icon size="large" color="primary">
+            mdi-car-settings
+          </v-icon>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="w-full pt-11" v-if="claims.length > 0">
-    <p class="text-lg font-semibold text-text-dark mb-5">{{$t('urgentClaims')}}</p>
-    <ClaimsTable :data="claims"/>
+    <div class="w-full pt-11" v-if="claims.length > 0">
+      <p class="text-lg font-semibold text-text-dark mb-5">{{$t('urgentClaims')}}</p>
+      <ClaimsTable :data="claims"/>
+    </div>
   </div>
 </template>
 

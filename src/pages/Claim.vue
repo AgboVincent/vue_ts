@@ -1,4 +1,5 @@
 <template>
+  <div>
   <AppBar :navigator="$t('Back to claims')"/>
   <div v-if="!loading">
     <div class="flex items-end pt-12 pb-10">
@@ -107,6 +108,7 @@
     </v-overlay>
 
   </div>
+ </div>
 </template>
 
 <script lang="ts">
