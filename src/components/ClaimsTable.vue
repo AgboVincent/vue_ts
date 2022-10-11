@@ -13,7 +13,7 @@
       :page="page"
       @update:page="$event => $emit('update:page', $event)"
       :total-pages="total">
-    <template v-slot:default="{ item: row, index }">
+    <template v-slot:default="{ item: row }">
       <td>{{ `${row.user.first_name} ${row.user.last_name}` }}</td>
       <td>{{ row.policy.vehicle.registration_number }}</td>
       <td>{{ row.policy.number }}</td>

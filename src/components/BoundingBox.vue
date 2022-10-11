@@ -25,7 +25,6 @@ export default {
     },
     mounted(){
         this.draw();
-        console.log(this.url)
     }
 }
 </script>

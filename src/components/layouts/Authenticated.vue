@@ -3,7 +3,10 @@
     <div class="bg-secondary flex w-full flex-row relative">
       <div class="h-screen w-[280px] px-10 bg-white fixed top-0 left-0">
         <div class="h-[80px] w-full flex items-center bg-white mb-10">
-          <v-img src="/images/logo.png" alt="Logo" class="w-[140px] h-auto flex-initial"/>
+          <div  class="flex items-center">
+            <v-img src="/images/curacel_logo.png" alt="Logo" class="w-[30px] h-[30px] flex-initial "/>
+            <v-img src="/images/curacel.svg" alt="Logo" class="w-[90px] h-[20px] flex-initial "/>
+          </div>
         </div>
 
         <div class="text-text">
@@ -12,7 +15,7 @@
               :to="route.link"
               v-ripple
               v-for="(route, index) in routes"
-              active-class="bg-[#E0BC00] text-primary font-bold"
+              active-class="bg-[#F6F5F5] text-primary font-bold"
               :key="`route::${index}`"
           >
             <v-icon size="large">
@@ -45,7 +48,18 @@ export default defineComponent({
         name: 'dashboard',
         link: '/dashboard',
         icon: 'mdi-home'
-      }, {
+      }, 
+      {
+        name: 'self inspection',
+        icon: 'mdi-account-circle',
+        link: '/inspection'
+      },
+      {
+        name: 'policies',
+        icon: 'mdi-format-list-bulleted',
+        link: '/policies'
+      },
+      {
         name: 'claims',
         icon: 'mdi-car-settings',
         link: '/claims'

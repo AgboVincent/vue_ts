@@ -8,3 +8,12 @@ export function getCustomerListRequest(page = 1) {
         }
     })
 }
+
+export function getSelfInspection(page = 1) {
+    return request({
+        url: '/api/admin/evals',
+        params: {
+            page
+        }
+    });
+}

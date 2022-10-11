@@ -15,6 +15,8 @@ import Settings from './pages/settings/Index.vue'
 import ProfileSetting from './pages/settings/Profile.vue'
 import PasswordSetting from './pages/settings/Password.vue'
 import CreateClaim from './pages/customers/CreateClaim.vue'
+import Inspection from "./pages/Inspection.vue";
+import Policies from "./pages/Policies.vue";
 
 export const AuthMiddleware = (
     to: RouteLocationNormalized,
@@ -87,6 +89,14 @@ export const router = createRouter({
                 {
                     path: '/customers',
                     component: Customers
+                },
+                {
+                    path: '/inspection',
+                    component: Inspection
+                },
+                {
+                    path: '/policies',
+                    component: Policies
                 },
                 {
                     path: '/customers/:policy/claims/create',
