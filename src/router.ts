@@ -17,6 +17,7 @@ import PasswordSetting from './pages/settings/Password.vue'
 import CreateClaim from './pages/customers/CreateClaim.vue'
 import Inspection from "./pages/Inspection.vue";
 import Policies from "./pages/Policies.vue";
+import InspectionDetail from "./pages/InspectionDetails.vue";
 
 export const AuthMiddleware = (
     to: RouteLocationNormalized,
@@ -93,6 +94,10 @@ export const router = createRouter({
                 {
                     path: '/inspection',
                     component: Inspection
+                },
+                {
+                    path: '/inspection/:detail',
+                    component: InspectionDetail
                 },
                 {
                     path: '/policies',

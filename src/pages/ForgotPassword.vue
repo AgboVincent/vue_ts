@@ -1,4 +1,5 @@
 <template>
+ <div>
   <p class="text-2xl font-bold text-text-dark">{{ $t("Forgot Password")}}</p>
   <p class="text-text-dark">
     {{ $t("Enter your email associated with your account and we would send an email with instructions to reset your password")}}
@@ -15,6 +16,7 @@
     <v-btn type="submit" block>{{ $t("Send Instructions")}}</v-btn>
   </form>
   <v-btn block to="/login" elevation="0" color="white" class="mt-6">{{ $t("Go Back")}}</v-btn>
+ </div>
 </template>
 
 <script lang="ts">

@@ -1,10 +1,10 @@
 <template>
     <Table
       :headers="[
-        'first name',
-        'last name',
-        'email',
-        'date of inspection',
+        'First name',
+        'Last name',
+        'Email',
+        'Date of inspection',
         ''
       ]"
       :items="data"
@@ -12,37 +12,22 @@
       @update:page="$event => $emit('update:page', $event)"
       :total-pages="total">
     <template v-slot:default="{ item: row }">
-      <td>{{ row.name}}</td>
-      <td>{{ row.name }}</td>
+      <td>{{ row.name.split(' ')[0] }}</td>
+      <td>{{ row.name.split(' ')[1] }}</td>
       <td>{{ row.email }}</td>
       <td>{{ formatDateTime(row.created_at) }}</td>
       <td>
-        <!-- <div class="v-chip v-theme--light v-chip--density-default v-chip--size-default v-chip--variant-contained"
-             :class="getClaimStatus(row)">{{ $t(row.status) }}
-        </div> -->
-      </td>
-      <td>
         <ui-menu-anchor position="bottom right">
-          <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" @click="openClaimOption(row)"/>
-          <!-- <ui-menu v-model="row.open" class="p-0">
-            <ui-menuitem value="View" @click="gotoCreateClaimPage(row.id)">
-              <router-link :to="`/claims/${row.id}`">
+          <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" @click="openReportOption(row)"/>
+          <ui-menu v-model="row.open" class="p-0">
+            <ui-menuitem value="View" @click="openReportDetail(row.id)">
+              <router-link :to="`/inspection/${row.id}`">
                 <div class="option">
                   {{ $t("View") }}
                 </div>
               </router-link>
             </ui-menuitem>
-            <ui-menuitem @click="markAsPaid(row)">
-              <div class="option">
-                {{ $t("Mark As Paid") }}
-              </div>
-            </ui-menuitem>
-            <ui-menuitem @click="makeTransfer(row)">
-              <div class="option">
-                {{ $t("Process Transfer") }}
-              </div>
-            </ui-menuitem>
-          </ui-menu> -->
+          </ui-menu>
         </ui-menu-anchor>
       </td>
     </template>
@@ -72,8 +57,15 @@ export default defineComponent({
    emits: ['update:page'],
     setup(_, {emit}: SetupContext) {
          const headers = ref(['First Name', 'Last Name', 'Email', 'Date of Inspection', ''])
+        
+         function openReportOption(row: any) {
+            row.open = true;
+         }
 
-        return {headers}
+         function openReportDetail(id: number) {
+            this.$router.push(`/inspection/${id}`);
+        }
+        return {headers, openReportOption, openReportDetail}
         
     },
 })
