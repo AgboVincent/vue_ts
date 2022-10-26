@@ -22,3 +22,22 @@ export function getPolicyInsurer(id: number) {
         url: `api/admin/policies/${id}/insurer`
     })
 }
+
+
+export function getPurchasePolicies(page = 1){
+    return request({
+        url: '/api/admin/purchase/policy',
+        params: {
+            page
+        }
+    })
+}
+
+
+export function updateUserStatus(data: any){
+    return request({
+        url: '/api/admin/status/update',
+        method: 'put',
+        data
+    })
+}

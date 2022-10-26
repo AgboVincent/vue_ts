@@ -2,7 +2,7 @@
     <div>
         <v-col>
              <div class="d-flex align-items-start">
-                <v-btn  height="30" class="back-btn px-2 my-3" @click="$router.back()"> 
+                <v-btn  height="30" elevation="0" class="back-btn px-2 my-3" @click="$router.back()"> 
                     <img class="pb-1 pr-2" src="../assets/arrow_back.png"> Back
                 </v-btn>
              </div>
@@ -41,10 +41,13 @@
             <v-row class="two-cols">
                     <v-col v-for="data in data.uploads" :key="data.id">
                      <v-card 
-                    class="mx-auto"
+                    class="mx-auto "
                     max-width="300"
                     height="300px"
-                    elevation="1"
+                    outlined
+                    elevation="1" 
+                    color="#F6FAFD"
+                    @click="selectedPart(data)"       
                     >
                     <div v-if="data.vehicle_part == 'video'">
                         <video 
@@ -69,6 +72,7 @@
                     <v-img
                         :src="url(data.url)"
                         height="200px"
+                        class="mx-auto white--text align-end"
                         >
                     </v-img>
 
@@ -83,6 +87,90 @@
                     </v-col>
             </v-row>
         </v-layout>
+            <v-row>
+                <v-dialog
+                v-model="dialog"
+                color="#F6FAFD"
+                 persistent
+                class="mx-auto mb-10"
+                >
+                <v-card>
+                    <v-row class="justify-end">
+                        <v-icon size="small" class="mt-5 mr-5"
+                            @click="dialog = false">
+                            mdi-close
+                        </v-icon>
+                    </v-row>
+                    <div>
+                        <video 
+                        v-if="video"
+                        width="200"
+                        class="mx-auto"
+                        controls
+                        height="0">
+                        <source
+                            :src="url(newurl)"
+                            type="video/mp4"
+                        >
+                        </video>
+                    <v-img
+                         v-else
+                        :src="url(newurl)"
+                        height="300px"
+                        width="400px"
+                        class="mx-auto white--text align-end"
+                        >
+                    </v-img>
+
+                    </div>
+
+                    <v-row class="mx-3">
+                        <v-col>
+                            <v-col>
+                                 <h5 class="title">Severity</h5>
+                                 <h5 class="text">{{result}}</h5>
+                            </v-col>
+                            <br>
+                            
+                            <v-col>
+                                 <h5 class="title">Vehicle make</h5>
+                                 <h5 class="text">{{ data.manufacturer }}</h5>
+                            </v-col>
+                            <br>
+                            
+                        </v-col>
+                         <v-col>
+                            <v-col>
+                                 <h5 class="title">Vehicle part</h5>
+                                 <h5 class="text">{{part}}</h5>
+                            </v-col>
+                            <br>
+                            
+                            <v-col>
+                                 <h5 class="title">Vehicle model</h5>
+                                 <h5 class="text">{{data.model}}</h5>
+                            </v-col>
+                            <br>
+                            
+                        </v-col>
+                         <v-col>
+                            <v-col>
+                                 <h5 class="title">Date of inspection</h5>
+                                 <h5 class="text">{{formatDateTime(data.created_at)}}</h5>
+                            </v-col>
+                            
+                            <v-col>
+                                 <h5 class="title">Year of manufacture</h5>
+                                 <h5 class="text">{{data.year}}</h5>
+                            </v-col>
+                            <br>
+                            
+                        </v-col>
+
+                    </v-row>
+                </v-card>
+                </v-dialog>
+            </v-row>
     </div>
 </template>
 
@@ -97,8 +185,12 @@ export default {
     data() {
         return {
             data: {},
-            id: null
-           
+            id: null,
+            dialog:false,
+            part: null,
+            result: null,
+            newurl: null,
+            video: false
         }
     },
     
@@ -107,7 +199,7 @@ export default {
             getSelfInspectionRequest(this.id)
             .then(response =>{
                 this.data = response;
-                console.log(response.data);
+                console.log(response);
             })
             .catch(e =>{
             console.log(e)
@@ -115,6 +207,18 @@ export default {
         },
         url(path){
             return `https://autoclaims.s3.us-east-2.amazonaws.com/${path}`
+        },
+        selectedPart(data){
+            this.dialog = true;
+            this.result = data.result;
+            this.part = data.vehicle_part;
+            this.newurl = data.url;
+            if(data.vehicle_part == 'video'){
+                this.video = true;
+            }
+            else{
+                this.video = false;
+            }
         }
     },
     mounted(){
@@ -129,7 +233,7 @@ export default {
 
 <style scoped>
 .back-btn{
-    background-color: #F3F5F8;
+    background-color: #e1e5f3;
     border: 0;
     color: #5E626A;
     font-size: 14px;
