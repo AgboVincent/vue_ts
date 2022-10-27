@@ -37,25 +37,25 @@
                      <h5  class="text d-flex align-items-start">{{data.chassis_number}}</h5>
                 </v-col>
             </v-col>
-            
+
             <v-row class="two-cols">
                     <v-col v-for="data in data.uploads" :key="data.id">
                      <v-card 
-                    class="mx-auto "
+                    class="mx-auto overflow-hidden v-sheet v-sheet--outlined theme--light rounded border"
                     max-width="300"
                     height="300px"
                     outlined
-                    elevation="1" 
+                    elevation="0" 
                     color="#F6FAFD"
+                    border="1"
                     @click="selectedPart(data)"       
                     >
                     <div v-if="data.vehicle_part == 'video'">
                         <video 
-                        :key="video"
-                        width="150"
-                        class="mx-auto"
+                        :key="video"                       
+                        style="object-fit:fill; width: 30vw; height: 42vh;"
                         controls
-                        height="150">
+                        >
                         <source
                             :src="url(data.url)"
                             type="video/mp4"
@@ -72,6 +72,7 @@
                     <v-img
                         :src="url(data.url)"
                         height="200px"
+                        cover="true"
                         class="mx-auto white--text align-end"
                         >
                     </v-img>

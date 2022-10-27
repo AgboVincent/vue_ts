@@ -44,7 +44,7 @@
 <script lang="ts">
 import { defineComponent, ref, SetupContext } from 'vue';
 import Table from './Table.vue';
-import {updateUserStatus} from "../requests";
+import {updateUserStatus, sendUserEmail} from "../requests";
 export default defineComponent({
     name: "PoliciesTable",
     components: {Table},
@@ -77,7 +77,8 @@ export default defineComponent({
             };
             updateUserStatus(data)
             .then(res=>{
-                console.log(res);
+                var msg = "Your request to purhcase policy has been reviewed successfull and Approved. Kindly click the button to continue";
+                sendUserEmail(row.user, msg);
             })
             
         }
@@ -89,7 +90,8 @@ export default defineComponent({
             };
             updateUserStatus(data)
             .then(res=>{
-                console.log(res);
+                var msg = "Your request to purhcase policy has been reviewed successfull and was Rejected. Kindly resubmit information for inspection ";
+                sendUserEmail(row.user, msg);
             })
             
         }
