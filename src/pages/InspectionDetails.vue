@@ -53,7 +53,7 @@
                     <div v-if="data.vehicle_part == 'video'">
                         <video 
                         :key="video"                       
-                        style="object-fit:fill; width: 30vw; height: 42vh;"
+                        style="object-fit:fill; width: 30vw; height: 27vh;"
                         controls
                         >
                         <source
@@ -97,7 +97,7 @@
                 >
                 <v-card>
                     <v-row class="justify-end">
-                        <v-icon size="small" class="mt-5 mr-5"
+                        <v-icon size="small" class="mt-5 mr-5 mb-5"
                             @click="dialog = false">
                             mdi-close
                         </v-icon>
@@ -108,6 +108,7 @@
                         width="200"
                         class="mx-auto"
                         controls
+                        style="object-fit:fill; width: 34vw; height: 30vh;"
                         height="0">
                         <source
                             :src="url(newurl)"
@@ -118,7 +119,8 @@
                          v-else
                         :src="url(newurl)"
                         height="300px"
-                        width="400px"
+                        width="480px"
+                        cover="true"
                         class="mx-auto white--text align-end"
                         >
                     </v-img>
@@ -131,7 +133,7 @@
                                  <h5 class="title">Severity</h5>
                                  <h5 class="text">{{result}}</h5>
                             </v-col>
-                            <br>
+                            <br v-if="video">                           
                             
                             <v-col>
                                  <h5 class="title">Vehicle make</h5>
