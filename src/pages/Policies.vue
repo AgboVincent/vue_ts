@@ -34,7 +34,7 @@
                   </ui-menu-anchor>
                   
             </div>
-            <PoliciesTable v-if="reports" :data="reports"  @update:page="getReports"/>
+            <PoliciesTable v-if="policies" :data="policies"  @update:page="getPolicies"/>
         </div>
 
     </div>
@@ -53,28 +53,29 @@ export default defineComponent({
     name: "Policies",
     components:{PoliciesTable, TextField, AppBar},
      setup() {
-    const reports = ref([])
+    const policies = ref([])
     const query = ref(null)
     const currentPage = ref(0)
     const total = ref(0)
     
 
-    function getReports(page = 1) {
-      reports.value.splice(0)
+    function getPolicies(page = 1) {
+        console.log("abc")
+      policies.value.splice(0)
       getPurchasePolicies(page)
           .then(data => {      
               let result = data as [];
-              reports.value.push(...result)
-              console.log(reports);
+              policies.value.push(...result)
+              policies.value.reverse();
           })
     }
 
 
-    watch(query, () => getReports(1))
+    watch(query, () => getPolicies(1))
 
-    onMounted(getReports)
+    onMounted(getPolicies)
 
-    return {reports, getReports, total, currentPage, query}
+    return {policies, getPolicies, total, currentPage, query}
   }
 })
 </script>

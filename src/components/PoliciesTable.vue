@@ -79,6 +79,7 @@ export default defineComponent({
             .then(res=>{
                 var msg = "Your request to purhcase policy has been reviewed successfull and Approved. Kindly click the button to continue";
                 sendUserEmail(row.user, msg);
+                emit('update:page', _.page)
             })
             
         }
@@ -92,6 +93,7 @@ export default defineComponent({
             .then(res=>{
                 var msg = "Your request to purhcase policy has been reviewed successfull and was Rejected. Kindly resubmit information for inspection ";
                 sendUserEmail(row.user, msg);
+                emit('update:page', _.page)
             })
             
         }

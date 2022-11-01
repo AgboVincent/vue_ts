@@ -85,8 +85,8 @@ export default defineComponent({
       getSelfInspection(page)
           .then(data => {      
               let result = data as [];
-              reports.value.push(...result)
-              console.log(reports);
+              reports.value.push(...result);
+              reports.value.reverse();
           })
     }
 
