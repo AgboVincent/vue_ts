@@ -224,6 +224,15 @@ export default {
             this.result = data.result;
             this.part = data.vehicle_part;
             this.newurl = data.url;
+            if(data.result === "No Predictions for this vehicle"){
+                this.result = 'Good condition'
+            }
+            else if(data.result === "unavailable"){
+                this.result = "Unavailable"
+            }
+            else{
+                this.result = 'Faulty';
+            }
             if(data.vehicle_part == 'video'){
                 this.video = true;
             }
