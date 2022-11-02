@@ -55,7 +55,7 @@
                     </ui-menu>
                   </ui-menu-anchor>
             </div>
-            <InspectionTable v-if="reports" :data="reports"  @update:page="getReports"/>
+            <InspectionTable v-if="reports" :data="reports" :total="total" :page="currentPage"  @update:page="getReports"/>
         </div>
 
     </div>

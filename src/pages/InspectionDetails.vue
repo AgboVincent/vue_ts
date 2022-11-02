@@ -52,8 +52,7 @@
                     >
                     <div v-if="data.vehicle_part == 'video'">
                         <video 
-                        :key="video"                       
-                        style="object-fit:fill; width: 30vw; height: 27vh;"
+                        style="object-fit:fill; width: 30vw; height:31vh;"
                         controls
                         >
                         <source
@@ -66,7 +65,7 @@
                         </v-card-title>
 
                         <v-card-subtitle>
-                         {{ data.result }}
+                         click to play
                         </v-card-subtitle>
                     </div>
                     <v-img
@@ -78,11 +77,20 @@
                     </v-img>
 
                         <v-card-title>
-                        {{ data.vehicle_part }}
+                        {{ data.vehicle_part }} view
                         </v-card-title>
+                        
+                        <v-card-subtitle v-if="data.result == 'No Predictions for this vehicle'"
+                        style="color: #06B856;">
+                         good condition
+                        </v-card-subtitle>
 
-                        <v-card-subtitle>
+                        <v-card-subtitle v-else-if="data.result == 'unavailable'">
                          {{ data.result }}
+                        </v-card-subtitle>
+
+                        <v-card-subtitle v-else style="color: #EC2D20;">
+                         faulty
                         </v-card-subtitle>
                     </v-card>
                     </v-col>
@@ -108,7 +116,7 @@
                         width="200"
                         class="mx-auto"
                         controls
-                        style="object-fit:fill; width: 34vw; height: 30vh;"
+                        style="object-fit:fill; width: 34vw; height: 38vh;"
                         height="0">
                         <source
                             :src="url(newurl)"
