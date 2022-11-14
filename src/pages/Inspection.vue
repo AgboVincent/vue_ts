@@ -83,10 +83,12 @@ export default defineComponent({
     function getReports(page = 1) {
       reports.value.splice(0)
       getSelfInspection(page)
-          .then(data => {      
-              let result = data as [];
+          .then(res => {      
+              console.log(res);
+              let result = res.data.data as [];
+              currentPage.value = res.data.current_page;
+              total.value = res.data.last_page;
               reports.value.push(...result);
-              reports.value.reverse();
           })
     }
 
