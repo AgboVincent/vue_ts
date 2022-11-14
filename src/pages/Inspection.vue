@@ -85,9 +85,9 @@ export default defineComponent({
       getSelfInspection(page)
           .then(res => {      
               console.log(res);
-              let result = res.data.data as [];
-              currentPage.value = res.data.current_page;
-              total.value = res.data.last_page;
+              let result = res.data as [];
+              currentPage.value = res.current_page;
+              total.value = res.last_page;
               reports.value.push(...result);
           })
     }
