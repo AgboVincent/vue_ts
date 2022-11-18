@@ -1,5 +1,6 @@
 import {request} from "./default";
 import {ClaimUpdateType, FinancialMovementType} from "../types";
+import axios from "axios";
 
 export function getClaimsRequest(page = 1, query = null, status = null) {
     return request({
@@ -145,4 +146,24 @@ export function getGarageRequest (claimId: number){
         url: `api/admin/claims/${claimId}/garage`,
         method: 'GET'
     })
+}
+
+// export function getCollections (page = 1){
+//     return request({
+//         url: 'api/admin/collection',
+//         params: {
+//              page
+//         }
+//     })
+// }
+
+export function getCollections (page:any){
+    const params = { page: page}
+    return axios.get('http://127.0.0.1:8000/api/collection', {params})
+    
+}
+
+export function getCollectionRequest (id:number){
+    return axios.get(`http://127.0.0.1:8000/api/collection/${id}`)
+    
 }

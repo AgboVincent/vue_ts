@@ -151,3 +151,21 @@ export type FinancialMovementType =  {
     amount: number,
     payment_method : string
 }
+
+
+export type CollectionType = {
+    "accident_id": number
+    "created_at":  string | Date,
+    "date": string | Date,
+    "description": string,
+    "id": number,
+    "landmark": string,
+    "location": string,
+    "policy": string,
+    "pre_evaluation_id": number,
+    "purchased_policy_id": number,
+    "time": string,
+    "updated_at": string | Date,
+    "uploads": Array<Object>
+    "user": Object
+}

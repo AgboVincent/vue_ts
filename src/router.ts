@@ -18,6 +18,8 @@ import CreateClaim from './pages/customers/CreateClaim.vue'
 import Inspection from "./pages/Inspection.vue";
 import Policies from "./pages/Policies.vue";
 import InspectionDetail from "./pages/InspectionDetails.vue";
+import Collection from "./pages/Collections.vue";
+import CollectionDetails from "./pages/CollectionDetails.vue";
 
 export const AuthMiddleware = (
     to: RouteLocationNormalized,
@@ -106,6 +108,16 @@ export const router = createRouter({
                 {
                     path: '/customers/:policy/claims/create',
                     component: CreateClaim
+                },
+                {
+                    path: '/collections',
+                    component: Collection
+                },
+                {
+                    path: '/collections/:id',
+                    component: CollectionDetails,
+                    name:'collectionsDetails',
+                    props: true
                 },
                 {
                     path: 'settings',

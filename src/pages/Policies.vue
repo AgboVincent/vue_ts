@@ -62,7 +62,7 @@ export default defineComponent({
     function getPolicies(page = 1) {
       policies.value.splice(0)
       getPurchasePolicies(page)
-          .then(res => {  
+          .then((res:any) => {  
               console.log(res)    
               let result = res.data as [];
               currentPage.value = res.current_page;

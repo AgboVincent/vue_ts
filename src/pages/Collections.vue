@@ -55,7 +55,7 @@
                     </ui-menu>
                   </ui-menu-anchor>
             </div>
-            <InspectionTable v-if="reports" :data="reports" :total="total" :page="currentPage"  @update:page="getReports"/>
+            <CollectionTable v-if="claims" :data="claims" :total="total" :page="currentPage"  @update:page="getClaims"/>
         </div>
 
     </div>
@@ -64,40 +64,40 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref,watch } from "vue";
-import InspectionTable from "../components/InspectionTable.vue";
+import CollectionTable from "../components/CollectionTable.vue";
 import TextField from "../components/TextField.vue";
 import AppBar from "../components/AppBar.vue";
-import {getSelfInspection} from "../requests";
+import {getCollections} from "../requests";
 
 
 export default defineComponent({
-    name: "Inspection",
-    components:{InspectionTable, TextField, AppBar},
+    name: "Collection",
+    components:{CollectionTable, TextField, AppBar},
      setup() {
-    const reports = ref([])
+    const claims = ref([])
     const query = ref(null)
     const currentPage = ref(0)
     const total = ref(0)
     
 
-    function getReports(page = 1) {
-      reports.value.splice(0)
-      getSelfInspection(page)
-          .then((res:any) => {      
+    function getClaims(page = 1) {
+      claims.value.splice(0)
+      getCollections(page)
+          .then((res: any) => {      
               console.log(res);
-              let result = res.data as [];
-              currentPage.value = res.current_page;
+              let result = res.data.data as [];
+              currentPage.value = res.data.current_page;
               total.value = res.last_page;
-              reports.value.push(...result);
+              claims.value.push(...result);
           })
     }
 
 
-    watch(query, () => getReports(1))
+    watch(query, () => getClaims(1))
 
-    onMounted(getReports)
+    onMounted(getClaims)
 
-    return {reports, getReports, total, currentPage, query}
+    return {claims, getClaims, total, currentPage, query}
   }
 })
 </script>

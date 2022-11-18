@@ -50,6 +50,11 @@ export default defineComponent({
         icon: 'mdi-home'
       }, 
       {
+        name: 'Claims',
+        icon: 'mdi-car-settings',
+        link: '/collections'
+      },
+      {
         name: 'self inspection',
         icon: 'mdi-account-circle',
         link: '/inspection'
@@ -59,15 +64,16 @@ export default defineComponent({
         icon: 'mdi-format-list-bulleted',
         link: '/policies'
       },
-      {
-        name: 'claims',
-        icon: 'mdi-car-settings',
-        link: '/claims'
-      }, {
-        name: 'customers',
-        icon: 'mdi-account-multiple',
-        link: '/customers'
-      }
+      // {
+      //   name: 'claims',
+      //   icon: 'mdi-car-settings',
+      //   link: '/claims'
+      // },
+      //{
+      //   name: 'customers',
+      //   icon: 'mdi-account-multiple',
+      //   link: '/customers'
+      // }
     ])
 
     return {routes}
