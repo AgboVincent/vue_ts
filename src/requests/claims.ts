@@ -148,22 +148,18 @@ export function getGarageRequest (claimId: number){
     })
 }
 
-// export function getCollections (page = 1){
-//     return request({
-//         url: 'api/admin/collection',
-//         params: {
-//              page
-//         }
-//     })
-// }
-
-export function getCollections (page:any){
-    const params = { page: page}
-    return axios.get('http://127.0.0.1:8000/api/collection', {params})
-    
+export function getCollections (page = 1){
+    return request({
+        url: 'api/admin/collection',
+        params: {
+             page
+        }
+    })
 }
 
-export function getCollectionRequest (id:number){
-    return axios.get(`http://127.0.0.1:8000/api/collection/${id}`)
-    
+
+export function getCollectionRequest(id:number) {
+    return request({
+        url: `/api/admin/collection/${id}`
+    })
 }
