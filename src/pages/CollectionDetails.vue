@@ -73,8 +73,8 @@ export default defineComponent({
     function fetchClaim() {
         loading.value = true;
         getCollectionRequest(params.id as unknown as number)
-          .then(({data}) => {
-           claim.value =  data
+          .then((data:any) => {
+             claim.value =  data
              loading.value = false
              val.value = true;
           })

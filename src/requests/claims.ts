@@ -160,6 +160,7 @@ export function getCollections (page = 1){
 
 export function getCollectionRequest(id:number) {
     return request({
-        url: `/api/admin/collection/${id}`
+        url: `/api/admin/collection/${id}`,
+        method: 'GET'
     })
 }

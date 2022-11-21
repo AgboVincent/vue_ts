@@ -52,13 +52,13 @@
                         controls
                         >
                         <source
-                            :src="url(data.url)"
+                            :src="`https://autoclaims.s3.us-east-2.amazonaws.com/${data.url}`"
                             type="video/mp4"
                         >
                         </video>
                     </div>
                      <v-img
-                        :src="url(data.url)"
+                        :src="`https://autoclaims.s3.us-east-2.amazonaws.com/${data.url}`"
                         height="200px"
                         cover="true"
                         class="mx-auto white--text align-end"
@@ -83,12 +83,6 @@ export default defineComponent({
       type: Object as PropType<CollectionType>
     }
   },
-  setup(){
-      function url(path){
-            return `https://autoclaims.s3.us-east-2.amazonaws.com/${path}`
-        }
-
-  }
   
 })
 </script>
