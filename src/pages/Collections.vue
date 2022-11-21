@@ -85,8 +85,8 @@ export default defineComponent({
       getCollections(page)
           .then((res: any) => {      
               console.log(res);
-              let result = res.data.data as [];
-              currentPage.value = res.data.current_page;
+              let result = res.data as [];
+              currentPage.value = res.current_page;
               total.value = res.last_page;
               claims.value.push(...result);
           })

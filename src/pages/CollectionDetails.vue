@@ -75,10 +75,8 @@ export default defineComponent({
         getCollectionRequest(params.id as unknown as number)
           .then(({data}) => {
            claim.value =  data
-            console.log(claim.value)
              loading.value = false
              val.value = true;
-             console.log(val)
           })
           .catch(err=>{
   
