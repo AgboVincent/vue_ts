@@ -164,3 +164,11 @@ export function getCollectionRequest(id:number) {
         method: 'GET'
     })
 }
+
+export function updateClaimStatus(data:any){
+    return request({
+        url: '/api/admin/claim/status/update',
+        method: 'put',
+        data
+    })
+}

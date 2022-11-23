@@ -5,6 +5,7 @@
         'Email',
         'Policy',
         'Date of claim',
+        'Status',
         ''
       ]"
       :items="data"
@@ -16,6 +17,7 @@
       <td>{{ row.user.email }}</td>
       <td>{{ row.policy }}</td>
       <td>{{ formatDateTime(row.created_at) }}</td>
+      <td>{{ row.status }}</td>
       <td>
         <ui-menu-anchor position="bottom right">
           <v-btn icon="mdi-dots-horizontal" color="transparent" elevation="0" @click="openCollectionOption(row)"/>

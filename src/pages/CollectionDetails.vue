@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-col>
-            <v-layout class="row mt-10 mx-3 justify-space-between">
+            <v-layout class="row mt-10 mx-0 justify-space-between">
                 <div  class="flex items-center">
                     <div class="d-flex align-items-start">
                     <v-btn  height="30" elevation="0" class="back-btn px-2 my-3" @click="$router.back()"> 
@@ -10,14 +10,25 @@
                 </div>  
                 </div>
                 <div  class="flex">
-                    <v-btn height="35" class="reject-btn px-2 my-3 mx-3 w-[150px] h-[30px]">
+                    <v-btn height="35" class="reject-btn px-2 my-3 mx-3 w-[150px] h-[30px]"
+                           @click="claimUpdate('Rejected')">
                     Reject
                     </v-btn>
-                    <v-btn height="35" class="accept-btn px-2 my-3 w-[150px] h-[30px]">
+                    <v-btn height="35" class="accept-btn px-2 my-3 w-[150px] h-[30px]"
+                           @click="claimUpdate('Accepted')">
                     Accept
                     </v-btn>
                 </div>
-            </v-layout>
+            </v-layout>          
+               
+            <v-alert v-if="claimStatus"
+                title="Action on claim"
+                :text="`Claim ${claimStatus}`"
+                max-width="120px"
+            
+                > 
+            </v-alert>
+
             
             <div class="bg-white rounded overflow-y-scroll mt-4">
                 <div class="tabs">
@@ -40,7 +51,7 @@
 <script lang="ts">
 
 import {defineComponent, onMounted, PropType,ref} from "vue";
-import { getCollectionRequest} from "../requests";
+import { getCollectionRequest, updateClaimStatus} from "../requests";
 import { CollectionType} from "../types";
 import {useRoute} from "vue-router";
 import ClaimDetails from '../components/Claim/ClaimDetails.vue';
@@ -65,6 +76,8 @@ export default defineComponent({
     const claim = ref({} as CollectionType)
     const loading = ref(true)
     const val = ref(false)
+    const id = ref()
+    const claimStatus = ref(null)
     
     function changeTab(tabIndex: number) {
       activeTab.value = tabs.value[tabIndex]
@@ -74,13 +87,33 @@ export default defineComponent({
         loading.value = true;
         getCollectionRequest(params.id as unknown as number)
           .then((data:any) => {
-             claim.value =  data
+             claim.value =  data.data
              loading.value = false
              val.value = true;
+             id.value = data.data.id
           })
           .catch(err=>{
   
           })
+    }
+
+    function claimUpdate(status: any) {
+        var data = {
+            id: id.value,
+            status: status
+        }
+        updateClaimStatus(data)
+        .then((data:any) => {
+            console.log(data);
+            claimStatus.value = status;
+             setTimeout(()=>{
+                claimStatus.value = null;
+            },3000)        
+        })
+        .catch(err=>{
+
+        })
+
     }
 
     onMounted(fetchClaim)
@@ -91,7 +124,10 @@ export default defineComponent({
       changeTab,
       activeTab,
       loading,
-      val
+      val,
+      id,
+      claimUpdate,
+      claimStatus
     }
   }
 })
