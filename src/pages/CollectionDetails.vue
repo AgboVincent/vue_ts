@@ -87,10 +87,10 @@ export default defineComponent({
         loading.value = true;
         getCollectionRequest(params.id as unknown as number)
           .then((data:any) => {
-             claim.value =  data.data
+             claim.value =  data
              loading.value = false
              val.value = true;
-             id.value = data.data.id
+             id.value = data.id
           })
           .catch(err=>{
   
