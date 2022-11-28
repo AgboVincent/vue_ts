@@ -1,12 +1,20 @@
 <template>
-  <v-main>
+  <v-col>
+    <v-app-bar color="white" name="Dashboard" elevation="0">
+        <div class="h-screen w-[480px] px-10 bg-white fixed top-5 ">
+          <div class="h-[40px]  flex items-center bg-white mb-10">
+            <div  class="flex items-center">
+              <v-img src="/images/curacel_logo.png" alt="Logo" class="w-[30px] h-[30px] flex-initial "/>
+              <v-img src="/images/curacel.svg" alt="Logo" class="w-[90px] h-[20px] flex-initial "/>
+            </div>
+          </div>
+        </div>
+    </v-app-bar>
+
+    <v-main>
     <div class="bg-secondary flex w-full flex-row relative">
       <div class="h-screen w-[280px] px-10 bg-white fixed top-0 left-0">
         <div class="h-[80px] w-full flex items-center bg-white mb-10">
-          <div  class="flex items-center">
-            <v-img src="/images/curacel_logo.png" alt="Logo" class="w-[30px] h-[30px] flex-initial "/>
-            <v-img src="/images/curacel.svg" alt="Logo" class="w-[90px] h-[20px] flex-initial "/>
-          </div>
         </div>
 
         <div class="text-text">
@@ -36,6 +44,7 @@
       </div>
     </div>
   </v-main>
+  </v-col> 
 </template>
 <script lang="ts">
 import {defineComponent, ref} from "vue";

@@ -2,7 +2,7 @@
     <div>
         <AppBar>
             <p class="text-text-dark font-bold text-1xl">
-                {{ $t('Self-Inspection') }}
+                {{ $t('Claims') }}
             </p>
         </AppBar>
         <div class="w-full pt-10">

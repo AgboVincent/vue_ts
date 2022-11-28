@@ -50,30 +50,70 @@
                         <video 
                         style="object-fit:fill; width: 30vw; height:31vh;"
                         controls
+                        @click="selectedImage(data)"
                         >
                         <source
-                            :src="`https://autoclaims.s3.us-east-2.amazonaws.com/${data.url}`"
+                            :src="url(data.url)"
                             type="video/mp4"
                         >
                         </video>
                     </div>
                      <v-img
-                        :src="`https://autoclaims.s3.us-east-2.amazonaws.com/${data.url}`"
+                        :src="url(data.url)"
                         height="200px"
                         cover="true"
                         class="mx-auto white--text align-end"
+                        @click="selectedImage(data)"
                         >
                     </v-img>
-                    </v-col> 
+                </v-col> 
             </v-row>
         </v-col>
+        <v-dialog
+            v-model="dialog"
+            color="#F6FAFD"
+            class="mx-auto mb-10"
+        >
+            <v-card width="600px" height="450px">
+                <v-row class="justify-end">
+                    <v-icon size="small" class="mt-5 mr-5 mb-5"
+                        @click="dialog = false">
+                        mdi-close
+                    </v-icon>
+                </v-row>
+            <div>
+                <video 
+                v-if="video"
+                width="200"
+                class="mx-auto"
+                controls
+                style="object-fit:fill; width: 34vw; height: 52vh;"
+                height="0">
+                <source
+                    :src="url(filePath)"
+                    type="video/mp4"
+                >
+                </video>
+                <v-img
+                    v-else
+                    :src="url(filePath)"
+                    height="380px"
+                    width="480px"
+                    cover="true"
+                    class="mx-auto white--text align-end"
+                    >
+                </v-img>
+
+            </div>
+          </v-card>
+       </v-dialog>
     </div>
 </template>
 
 
 <script lang="ts">
 
-import {defineComponent, PropType} from "vue";
+import {defineComponent, PropType, ref} from "vue";
 import {CollectionType} from "../../types";
 
 export default defineComponent({
@@ -83,6 +123,33 @@ export default defineComponent({
       type: Object as PropType<CollectionType>
     }
   },
+  setup(){
+      const dialog = ref(false)
+      const video = ref(false)
+      const filePath = ref('')
+
+      function url(path:any){
+            return `https://autoclaims.s3.us-east-2.amazonaws.com/${path}`
+      }
+      function selectedImage(data:any){
+          dialog.value = true;
+          filePath.value = data.url;
+          if(data.type_id == 2){
+              video.value = true
+          }
+          else{
+              video.value = false;
+          }
+      }
+
+      return {
+      dialog,
+      video,
+      url,
+      selectedImage,
+      filePath
+  }
+  }
   
 })
 </script>

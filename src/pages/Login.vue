@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p class="text-2xl text-text-dark font-bold">{{ $t("Welcome back")}}</p>
-    <p style="color: #7D8299; font-size:14px">{{ $t("Enter your login details to proceed")}}</p>
+    <p class="text-2xl text-text-dark text-center font-bold">{{ $t("Welcome back")}}</p>
+    <p style="color: #7D8299; font-size:14px" class="text-center">{{ $t("Enter your login details to proceed")}}</p>
 
     <ErrorMessage v-if="showErrorMessage" class="mt-7">
       {{ $t("You entered an incorrect, email, password or both. Need an account")}}? <strong>{{ $t("Sign Up")}} </strong>
@@ -19,11 +19,7 @@
           placeholder="********"
           icon="mdi-lock-outline"
           type="password"/>
-      <div  class="flex pt-8 mb-12">
-        <p class="mr-1" style="color: #7D8299; font-size:14px">Forgot your password? </p>
-        <router-link to="/forgot-password" style="color:#1A1AFF; font-weight:600; font-size:14px" >Reset it here </router-link>
-      </div>
-
+      <br>
       <v-btn
           block
           type="submit"
@@ -32,6 +28,11 @@
       >
         {{ $t("Login to your account")}}
       </v-btn>
+
+      <div  class="flex pt-8 mb-12">
+        <p class="mr-1" style="color: #7D8299; font-size:14px">Forgot your password? </p>
+        <router-link to="/forgot-password" style="color:#1A1AFF; font-weight:600; font-size:14px" >Reset it here </router-link>
+      </div>
     </form>
   </div>
 </template>

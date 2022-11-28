@@ -11,11 +11,11 @@
                 </div>
                 <div  class="flex">
                     <v-btn height="35" class="reject-btn px-2 my-3 mx-3 w-[150px] h-[30px]"
-                           @click="claimUpdate('Rejected')">
+                            @click="dialog = true">
                     Reject
                     </v-btn>
                     <v-btn height="35" class="accept-btn px-2 my-3 w-[150px] h-[30px]"
-                           @click="claimUpdate('Accepted')">
+                           @click="claimUpdate('Approved')">
                     Accept
                     </v-btn>
                 </div>
@@ -44,14 +44,52 @@
                   <component :is="activeTab.component" :key="activeTab.name"  :claim="claim"/>
                 </div>
             </div>
-        </v-col>    
+        </v-col> 
+        <v-row>
+            <v-dialog
+            v-model="dialog"
+            color= "#F6FAFD"
+            content-class="dial-position  mb-10"
+            elevation="0"
+            >
+            <v-card width="300" height="400">
+                <v-row class="justify-end">
+                    <v-icon size="small" class="mt-5 mr-5 mb-5"
+                        @click="dialog = false">
+                        mdi-close
+                    </v-icon>
+                </v-row>
+                <v-card-title class="text-h6 grey lighten-2">
+                Reject Claim
+                </v-card-title>
+                <v-form>
+                    <input
+                        v-model="reason"
+                        class="reason"
+                        placeholder="Enter reason for rejection"
+                        type="text"
+                        required
+                    />
+                </v-form>    
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn height="35" class="accept-btn px-2 my-3 w-[150px] h-[30px]"
+                       @click="claimUpdate('Rejected')">
+                Submit
+                </v-btn>
+                </v-card-actions>
+            </v-card>
+            </v-dialog>  
+        </v-row>    
     </div>
 </template>
 
 <script lang="ts">
 
 import {defineComponent, onMounted, PropType,ref} from "vue";
-import { getCollectionRequest, updateClaimStatus} from "../requests";
+import { getCollectionRequest, updateClaimStatus, sendUserEmail} from "../requests";
 import { CollectionType} from "../types";
 import {useRoute} from "vue-router";
 import ClaimDetails from '../components/Claim/ClaimDetails.vue';
@@ -78,6 +116,9 @@ export default defineComponent({
     const val = ref(false)
     const id = ref()
     const claimStatus = ref(null)
+    const dialog = ref(false)
+    const reason = ref('')
+    const user = ref({})
     
     function changeTab(tabIndex: number) {
       activeTab.value = tabs.value[tabIndex]
@@ -91,6 +132,10 @@ export default defineComponent({
              loading.value = false
              val.value = true;
              id.value = data.id
+              user.value = {
+            name: data.user.name,
+            email: data.user.email
+        }
           })
           .catch(err=>{
   
@@ -106,6 +151,12 @@ export default defineComponent({
         .then((data:any) => {
             console.log(data);
             claimStatus.value = status;
+            let msg = ''
+            if(status = "Approved"){
+                msg = "Your claim has been review and approved"
+            }
+            msg = reason.value
+            sendUserEmail(user, msg);
              setTimeout(()=>{
                 claimStatus.value = null;
             },3000)        
@@ -127,7 +178,10 @@ export default defineComponent({
       val,
       id,
       claimUpdate,
-      claimStatus
+      claimStatus,
+      dialog,
+      reason,
+      user
     }
   }
 })
@@ -200,5 +254,14 @@ export default defineComponent({
     border-radius: 8px;
 
 }
+
+ .reason{
+     height: 80px;
+     width: 260px;
+     margin: 20px;
+     padding: 12px;
+     box-sizing: border-box;
+     border: 1px solid #ccc;
+ }
 
 </style>

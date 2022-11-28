@@ -52,7 +52,7 @@
                     >
                     <div v-if="data.vehicle_part == 'video'">
                         <video 
-                        style="object-fit:fill; width: 30vw; height:31vh;"
+                        style="object-fit:fill; width: 30vw; height:27vh;"
                         controls
                         >
                         <source
@@ -141,7 +141,7 @@
                                  <h5 class="title">Severity</h5>
                                  <h5 class="text">{{result}}</h5>
                             </v-col>
-                            <br v-if="video">                           
+                            <br>                           
                             
                             <v-col>
                                  <h5 class="title">Vehicle make</h5>
