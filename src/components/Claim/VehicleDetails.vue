@@ -42,8 +42,19 @@
             </v-row>
         </v-col>
         <br>
+        <v-col v-if="claim.quotes">
+            <v-divider></v-divider>
+            <h5 class="text my-3">Repair Quotes</h5>
+            <v-row v-for="(quotes, index ) in claim.quotes" :key="quotes.id">
+                <h5 class="title mx-2 my-2">{{index+1}}. Name: {{ quotes.name  }}</h5>
+                <h5 class="title mx-2 my-2">Amount: NGN{{quotes.amount}}</h5>
+                <h5 class="title mx-2 my-2">Quantity: {{quotes.quantity}}</h5>
+                <br>
+            </v-row>
+        </v-col>
+        <v-divider></v-divider>
         <v-col>
-            <h5 class="title">Uploaded Vehicle images</h5>
+            <h5 class="text">Uploaded Vehicle images</h5>
             <v-row class="four-cols">
                  <v-col v-for="data in claim.uploads" :key="data.id">
                     <div v-if="data.type_id == 2">
