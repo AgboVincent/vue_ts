@@ -156,7 +156,8 @@ export default defineComponent({
                 msg = "Your claim has been review and approved"
             }
             msg = reason.value
-            sendUserEmail(user, msg);
+            sendUserEmail(user.value, msg);
+            dialog.value = false;
              setTimeout(()=>{
                 claimStatus.value = null;
             },3000)        
