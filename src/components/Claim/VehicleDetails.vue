@@ -54,7 +54,7 @@
         </v-col>
         <v-divider></v-divider>
         <v-col>
-            <h5 class="text">Uploaded Vehicle images</h5>
+            <h5 class="text my-3">Uploaded Vehicle images</h5>
             <v-row class="four-cols">
                  <v-col v-for="data in claim.uploads" :key="data.id">
                     <div v-if="data.type_id == 2">
