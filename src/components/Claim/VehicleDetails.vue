@@ -42,6 +42,14 @@
             </v-row>
         </v-col>
         <br>
+        <v-col v-if="claim.damages">
+            <v-divider></v-divider>
+            <h5 class="text my-3">Detected Damages</h5>
+            <v-row v-for="(damage, index) in damages" :key="damage.id">
+            <h5 class="title mx-2 my-2">{{ index+1 }}. {{damage}}</h5>
+            </v-row>
+        </v-col>
+        <br>
         <v-col v-if="claim.quotes">
             <v-divider></v-divider>
             <h5 class="text my-3">Repair Quotes</h5>
@@ -53,6 +61,7 @@
             </v-row>
         </v-col>
         <v-divider></v-divider>
+        <br>
         <v-col>
             <h5 class="text my-3">Uploaded Vehicle images</h5>
             <v-row class="four-cols">
@@ -124,7 +133,7 @@
 
 <script lang="ts">
 
-import {defineComponent, PropType, ref} from "vue";
+import {defineComponent, onMounted, PropType, ref} from "vue";
 import {CollectionType} from "../../types";
 
 export default defineComponent({
@@ -134,10 +143,11 @@ export default defineComponent({
       type: Object as PropType<CollectionType>
     }
   },
-  setup(){
+  setup(props){
       const dialog = ref(false)
       const video = ref(false)
       const filePath = ref('')
+      const damages = ref([])
 
       function url(path:any){
             return `https://autoclaims.s3.us-east-2.amazonaws.com/${path}`
@@ -153,12 +163,19 @@ export default defineComponent({
           }
       }
 
+      function getDamages(){
+          damages.value = Object.values(props.claim.damages);
+      }
+      
+      onMounted(getDamages)
+
       return {
       dialog,
       video,
       url,
       selectedImage,
-      filePath
+      filePath,
+      damages
   }
   }
   

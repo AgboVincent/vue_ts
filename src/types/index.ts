@@ -156,6 +156,7 @@ export type FinancialMovementType =  {
 export type CollectionType = {
     "accident_id": number
     "created_at":  string | Date,
+    "damages": Object,
     "date": string | Date,
     "description": string,
     "id": number,
