@@ -1,10 +1,5 @@
 <template>
     <div>
-        <AppBar>
-            <p class="text-text-dark font-bold text-1xl">
-                {{ $t('Policies Enrollement') }}
-            </p>
-        </AppBar>
         <div class="w-full pt-10">
             <div class="flex items-center mb-4 space-x-2">
                 <TextField :data="reports" icon="mdi-search"
@@ -45,13 +40,12 @@
 import { defineComponent, onMounted, ref,watch } from "vue";
 import PoliciesTable from "../components/PoliciesTable.vue";
 import TextField from "../components/TextField.vue";
-import AppBar from "../components/AppBar.vue";
 import {getPurchasePolicies} from "../requests";
 
 
 export default defineComponent({
     name: "Policies",
-    components:{PoliciesTable, TextField, AppBar},
+    components:{PoliciesTable, TextField},
      setup() {
     const policies = ref([])
     const query = ref(null)

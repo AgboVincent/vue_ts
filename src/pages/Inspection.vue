@@ -1,10 +1,5 @@
 <template>
     <div>
-        <AppBar>
-            <p class="text-text-dark font-bold text-1xl">
-                {{ $t('Self-Inspection') }}
-            </p>
-        </AppBar>
         <div class="w-full pt-10">
             <div class="flex items-center mb-4 space-x-2">
                 <TextField :data="reports" icon="mdi-search"
@@ -66,13 +61,12 @@
 import { defineComponent, onMounted, ref,watch } from "vue";
 import InspectionTable from "../components/InspectionTable.vue";
 import TextField from "../components/TextField.vue";
-import AppBar from "../components/AppBar.vue";
 import {getSelfInspection} from "../requests";
 
 
 export default defineComponent({
     name: "Inspection",
-    components:{InspectionTable, TextField, AppBar},
+    components:{InspectionTable, TextField},
      setup() {
     const reports = ref([])
     const query = ref(null)

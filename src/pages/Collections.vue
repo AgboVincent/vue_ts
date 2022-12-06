@@ -1,10 +1,10 @@
 <template>
     <div>
-        <AppBar>
+        <!-- <AppBar>
             <p class="text-text-dark font-bold text-1xl">
                 {{ $t('Claims') }}
             </p>
-        </AppBar>
+        </AppBar> -->
         <div class="w-full pt-10">
             <div class="flex items-center mb-4 space-x-2">
                 <TextField :data="reports" icon="mdi-search"

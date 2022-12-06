@@ -68,7 +68,7 @@
                  <v-col v-for="data in claim.uploads" :key="data.id">
                     <div v-if="data.type_id == 2">
                         <video 
-                        style="object-fit:fill; width: 30vw; height:31vh;"
+                        style="object-fit:fill; width: 30vw; height:27vh;"
                         controls
                         @click="selectedImage(data)"
                         >
@@ -164,7 +164,9 @@ export default defineComponent({
       }
 
       function getDamages(){
-          damages.value = Object.values(props.claim.damages);
+          if(props.claim.damages){
+             damages.value = Object.values(props.claim.damages);
+          }
       }
       
       onMounted(getDamages)
