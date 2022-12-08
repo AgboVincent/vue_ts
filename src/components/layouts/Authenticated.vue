@@ -64,11 +64,6 @@ export default defineComponent({
         icon: 'mdi-home'
       }, 
       {
-        name: 'Claims',
-        icon: 'mdi-car-settings',
-        link: '/collections'
-      },
-      {
         name: 'Self inspection',
         icon: 'mdi-account-circle',
         link: '/inspection'
@@ -77,6 +72,11 @@ export default defineComponent({
         name: 'Policies',
         icon: 'mdi-format-list-bulleted',
         link: '/policies'
+      },
+      {
+        name: 'Claims',
+        icon: 'mdi-car-settings',
+        link: '/collections'
       },
       // {
       //   name: 'claims',

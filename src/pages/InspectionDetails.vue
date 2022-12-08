@@ -1,15 +1,30 @@
 <template>
     <div>
-        <v-col>
-             <div class="d-flex align-items-start">
+        <v-layout class="row mt-10 mx-0 justify-space-between">
+            <div  class="flex items-center">
+                <div class="d-flex align-items-start">
                 <v-btn  height="30" elevation="0" class="back-btn px-2 my-3" @click="$router.back()"> 
                     <img class="pb-1 pr-2" src="../assets/arrow_back.png"> Back
                 </v-btn>
-             </div>
-              <div class="my-2">
-                    <h5  class=" text-bold  font-bold text-1xl align-items-start">Inspection Details</h5> 
-              </div>
-        </v-col>
+            </div>  
+            </div>
+            <div  class="flex">
+                <v-btn height="35" class="reject-btn px-2 my-3 mx-3 w-[150px] h-[30px]"
+                        @click="approvePolicy(data)">
+                Approve
+                </v-btn>
+                <v-btn height="35" class="accept-btn px-2 my-3 w-[150px] h-[30px]"
+                        @click="rejectPolicy(data)">
+                Reject
+                </v-btn>
+            </div>
+        </v-layout>
+            <v-alert v-if="policyStatus"
+                    title="Action on claim"
+                    :text="`Policy ${policyStatus}`"
+                    max-width="120px"
+                    > 
+            </v-alert>
         <v-layout class="row mt-5 ">
             <v-col v-if="data">
                 <v-col>
@@ -187,7 +202,7 @@
 
 
 <script>
-import {getSelfInspectionRequest} from "../requests";
+import {getSelfInspectionRequest, updateUserStatus, sendUserEmail} from "../requests";
 export default {
     name: "InspectionDetail",
     components: {
@@ -201,7 +216,8 @@ export default {
             part: null,
             result: null,
             newurl: null,
-            video: false
+            video: false,
+            policyStatus: null
         }
     },
     
@@ -239,6 +255,36 @@ export default {
             else{
                 this.video = false;
             }
+        },
+        approvePolicy(row){
+            var data = {
+                id: row.id,
+                status: "Approved"
+            };
+            updateUserStatus(data)
+            .then(res=>{
+                var msg = "Your request to purhcase policy has been reviewed successfull and Approved. Kindly click the button to continue";
+                sendUserEmail(row, msg);
+                this.policyStatus = "Approved";
+                setTimeout(()=>{
+                    this.policyStatus = null;
+                },3000)  
+            })
+        },
+        rejectPolicy(row){
+            var data = {
+                id: row.id,
+                status: "Rejected"
+            };
+            updateUserStatus(data)
+            .then(res=>{
+                var msg = "Your request to purhcase policy has been reviewed successfull and was Rejected. Kindly resubmit information for inspection ";
+                sendUserEmail(row, msg);
+                this.policyStatus = "Rejected";
+                setTimeout(()=>{
+                    this.policyStatus = null;
+                },3000)  
+            })
         }
     },
     mounted(){
