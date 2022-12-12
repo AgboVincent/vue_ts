@@ -68,8 +68,7 @@
                  <v-col v-for="data in claim.uploads" :key="data.id">
                     <div v-if="data.type_id == 2">
                         <video 
-                        style="object-fit:fill; width: 30vw; height:27vh;"
-                        controls
+                        style="object-fit:fill; width: 30vw; height:24vh;"
                         @click="selectedImage(data)"
                         >
                         <source
@@ -93,8 +92,9 @@
             v-model="dialog"
             color="#F6FAFD"
             class="mx-auto mb-10"
+            
         >
-            <v-card width="600px" height="450px">
+            <v-card width="600px" height="500px">
                 <v-row class="justify-end">
                     <v-icon size="small" class="mt-5 mr-5 mb-5"
                         @click="dialog = false">
@@ -107,7 +107,7 @@
                 width="200"
                 class="mx-auto"
                 controls
-                style="object-fit:fill; width: 34vw; height: 52vh;"
+                style="object-fit:fill; width: 34vw; height: 50vh;"
                 height="0">
                 <source
                     :src="url(filePath)"

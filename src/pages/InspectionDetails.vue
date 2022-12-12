@@ -68,7 +68,7 @@
                     <div v-if="data.vehicle_part == 'video'">
                         <video 
                         style="object-fit:fill; width: 30vw; height:27vh;"
-                        controls
+                                              
                         >
                         <source
                             :src="url(data.url)"
