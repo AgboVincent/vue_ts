@@ -191,14 +191,13 @@
                             </v-col>
                             <br>                           
                         </v-col>
-                    </v-row>
-                     <v-col v-if="damages">
-                        <v-divider></v-divider>
-                        <h5 class="text my-3">Detected Damages</h5>
-                        <v-row v-for="(damage, index) in damages" :key="damage.id">
-                        <h5 class="title mx-2 my-2">{{ index+1 }}. {{damage}}</h5>
-                        </v-row>
-                    </v-col>
+                         <v-col v-if="damages.length">
+                            <h5 class="text my-3">Detected Damages</h5>
+                            <v-row v-for="(damage, index) in damages" :key="damage.id">
+                            <h5 class="title mx-2 my-2">{{ index+1 }}. {{damage}}</h5>
+                            </v-row>
+                        </v-col>                                   
+                    </v-row>                       
                 </v-card>
                 </v-dialog>
             </v-row>
