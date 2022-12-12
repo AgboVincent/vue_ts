@@ -189,11 +189,16 @@
                                  <h5 class="title">Year of manufacture</h5>
                                  <h5 class="text">{{data.year}}</h5>
                             </v-col>
-                            <br>
-                            
+                            <br>                           
                         </v-col>
-
                     </v-row>
+                     <v-col v-if="damages">
+                        <v-divider></v-divider>
+                        <h5 class="text my-3">Detected Damages</h5>
+                        <v-row v-for="(damage, index) in damages" :key="damage.id">
+                        <h5 class="title mx-2 my-2">{{ index+1 }}. {{damage}}</h5>
+                        </v-row>
+                    </v-col>
                 </v-card>
                 </v-dialog>
             </v-row>
@@ -217,7 +222,8 @@ export default {
             result: null,
             newurl: null,
             video: false,
-            policyStatus: null
+            policyStatus: null,
+            damages: []
         }
     },
     
@@ -255,6 +261,19 @@ export default {
             else{
                 this.video = false;
             }
+            if(this.part == 'front'){
+                this.damages = Object.values(this.data.damages.front)
+            }
+            else if(this.part == 'rear'){
+                this.damages = Object.values(this.data.damages.rear)
+            }
+            else if(this.part == 'right'){
+                this.damages = Object.values(this.data.damages.right)
+            }
+            else if(this.part == 'left'){
+                this.damages = Object.values(this.data.damages.left)
+            }
+            
         },
         approvePolicy(row){
             var data = {
