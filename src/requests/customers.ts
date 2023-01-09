@@ -10,11 +10,17 @@ export function getCustomerListRequest(page = 1) {
     })
 }
 
-export function getSelfInspection(page = 1) {
+export function getSelfInspection(page = 1, query = null, date:any) {
+    let startDate = null;
+    let endDate = null
+    if(date){
+          startDate = date.startDate;
+          endDate = date.endDate;
+    }  
     return request({
         url: '/api/admin/evals',
         params: {
-            page
+            page, query, date, startDate, endDate
         }
     });
 }

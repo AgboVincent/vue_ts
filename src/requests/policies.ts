@@ -25,11 +25,11 @@ export function getPolicyInsurer(id: number) {
 }
 
 
-export function getPurchasePolicies(page = 1){
+export function getPurchasePolicies(page = 1, query = null, status = null){
     return request({
         url: '/api/admin/purchase/policy',
         params: {
-            page
+            page, query, status
         }
     })
 }

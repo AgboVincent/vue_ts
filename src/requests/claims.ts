@@ -148,11 +148,17 @@ export function getGarageRequest (claimId: number){
     })
 }
 
-export function getCollections (page = 1){
+export function getCollections (page = 1, query = null, status = null, date:any){
+    let startDate = null;
+    let endDate = null
+    if(date){
+          startDate = date.startDate;
+          endDate = date.endDate;
+    }  
     return request({
         url: 'api/admin/collection',
         params: {
-             page
+             page, query, status, date, startDate, endDate
         }
     })
 }
