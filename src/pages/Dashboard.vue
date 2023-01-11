@@ -1,13 +1,8 @@
 <template>
   <div>
-    <AppBar>
-      <TextField icon="mdi-search" :placeholder="$t('Search customers, emails , claim references')" class="bg-white !m-0"/>
-    </AppBar>
 
-    <p class="text-primary-deep font-bold pt-12 pb-10 text-2xl">{{$t('dashboard')}}</p>
-
-    <div class="grid grid-cols-4 gap-x-4">
-      <div class="flex items-center pl-6 pr-5 justify-between pt-10 pb-9 rounded bg-white" v-for="view in overview"
+    <div class="grid grid-cols-3 gap-x-4 mt-5">
+      <div class="flex items-center pl-6 pr-5 justify-between pt-10 pb-9 rounded bg-white mr-10" v-for="view in overview"
           :key="`summary:${view.key}`">
         <p class="text-text">
           {{ $t(view.name) }}
@@ -22,45 +17,45 @@
     </div>
 
     <div class="w-full pt-11" v-if="claims.length > 0">
-      <p class="text-lg font-semibold text-text-dark mb-5">{{$t('urgentClaims')}}</p>
-      <ClaimsTable :data="claims"/>
+      <p class="text-lg font-semibold text-text-dark mb-5">Urgent Claims</p>
+      <CollectionTable :data="claims"/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent, onMounted, ref} from "vue";
-import AppBar from "../components/AppBar.vue";
 import TextField from "../components/TextField.vue";
-import ClaimsTable from "../components/ClaimsTable.vue";
+import CollectionTable from "../components/CollectionTable.vue";
 import {CLAIM_STATUS_PENDING} from "../constants";
-import {getClaimsRequest, overviewRequest} from "../requests";
+import {getCollections, fetchOverviewRequest} from "../requests";
 
 export default defineComponent({
   name: 'Dashboard',
-  components: {ClaimsTable, TextField, AppBar},
+  components: {CollectionTable, TextField},
   setup() {
     const claims = ref([])
     const overview = ref([
       {name: 'Total Claims', value: 0, key: 'total_claims'},
       {name: 'Processed Claims', value: 0, key: 'processed_claims'},
       {name: 'Pending Claims', value: 0, key: 'pending_claims'},
-      {
-        name: 'Claims Value', value: 0, key: 'claims_value', format(value) {
-          return parseFloat(value).toLocaleString('fr-FR', {currency: 'CFA', style: 'currency'})
-        }
-      },
+      // {
+      //   name: 'Claims Value', value: 0, key: 'claims_value', format(value) {
+      //     return parseFloat(value).toLocaleString('fr-FR', {currency: 'CFA', style: 'currency'})
+      //   }
+      // },
     ])
 
     function fetchPendingClaims() {
-      getClaimsRequest(1, null, CLAIM_STATUS_PENDING)
-          .then(({data}) => {
-            claims.value.push(...data.data)
+      getCollections(1, null, CLAIM_STATUS_PENDING, null)
+          .then((res:any) => {
+            let result = res.data as [];
+            claims.value.push(...result)
           })
     }
 
     function fetchOverview() {
-      overviewRequest()
+      fetchOverviewRequest()
           .then(({data}) => {
             Object.entries(data)
                 .forEach(([key, value]) => {
