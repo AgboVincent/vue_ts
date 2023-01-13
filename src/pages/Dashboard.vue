@@ -56,7 +56,7 @@ export default defineComponent({
 
     function fetchOverview() {
       fetchOverviewRequest()
-          .then(({data}) => {
+          .then((data:any) => {
             Object.entries(data)
                 .forEach(([key, value]) => {
                   const found = overview.value.find((a) => a.key === key)
